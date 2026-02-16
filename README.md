@@ -3,10 +3,14 @@ Code Base for FRC Team 6413's 2026 Rebuilt Robot Code
 
 ## Code Etiquette
   USEFUL comments on EVERYTHING (Commands, Constants, etc)
-  Organize files properly in corresponding folders
-  Follow naming conventions (reference section below)
-  No hardcoded values, add them to Constants
+  
   **NEVER** merge code into the main or dev branches that you know does not work!
+  
+  Organize files properly in corresponding folders
+  
+  Follow naming conventions (reference section below)
+  
+  No hardcoded values, add them to Constants
   
   Create Issues on Github for EVERY branch
   - Add a description of what the branch should accomplish
@@ -14,7 +18,7 @@ Code Base for FRC Team 6413's 2026 Rebuilt Robot Code
   - 'Labels': used to organize issues, add as necessary
   - 'Development': link the branch to the issue
 
-  LOG OUT when finished for the day
+  LOG OUT when finished for the day if using an FSI computer
   - Use the **deactivate_ssh_key** script to remove your SSH key from active use.
   - Log out of Slack, GitHub, Google, and anything else
 
@@ -89,11 +93,8 @@ chore#[Issue#]-[name]:
   - RobotContainer.java
     - Creates all subsystems, runs commands, and logs data
 - **commands**
-  - **teleop_commands**
-    - Commands used for Teleop
-    - Ex: scoring XXX, intaking game pice from a specific location, etc.
-  - **zero_commands**
-    - Commands to reset all subsystems / mechanisms to their "zero" positions
+  - All commands the robot can perform
+  - Ex: scoring XXX, intaking game pice from a specific location, reseting all subsystems to their "zero" positions, etc
 - **subsystems**
   - Ex: arm, drive, vision, etc.
   - [subsystem]
@@ -101,27 +102,21 @@ chore#[Issue#]-[name]:
     - [Subsystem]IO.java: interface for inputs and methods
     - [Subsystem]IOSim.java: simulation code for subsystem, implements [Subsystem]IO
     - [Subsystem]IO[Motor].java: real code for subsystem, implements [Subsystem]IO
-- **utils**
-  - PathPlanner.java
-    - Used in autos to follow a path
-  - PIDController.java
-    - Custom DoF PID Controller class
-  - PoseEstimator.java
-    - Calculates pose based on sensors
+
 
 <hr/>
 
-## Getting started on any SSPF laptop
+## Getting started on any FSI laptop
 
-Bfore you can use any Git commands or do any coding on an SSPF latpop you **MUST** run the **activate_ssh_key** script with your first name.  For example, if John wanted to code she would simply open a new Command Prompt on the laptop and type:
+Before you can use any Git commands or do any coding on an FSI latpop you **MUST** run the **activate_ssh_key** script with your first name.  For example, if John wanted to code she would simply open a new Command Prompt on the laptop and type:
 
-C:\User\SSPFUser> **activate_ssh_key John**
+C:\User\FSIUser> **activate_ssh_key John**
 
-John would then be prompted to enter his SSH passphrase in order to confirm to the SSH Agent that the key he is the SSH keys owner.  Once done John's SSH key would be in use, Git would be configured to reflect he is the person making all changes and he would be put into her own home directory on the laptop (e.g. C:\SSPFUser\john_doe).  
+John would then be prompted to enter his SSH passphrase in order to confirm to the SSH Agent that the key he is the SSH keys owner.  Once done John's SSH key would be in use, Git would be configured to reflect he is the person making all changes and he would be put into her own home directory on the laptop (e.g. C:\FSIUser\john_doe).  
 
 If there was a problem with the SSH key activation process, the script will output an error message telling you what went wrong and what to do next.
 
-We recommend that you clone the GitHub repo into its own folder in your personal folder on the laptop.  The repo can be in the users home directory (e.g. C:\SSPFUser\john_doe\2026-Rebuilt) or in a folder under the home directory (e.g. C:\SSPFUser\john_doe\repos\2026-Rebuilt)
+We recommend that you clone the GitHub repo into its own folder in your personal folder on the laptop.  The repo can be in the users home directory (e.g. C:\FSIUser\john_doe\2026-Rebuilt) or in a folder under the home directory (e.g. C:\FSIUser\john_doe\repos\2026-Rebuilt)
 
 <hr/>
 
@@ -131,6 +126,8 @@ We recommend that you clone the GitHub repo into its own folder in your personal
   - Shows you essential information about the current state of your branch.  Use this to see what unsaved changes there are and other info about your branch.
 - git add .
   - Stages **all** changed files in preparation for commit and push.  Use git status before you do this to ensure you only commit the changs you expect and want.
+- git add Robot.java
+  - Stages the changed Robot.java file in preparation for commit and push.  Useful for committing only some changed files in the same commit action.
 - git commit -m "[Insert Message Here]"
   - Saves your code changes locally with a msg of what was done to the code.  Your message should be brief and informative, NOT snarky or unhelpful.
 - git push
@@ -145,10 +142,10 @@ We recommend that you clone the GitHub repo into its own folder in your personal
 - git merge (origin) Dev
   - Pulls ALL changes from dev (no rebases)
 - git checkout [branch name]
-  - Changes your branch
+  - Changes git to use your specified branch for all changes
 - git checkout -b [branch name]
-  - Creates new branch off of current branch.  You SHOULD only be doing this when currently on the dev branch and you just did a git pull!
+  - Creates new branch off of current branch.  You **SHOULD only** be doing this when currently on the dev branch and you just did a git pull!
 - git branch
-  - Shows all branches that have been pulled on laptop
+  - Shows all branches that have been pulled to the local repo
 - git branch --all
   - Shows all branches since last fetch
