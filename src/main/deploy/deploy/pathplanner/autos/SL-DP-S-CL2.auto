@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SL8-DP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "DP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Launch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SL2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "SL-DP-S-CL",
+  "choreoAuto": false
+}

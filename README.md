@@ -3,15 +3,15 @@ Code Base for FRC Team 6413's 2026 Rebuilt Robot Code
 
 ## Code Etiquette
   USEFUL comments on EVERYTHING (Commands, Constants, etc)
-  
+
   **NEVER** merge code into the main or dev branches that you know does not work!
-  
+
   Organize files properly in corresponding folders
-  
+
   Follow naming conventions (reference section below)
-  
+
   No hardcoded values, add them to Constants
-  
+
   Create Issues on Github for EVERY branch
   - Add a description of what the branch should accomplish
   - 'Assignees': used to indicate who is working on what
@@ -45,7 +45,7 @@ main:
 dev:
 
 - **Make ALL branches off of *this* branch!!**
-- Code on dev should **always** be runnable.  
+- Code on dev should **always** be runnable.
 - Only merge to main after tested and cleaned
   - Explanatory comments
   - Code is fully functional
@@ -72,11 +72,11 @@ chore#[Issue#]-[name]:
 - Folder names are all lowercase and underscores instead of spaces
   - Ex: subsystems or commands\zero_commands
 - File and Java Class names are in Pascal Case: the first letter of every word is capitalized and no spaces between words.
-  - Ex: RobotContainer.java or public class RobotContainer 
+  - Ex: RobotContainer.java or public class RobotContainer
 - Constants are in all caps with underscores between words
-  - Ex: public static final ELEVATOR_MAX_CURRENT = 5.0 
+  - Ex: public static final ELEVATOR_MAX_CURRENT = 5.0
 - Functions and variables are in camelCase: lowercase first word, capitalize first letter of all subsequent words, no spaces between words
-  - Ex: public void updateModeChange() 
+  - Ex: public void updateModeChange()
 
 <hr/>
 
@@ -112,7 +112,7 @@ Before you can use any Git commands or do any coding on an FSI latpop you **MUST
 
 C:\User\FSIUser> **activate_ssh_key John**
 
-John would then be prompted to enter his SSH passphrase in order to confirm to the SSH Agent that the key he is the SSH keys owner.  Once done John's SSH key would be in use, Git would be configured to reflect he is the person making all changes and he would be put into her own home directory on the laptop (e.g. C:\FSIUser\john_doe).  
+John would then be prompted to enter his SSH passphrase in order to confirm to the SSH Agent that the key he is the SSH keys owner.  Once done John's SSH key would be in use, Git would be configured to reflect he is the person making all changes and he would be put into her own home directory on the laptop (e.g. C:\FSIUser\john_doe).
 
 If there was a problem with the SSH key activation process, the script will output an error message telling you what went wrong and what to do next.
 

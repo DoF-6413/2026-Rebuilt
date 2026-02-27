@@ -1,0 +1,25 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SL11-DP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "DP0"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "SL-DP-S",
+  "choreoAuto": false
+}
