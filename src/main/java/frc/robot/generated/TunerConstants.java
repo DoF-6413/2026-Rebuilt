@@ -135,7 +135,7 @@ public class TunerConstants {
               .withDriveFrictionVoltage(kDriveFrictionVoltage);
 
   // Front Left
-  private static final int kFrontLeftDriveMotorId = 1;
+  private static final int kFrontLeftDriveMotorId = 27;
   private static final int kFrontLeftSteerMotorId = 2;
   private static final int kFrontLeftEncoderId = 9;
   private static final Angle kFrontLeftEncoderOffset = Rotations.of(-0.307861328125);
