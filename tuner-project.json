@@ -4,7 +4,7 @@
   "Modules": [
     {
       "ModuleName": "Front Left",
-      "ModuleId": 0,
+      "ModuleId": 9,
       "Encoder": {
         "Id": 9,
         "Name": "CANCoder (Device ID 9)",
@@ -27,7 +27,7 @@
         }
       },
       "DriveMotor": {
-        "Id": 1,
+        "Id": 27,
         "Name": "FL Drive",
         "Model": "Talon FX vers. C",
         "CANbus": "EE2E980950374E53202020472D4410FF",
