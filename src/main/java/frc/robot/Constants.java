@@ -7,7 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.RobotBase;
+import java.util.Optional;
 
 /**
  * This class defines the runtime mode used by AdvantageKit. The mode is always "real" when running
@@ -15,17 +19,200 @@ import edu.wpi.first.wpilibj.RobotBase;
  * (log replay from a file).
  */
 public final class Constants {
-  public static final Mode simMode = Mode.SIM;
-  public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
-  public static enum Mode {
-    /** Running on a real robot. */
-    REAL,
+  public static class RobotStateConstants {
+    public static final Mode simMode = Mode.SIM;
+    public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
-    /** Running a physics simulator. */
-    SIM,
+    public static enum Mode {
+      /** Running on a real robot. */
+      REAL,
 
-    /** Replaying from a log file. */
-    REPLAY
+      /** Running a physics simulator. */
+      SIM,
+
+      /** Replaying from a log file. */
+      REPLAY
+    }
+
+    /**
+     * @return Alliance from FMS
+     */
+    public static Optional<Alliance> getAlliance() {
+      return DriverStation.getAlliance();
+    }
+
+    /* Motor Configs */
+    /* Refreshes TalonFX signals 50 times a second (every 0.02 seconds) */
+    public static final double UPDATE_FREQUENCY_HZ = 50;
+    /* Times out PHX tuner config after 0.25 sec */
+    public static final double PHX_CONFIG_TIMEOUT_SEC = 0.25;
+    /* Times out CAN bus after 30 sec */
+    public static final int CAN_CONFIG_TIMEOUT_SEC = 30;
+
+    public static final double PERIODIC_LOOP_SEC = 0.02;
+    public static final double MAX_VOLTAGE = 12;
+
+    /** Weight of robot with bumpers and battery */
+    public static final double ROBOT_WEIGHT_KG = Units.lbsToKilograms(115.0); // TODO: Update
+  }
+
+  public static class OperatorConstants {
+    public static int DRIVE_CONTROLLER = 0;
+    public static int AUX_CONTROLLER = 1;
+  }
+
+  public static class ColumnConstants {
+    public static final int CAN_ID = 18;
+    public static final double GEAR_RATIO = 1.0;
+    public static final int CURRENT_LIMIT = 30;
+
+    public static final boolean IS_INVERTED = false; // false = CCW
+    public static final boolean ENABLE_CURRENT_LIMIT = false; // false = CCW
+
+    public static final double INTAKING_VOLTAGE = -12.0;
+    public static final double LAUNCHING_VOLTAGE = -9.0;
+  }
+
+  public class HopperConstants {
+    public static final int CAN_ID = 19;
+    /* CAN ID for Kraken */
+
+    // Geometry for calculations
+    /* Gear reduction of 1:1 */
+    public static final double GEAR_RATIO = 1.0 / 1.0;
+
+    /* Sets inversion of motor to false, making CCW = positive direction */
+    public static final boolean IS_INVERTED = false;
+    public static final boolean IS_BRAKE_MODE_ENABLED = false;
+
+    /* Current limiting */
+    public static final boolean ENABLE_CURRENT_LIMIT = true;
+    public static final int CURRENT_LIMIT = 30;
+
+    public static final double LAUNCHING_VOLTAGE = -6.0;
+
+    /* PID & FF Constants */
+    public static double kP = 0.0;
+    public static double kI = 0.0;
+    public static double kD = 0.0;
+
+    public static double TOLERANCE_RAD = 0.0;
+
+    public static double kS = 0.0;
+    public static double kV = 0.0;
+    public static double kA = 0.0;
+
+    public static double MAX_VELOCITY_DEG_PER_S = 0.0;
+    public static double MAX_ACCELERATION_DEG_PER_S2 = 0.0;
+
+    public static double MOI_KG_M2 = 0.0;
+  }
+
+  public class IntakeConstants {
+    /* CAN ID for Kraken */
+    public static final int CAN_ID = 21;
+
+    // Geometry for calculations
+    /* Gear reduction of 1:1 */
+    public static final double GEAR_RATIO = 1.0;
+
+    /* Sets inversion of motor to false, making CCW = positive direction */
+    public static final boolean IS_INVERTED = false;
+    public static final boolean IS_BRAKE_MODE_ENABLED = false;
+
+    /* Current limiting */
+    public static final boolean ENABLE_CURRENT_LIMIT = true;
+    public static final int CURRENT_LIMIT = 30;
+
+    public static final double INTAKING_VOLTAGE = 6.0;
+
+    /* PID & FF Constants */
+    public static double kP = 0.0;
+    public static double kI = 0.0;
+    public static double kD = 0.0;
+
+    public static double TOLERANCE_RPM = 0.0;
+
+    public static double kS = 0.0;
+    public static double kV = 0.0;
+    public static double kA = 0.0;
+
+    public static double MAX_VELOCITY_DEG_PER_S = 0.0;
+    public static double MAX_ACCELERATION_DEG_PER_S2 = 0.0;
+
+    public static double MOI_KG_M2 = 0.0;
+  }
+
+  public class PivotConstants {
+    /* CAN ID for Kraken */
+    public static final int CAN_ID = 20;
+
+    // Geometry for calculations
+    /* Gear reduction of 50:1 */
+    public static final double GEAR_RATIO = 50.0 / 1.0;
+    /* Length of Pivot in meters */
+    public static final double LENGTH_M = Units.inchesToMeters(0.0);
+    /* Weight of Pivot in kilograms */
+    public static final double WEIGHT_KG = Units.lbsToKilograms(0.0);
+
+    /* Sets inversion of motor to false, making CCW = positive direction */
+    public static final boolean IS_INVERTED = false;
+    public static final boolean IS_BRAKE_MODE_ENABLED = false;
+
+    /* Current limiting */
+    public static final boolean ENABLE_CURRENT_LIMIT = true;
+    public static final int CURRENT_LIMIT = 10;
+
+    /* Angle positions */
+    public static final double MIN_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
+    public static final double MAX_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
+
+    public static final double STOW_ANGLE_RAD = MIN_ANGLE_RAD + Units.degreesToRadians(5);
+    public static final double DEPLOY_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
+
+    /* PID & FF Constants */
+    public static double kP = 0.0;
+    public static double kI = 0.0;
+    public static double kD = 0.0;
+
+    public static double TOLERANCE_RAD = 0.0;
+
+    public static double kS = 0.0;
+    public static double kV = 0.0;
+    public static double kA = 0.0;
+
+    public static double MAX_VELOCITY_DEG_PER_S = 0.0;
+    public static double MAX_ACCELERATION_DEG_PER_S2 = 0.0;
+
+    public static double MOI_KG_M2 = 0.0;
+  }
+
+  public final class ShooterConstants {
+    public static final double SPINUP_SEC = 1.0;
+
+    public static final int RIGHT_CAN_ID = 16;
+    public static final int MIDDLE_CAN_ID = 15;
+    public static final int LEFT_CAN_ID = 17;
+    public static final double GEAR_RATIO = 1.0;
+    public static final int CURRENT_LIMIT = 30;
+
+    public static final double INTAKING_VOLTAGE = 0.0;
+    public static final double LAUNCHING_VOLTAGE =
+        6.5; // 8 hits the ceiling, this static voltage was good for 132"
+
+    // PID
+    public static double kP = 0.0; // 0.05
+    public static double kI = 0.0;
+    public static double kD = 0.0;
+
+    public static double SETPOINT_RPM =
+        2500; // 3500 is about max & a bit high for just one motor (2-16-26)
+    public static double TOLERANCE_RPM = 300;
+
+    // FF returns Voltage per RPM
+    public static double kS = 0.0;
+    public static double kV = 0.0;
+    public static double kA = 0.0;
   }
 }
