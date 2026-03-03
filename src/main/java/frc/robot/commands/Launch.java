@@ -30,19 +30,19 @@ public class Launch extends Command {
   @Override
   public void initialize() {
     m_column.setVoltage(ColumnConstants.INTAKING_VOLTAGE);
-    m_shooter.setVoltage(ShooterConstants.LAUNCHING_VOLTAGE);
+    m_shooter.setVelocity(ShooterConstants.SETPOINT_RPS);
   }
 
   @Override
   public void execute() {
     new WaitCommand(SPINUP_SEC);
     m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
-    m_shooter.setVoltage(ShooterConstants.LAUNCHING_VOLTAGE);
+    m_shooter.setVelocity(ShooterConstants.SETPOINT_RPS);
   }
 
   @Override
   public void end(boolean interrupted) {
     m_column.setVoltage(0.0);
-    m_shooter.setVoltage(0.0);
+    m_shooter.setVelocity(0.0);
   }
 }

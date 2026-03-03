@@ -17,7 +17,7 @@ import frc.robot.Constants.RobotStateConstants;
  */
 public class IntakeIOTalonFX implements IntakeIO {
   // Motor, controller, configurator
-  private final TalonFX m_intake = new TalonFX(IntakeConstants.CAN_ID);
+  private final TalonFX m_intake = new TalonFX(IntakeConstants.CAN_ID, "Drivetrain");
 
   // Status signals
   private final StatusSignal<AngularVelocity> intakeVelocityRotPerSec = m_intake.getVelocity();

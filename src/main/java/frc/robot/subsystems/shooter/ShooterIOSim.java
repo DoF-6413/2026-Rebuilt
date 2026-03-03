@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems.shooter;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
@@ -27,13 +26,18 @@ public class ShooterIOSim implements ShooterIO {
     shooterSim.setInputVoltage(shooterAppliedVolts);
     shooterSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.shooterRPM = shooterSim.getAngularVelocityRPM();
-    inputs.shooterAppliedVolts = shooterAppliedVolts;
-    inputs.shooterCurrentAmps = shooterSim.getCurrentDrawAmps();
+    inputs.middleShooterRPM = shooterSim.getAngularVelocityRPM();
+    inputs.middleShooterAppliedVolts = shooterAppliedVolts;
+    inputs.middleShooterCurrentAmps = shooterSim.getCurrentDrawAmps();
   }
 
+  // @Override
+  // public void setVoltage(double volts) {
+  //   shooterAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
+  // }
+
   @Override
-  public void setVoltage(double volts) {
-    shooterAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
+  public void setVelocity(double velocity) {
+    shooterSim.setAngularVelocity(velocity);
   }
 }

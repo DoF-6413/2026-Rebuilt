@@ -21,6 +21,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
+import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
@@ -219,9 +220,11 @@ public class RobotContainer {
   }
 
   public void auxControllerBindings() {
-    // Start shooting balls when the Right Bumper is held
+    // Left Bumper: Deploy intake pivot and run intake rollers
+    // Right Bumper: Start launching balls by running, the shooter, column, and agitator/hopper
+    // Right Trigger:
     auxController.leftBumper().whileTrue(new RunIntake(m_intake, m_pivot));
-
+    auxController.a().whileTrue(new IntakeRetract(m_intake, m_pivot));
     auxController.rightBumper().whileTrue(new Launch(m_shooter, m_column, m_hopper));
     auxController.rightTrigger().whileTrue(new Feed(m_hopper, m_column));
   }

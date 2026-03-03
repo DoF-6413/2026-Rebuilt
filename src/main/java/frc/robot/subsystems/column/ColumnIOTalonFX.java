@@ -24,7 +24,7 @@ import frc.robot.Constants.RobotStateConstants;
  * X44, or Kraken X60.
  */
 public class ColumnIOTalonFX implements ColumnIO {
-  private final TalonFX m_column = new TalonFX(ColumnConstants.CAN_ID);
+  private final TalonFX m_column = new TalonFX(ColumnConstants.CAN_ID, "Drivetrain");
   private final StatusSignal<AngularVelocity> columnVelocityRotPerSec = m_column.getVelocity();
   private final StatusSignal<Voltage> columnAppliedVolts = m_column.getMotorVoltage();
   private final StatusSignal<Current> columnCurrentAmps = m_column.getSupplyCurrent();

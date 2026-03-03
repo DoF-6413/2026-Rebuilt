@@ -16,7 +16,7 @@ import frc.robot.Constants.RobotStateConstants;
 
 public class HopperIOTalonFX implements HopperIO {
   // Motor, controller, configurator
-  private final TalonFX m_hopper = new TalonFX(HopperConstants.CAN_ID);
+  private final TalonFX m_hopper = new TalonFX(HopperConstants.CAN_ID, "Drivetrain");
   private final TalonFXConfiguration m_motorConfig = new TalonFXConfiguration();
 
   // Status signals

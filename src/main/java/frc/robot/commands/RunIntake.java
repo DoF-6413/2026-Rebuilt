@@ -20,7 +20,8 @@ public class RunIntake extends Command {
 
   @Override
   public void initialize() {
-    m_pivot.deployPivot();
+    m_pivot.setVoltage(2);
+    // m_pivot.deployPivot();
   }
 
   @Override

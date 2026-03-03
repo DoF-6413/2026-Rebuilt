@@ -17,7 +17,7 @@ import frc.robot.Constants.RobotStateConstants;
 
 public class PivotIOTalonFX implements PivotIO {
   // Motor, controller, configurator
-  private final TalonFX m_pivotTalonFX = new TalonFX(PivotConstants.CAN_ID);
+  private final TalonFX m_pivotTalonFX = new TalonFX(PivotConstants.CAN_ID, "Drivetrain");
   private final TalonFXConfiguration m_motorConfig = new TalonFXConfiguration();
 
   // Status signals

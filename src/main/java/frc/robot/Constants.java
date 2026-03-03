@@ -65,10 +65,10 @@ public final class Constants {
   public static class ColumnConstants {
     public static final int CAN_ID = 18;
     public static final double GEAR_RATIO = 1.0;
-    public static final int CURRENT_LIMIT = 30;
+    public static final int CURRENT_LIMIT = 40;
 
     public static final boolean IS_INVERTED = false; // false = CCW
-    public static final boolean ENABLE_CURRENT_LIMIT = false; // false = CCW
+    public static final boolean ENABLE_CURRENT_LIMIT = true;
 
     public static final double INTAKING_VOLTAGE = -12.0;
     public static final double LAUNCHING_VOLTAGE = -9.0;
@@ -169,7 +169,7 @@ public final class Constants {
     public static final double MAX_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
 
     public static final double STOW_ANGLE_RAD = MIN_ANGLE_RAD + Units.degreesToRadians(5);
-    public static final double DEPLOY_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
+    public static final double DEPLOY_ANGLE_RAD = Units.degreesToRadians(15.0); // TODO: measure
 
     /* PID & FF Constants */
     public static double kP = 0.0;
@@ -191,24 +191,23 @@ public final class Constants {
   public final class ShooterConstants {
     public static final double SPINUP_SEC = 1.0;
 
-    public static final int RIGHT_CAN_ID = 16;
     public static final int MIDDLE_CAN_ID = 15;
+    public static final int RIGHT_CAN_ID = 16;
     public static final int LEFT_CAN_ID = 17;
     public static final double GEAR_RATIO = 1.0;
     public static final int CURRENT_LIMIT = 30;
 
     public static final double INTAKING_VOLTAGE = 0.0;
-    public static final double LAUNCHING_VOLTAGE =
-        6.5; // 8 hits the ceiling, this static voltage was good for 132"
+    public static final double LAUNCHING_VOLTAGE = 6.5; // 8 hits the ceiling, this static voltage was good for 132"
 
     // PID
     public static double kP = 0.0; // 0.05
     public static double kI = 0.0;
     public static double kD = 0.0;
 
-    public static double SETPOINT_RPM =
-        2500; // 3500 is about max & a bit high for just one motor (2-16-26)
-    public static double TOLERANCE_RPM = 300;
+    public static double SETPOINT_RPS =
+        1600; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
+    public static double TOLERANCE_RPM = 100; // TODO: verify
 
     // FF returns Voltage per RPM
     public static double kS = 0.0;
