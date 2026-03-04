@@ -9,15 +9,15 @@ public interface ShooterIO {
     public double middleShooterAppliedVolts = 0.0;
     public double middleShooterCurrentAmps = 0.0;
     public double middleShooterTempCelsius = 0.0;
-    public double middleShooterRPM = 0.0;
+    public double middleShooterRPS = 0.0;
     public double rightShooterAppliedVolts = 0.0;
     public double rightShooterCurrentAmps = 0.0;
     public double rightShooterTempCelsius = 0.0;
-    public double rightShooterRPM = 0.0;
+    public double rightShooterRPS = 0.0;
     public double leftShooterAppliedVolts = 0.0;
     public double leftShooterCurrentAmps = 0.0;
     public double leftShooterTempCelsius = 0.0;
-    public double leftShooterRPM = 0.0;
+    public double leftShooterRPS = 0.0;
   }
 
   /** Update the set of loggable inputs. */
@@ -34,5 +34,5 @@ public interface ShooterIO {
   // public default void setVoltage(double volts) {}
 
   /** Run the shooter at the specified voltage. */
-  public default void setVelocity(double volts) {}
+  public default void setVelocity(double velocityRPM) {}
 }

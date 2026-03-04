@@ -17,8 +17,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
-// import com.ctre.phoenix6.controls.VoltageOut;
-import com.ctre.phoenix6.hardware.*;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.units.measure.*;
 import frc.robot.Constants.RobotStateConstants;
@@ -79,10 +78,10 @@ public class ShooterIOTalonFX implements ShooterIO {
                     .withSupplyCurrentLimitEnable(true))
             .withSlot0(
                 new Slot0Configs()
-                    .withKP(0)
-                    .withKI(0) // 2
-                    .withKD(0)
-                    .withKV(12.0 / 6000) // 12 volts when requesting max RPS
+                    .withKP(ShooterConstants.kP)
+                    .withKI(ShooterConstants.kI) // 2
+                    .withKD(ShooterConstants.kD)
+                    .withKV(ShooterConstants.kV) // 12 volts when requesting max RPS
                 );
 
     tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(config, 0.25));
@@ -130,21 +129,21 @@ public class ShooterIOTalonFX implements ShooterIO {
         leftShooterCurrentAmps,
         leftShooterTempCelsius);
 
-    // Motor rotations -> feeder rotations * 60 sec/min
-    inputs.middleShooterRPM =
-        middleShooterVelocityRotPerSec.getValueAsDouble() * 60 / ShooterConstants.GEAR_RATIO;
+    // Motor rotations -> feeder rotations * gear ratio
+    inputs.middleShooterRPS =
+        middleShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.middleShooterAppliedVolts = middleShooterAppliedVolts.getValueAsDouble();
     inputs.middleShooterCurrentAmps = middleShooterCurrentAmps.getValueAsDouble();
     inputs.middleShooterTempCelsius = middleShooterTempCelsius.getValueAsDouble();
 
-    inputs.rightShooterRPM =
-        rightShooterVelocityRotPerSec.getValueAsDouble() * 60 / ShooterConstants.GEAR_RATIO;
+    inputs.rightShooterRPS =
+        rightShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.rightShooterAppliedVolts = rightShooterAppliedVolts.getValueAsDouble();
     inputs.rightShooterCurrentAmps = rightShooterCurrentAmps.getValueAsDouble();
     inputs.rightShooterTempCelsius = rightShooterTempCelsius.getValueAsDouble();
 
-    inputs.leftShooterRPM =
-        leftShooterVelocityRotPerSec.getValueAsDouble() * 60 / ShooterConstants.GEAR_RATIO;
+    inputs.leftShooterRPS =
+        leftShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.leftShooterAppliedVolts = leftShooterAppliedVolts.getValueAsDouble();
     inputs.leftShooterCurrentAmps = leftShooterCurrentAmps.getValueAsDouble();
     inputs.leftShooterTempCelsius = leftShooterTempCelsius.getValueAsDouble();
@@ -159,7 +158,7 @@ public class ShooterIOTalonFX implements ShooterIO {
   //   }
 
   @Override
-  public void setVelocity(double velocity) {
-    m_middleShooter.setControl(velocityRequest.withVelocity(velocity));
+  public void setVelocity(double velocityRPM) {
+    m_middleShooter.setControl(velocityRequest.withVelocity(velocityRPM / 60.0));
   }
 }

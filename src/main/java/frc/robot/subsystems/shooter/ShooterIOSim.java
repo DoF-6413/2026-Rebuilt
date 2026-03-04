@@ -26,7 +26,7 @@ public class ShooterIOSim implements ShooterIO {
     shooterSim.setInputVoltage(shooterAppliedVolts);
     shooterSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.middleShooterRPM = shooterSim.getAngularVelocityRPM();
+    inputs.middleShooterRPS = shooterSim.getAngularVelocityRPM();
     inputs.middleShooterAppliedVolts = shooterAppliedVolts;
     inputs.middleShooterCurrentAmps = shooterSim.getCurrentDrawAmps();
   }
@@ -37,7 +37,7 @@ public class ShooterIOSim implements ShooterIO {
   // }
 
   @Override
-  public void setVelocity(double velocity) {
-    shooterSim.setAngularVelocity(velocity);
+  public void setVelocity(double velocityRPM) {
+    shooterSim.setAngularVelocity(velocityRPM / 60.0);
   }
 }

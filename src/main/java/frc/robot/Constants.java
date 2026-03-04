@@ -197,21 +197,14 @@ public final class Constants {
     public static final double GEAR_RATIO = 1.0;
     public static final int CURRENT_LIMIT = 30;
 
-    public static final double INTAKING_VOLTAGE = 0.0;
-    public static final double LAUNCHING_VOLTAGE = 6.5; // 8 hits the ceiling, this static voltage was good for 132"
-
-    // PID
-    public static double kP = 0.0; // 0.05
-    public static double kI = 0.0;
+    // PID and FF
+    public static double kP = 0.5; // 0.05
+    public static double kI = 2.0;
     public static double kD = 0.0;
+    public static double kV = 12.0 / 100;
 
-    public static double SETPOINT_RPS =
-        1600; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
-    public static double TOLERANCE_RPM = 100; // TODO: verify
-
-    // FF returns Voltage per RPM
-    public static double kS = 0.0;
-    public static double kV = 0.0;
-    public static double kA = 0.0;
+    public static double SETPOINT_RPM =
+        1600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
+    // public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 }

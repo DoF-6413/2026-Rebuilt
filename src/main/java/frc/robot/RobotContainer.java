@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -19,10 +20,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
+// import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.column.Column;
@@ -149,6 +152,10 @@ public class RobotContainer {
         break;
     }
 
+    // Register Named Commands
+    NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
+    NamedCommands.registerCommand("Launch", new Launch(m_shooter, m_column, m_hopper));
+
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
@@ -225,8 +232,25 @@ public class RobotContainer {
     // Right Trigger:
     auxController.leftBumper().whileTrue(new RunIntake(m_intake, m_pivot));
     auxController.a().whileTrue(new IntakeRetract(m_intake, m_pivot));
-    auxController.rightBumper().whileTrue(new Launch(m_shooter, m_column, m_hopper));
+    // auxController.rightBumper().whileTrue(new Launch(m_shooter, m_column, m_hopper));
     auxController.rightTrigger().whileTrue(new Feed(m_hopper, m_column));
+    auxController
+        .rightBumper()
+        .whileTrue(
+            // Start the shooter
+            Commands.runOnce(
+                () -> m_shooter.setVelocity(ShooterConstants.SETPOINT_RPM / 60.0), m_shooter)
+            // Start the column (DO WE NEED TO DO THIS BEFORE THE SHOOTER IS READY?)
+            /**
+             * .andThen( Commands.run( () -> m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE),
+             * m_column)) // Wait for the spinup to happen .andThen(new
+             * WaitCommand(ShooterConstants.SPINUP_SEC)) // Start feeding/shooting .andThen(
+             * Commands.run( () -> { m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
+             * m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE); }, m_column, m_hopper)) //
+             * Stop everything when the button is released .finallyDo( () -> {
+             * m_shooter.setVelocity(0.0); m_column.setVoltage(0.0); m_hopper.setVoltage(0.0); })
+             */
+            );
   }
 
   /**
