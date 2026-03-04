@@ -199,12 +199,12 @@ public final class Constants {
 
     // PID and FF
     public static double kP = 0.5; // 0.05
-    public static double kI = 2.0;
+    public static double kI = 2;
     public static double kD = 0.0;
     public static double kV = 12.0 / 100;
 
     public static double SETPOINT_RPM =
-        1600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
+        3600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
     // public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 }

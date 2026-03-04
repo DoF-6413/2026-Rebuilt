@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.ShooterConstants.SETPOINT_RPM;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -16,8 +18,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.ColumnConstants;
+import frc.robot.Constants.HopperConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.Constants.ShooterConstants;
@@ -238,19 +243,29 @@ public class RobotContainer {
         .rightBumper()
         .whileTrue(
             // Start the shooter
-            Commands.runOnce(
-                () -> m_shooter.setVelocity(ShooterConstants.SETPOINT_RPM / 60.0), m_shooter)
-            // Start the column (DO WE NEED TO DO THIS BEFORE THE SHOOTER IS READY?)
-            /**
-             * .andThen( Commands.run( () -> m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE),
-             * m_column)) // Wait for the spinup to happen .andThen(new
-             * WaitCommand(ShooterConstants.SPINUP_SEC)) // Start feeding/shooting .andThen(
-             * Commands.run( () -> { m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
-             * m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE); }, m_column, m_hopper)) //
-             * Stop everything when the button is released .finallyDo( () -> {
-             * m_shooter.setVelocity(0.0); m_column.setVoltage(0.0); m_hopper.setVoltage(0.0); })
-             */
-            );
+            Commands.runOnce(() -> m_shooter.setVelocity(SETPOINT_RPM), m_shooter)
+                // Start the column (DO WE NEED TO DO THIS BEFORE THE SHOOTER IS READY?)
+                .andThen(
+                    Commands.run(
+                        () -> m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE), m_column))
+                // Wait for the spinup to happen
+                .andThen(new WaitCommand(ShooterConstants.SPINUP_SEC))
+                // Start feeding/shooting
+                .andThen(
+                    Commands.run(
+                        () -> {
+                          m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
+                          m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
+                        },
+                        m_column,
+                        m_hopper))
+                // Stop everything when the button is released
+                .finallyDo(
+                    () -> {
+                      m_shooter.setVelocity(0.0);
+                      m_column.setVoltage(0.0);
+                      m_hopper.setVoltage(0.0);
+                    }));
   }
 
   /**
