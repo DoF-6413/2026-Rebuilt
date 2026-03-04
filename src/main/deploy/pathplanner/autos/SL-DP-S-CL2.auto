@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL8-DP"
+            "pathName": "SL-DP1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "DP1"
+            "pathName": "DP1A"
           }
         },
         {
@@ -31,13 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL2"
+            "pathName": "SL2A"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "SL-DP-S-CL",
+  "folder": null,
   "choreoAuto": false
 }

@@ -198,7 +198,8 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 30;
 
     public static final double INTAKING_VOLTAGE = 0.0;
-    public static final double LAUNCHING_VOLTAGE = 6.5; // 8 hits the ceiling, this static voltage was good for 132"
+    public static final double LAUNCHING_VOLTAGE =
+        6.5; // 8 hits the ceiling, this static voltage was good for 132"
 
     // PID
     public static double kP = 0.0; // 0.05

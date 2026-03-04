@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL6-S"
+            "pathName": "SL6-SA"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "S-CL1"
+            "pathName": "S-CL1A"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "SL-S-CL",
+  "folder": null,
   "choreoAuto": false
 }
