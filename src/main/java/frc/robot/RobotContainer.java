@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
-import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
 import frc.robot.commands.IntakeRetract;
