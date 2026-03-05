@@ -23,7 +23,7 @@ public class IntakeRetract extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_pivot.setVoltage(-2); // TODO: UPDATE
+    m_pivot.setVoltage(-2);
     m_intake.setVoltage(0);
   }
 

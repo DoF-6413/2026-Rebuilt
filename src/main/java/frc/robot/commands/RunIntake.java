@@ -26,7 +26,7 @@ public class RunIntake extends Command {
 
   @Override
   public void execute() {
-    m_intake.setVoltage(-8.0); // TODO: flip motor in settings
+    m_intake.setVoltage(-8.0);
   }
 
   @Override

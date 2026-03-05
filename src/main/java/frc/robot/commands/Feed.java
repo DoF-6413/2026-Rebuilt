@@ -26,7 +26,7 @@ public class Feed extends Command {
   @Override
   public void execute() {
     m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
-    m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE); // TODO: fix in init
+    m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
   }
 
   @Override

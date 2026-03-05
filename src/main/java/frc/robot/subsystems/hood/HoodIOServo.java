@@ -2,12 +2,12 @@ package frc.robot.subsystems.hood;
 
 import edu.wpi.first.wpilibj.Servo;
 
-public class HoodIOSim implements HoodIO {
+public class HoodIOServo implements HoodIO {
   private final Servo leftServo;
   private final Servo rightServo;
   private double targetPosition = 0.5;
 
-  public HoodIOSim(int leftPort, int rightPort) {
+  public HoodIOServo(int leftPort, int rightPort) {
     leftServo = new Servo(leftPort);
     rightServo = new Servo(rightPort);
 

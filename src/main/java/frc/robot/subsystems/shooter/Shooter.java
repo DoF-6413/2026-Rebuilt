@@ -20,7 +20,7 @@ public class Shooter extends SubsystemBase {
   // Controllers
   // private final PIDController m_PIDController;
   // private final SimpleMotorFeedforward m_FFController;
-  private double m_setpoint = ShooterConstants.SETPOINT_RPM;
+  private double m_setpoint = ShooterConstants.SETPOINT_2_RPM;
   // private boolean m_enablePID = true;
   // private boolean m_enableTesting = true;
 
@@ -38,7 +38,7 @@ public class Shooter extends SubsystemBase {
 
     // Puts adjustable PID and FF values onto the SmartDashboard for testing mode
     SmartDashboard.putBoolean("Tuning/Shooter/EnableTuning", false);
-    SmartDashboard.putNumber("Tuning/Shooter/Setpoint", ShooterConstants.SETPOINT_RPM);
+    SmartDashboard.putNumber("Tuning/Shooter/Setpoint", ShooterConstants.SETPOINT_2_RPM);
     // SmartDashboard.putNumber("Tuning/Shooter/PID/kP", ShooterConstants.kP);
     // SmartDashboard.putNumber("Tuning/Shooter/PID/kI", ShooterConstants.kI);
     // SmartDashboard.putNumber("Tuning/Shooter/PID/kD", ShooterConstants.kD);
@@ -82,6 +82,10 @@ public class Shooter extends SubsystemBase {
 
   public void enableBrakeMode(boolean enable) {
     m_io.enableBrakeMode(enable);
+  }
+
+  public double getVelocity() {
+    return m_inputs.middleShooterRPS;
   }
 
   //   /**

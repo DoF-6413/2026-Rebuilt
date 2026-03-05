@@ -6,7 +6,8 @@ public interface HoodIO {
 
   @AutoLog
   public static class HoodIOInputs {
-    public double positionMM = 0.0;
+    public double currentPosition = 0.0;
+    public double targetPosition = 0.0;
   }
 
   public default void updateInputs(HoodIOInputs inputs) {}

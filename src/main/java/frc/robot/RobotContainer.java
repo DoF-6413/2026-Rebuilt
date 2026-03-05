@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.ShooterConstants.SETPOINT_RPM;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -18,19 +16,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.Constants.ColumnConstants;
-import frc.robot.Constants.HopperConstants;
+import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
-// import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.column.Column;
@@ -43,6 +38,10 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOTalonFX;
+import frc.robot.subsystems.hood.Hood;
+import frc.robot.subsystems.hood.HoodIO;
+import frc.robot.subsystems.hood.HoodIOServo;
+import frc.robot.subsystems.hood.HoodIOSim;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.hopper.HopperIO;
 import frc.robot.subsystems.hopper.HopperIOTalonFX;
@@ -73,6 +72,7 @@ public class RobotContainer {
   private final Intake m_intake;
   private final Pivot m_pivot;
   private final Shooter m_shooter;
+  private final Hood m_hood;
 
   // Controller
   private final CommandXboxController driverController =
@@ -103,6 +103,8 @@ public class RobotContainer {
         m_intake = new Intake(new IntakeIOTalonFX());
         m_pivot = new Pivot(new PivotIOTalonFX());
         m_shooter = new Shooter(new ShooterIOTalonFX());
+        m_hood =
+            new Hood(new HoodIOServo(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
 
         // The ModuleIOTalonFXS implementation provides an example implementation for
         // TalonFXS controller connected to a CANdi with a PWM encoder. The
@@ -137,6 +139,7 @@ public class RobotContainer {
         m_intake = new Intake(new IntakeIOTalonFX()); // TODO: implement sim
         m_pivot = new Pivot(new PivotIOSim());
         m_shooter = new Shooter(new ShooterIOSim());
+        m_hood = new Hood(new HoodIOSim(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
         break;
 
       default:
@@ -154,12 +157,13 @@ public class RobotContainer {
         m_intake = new Intake(new IntakeIO() {});
         m_pivot = new Pivot(new PivotIO() {});
         m_shooter = new Shooter(new ShooterIO() {});
+        m_hood = new Hood(new HoodIO() {});
         break;
     }
 
     // Register Named Commands
     NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
-    NamedCommands.registerCommand("Launch", new Launch(m_shooter, m_column, m_hopper));
+    // NamedCommands.registerCommand("Launch", new Launch(m_shooter, m_driver));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -206,22 +210,12 @@ public class RobotContainer {
             () -> -driverController.getLeftX(),
             () -> -driverController.getRightX()));
 
-    // Lock to 0° when A button is held
-    driverController
-        .a()
-        .whileTrue(
-            DriveCommands.joystickDriveAtAngle(
-                drive,
-                () -> -driverController.getLeftY(),
-                () -> -driverController.getLeftX(),
-                () -> Rotation2d.kZero));
-
     // Switch to X pattern when X button is pressed
     driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-    // Reset gyro to 0° when B button is pressed
+    // Reset gyro to 0° when A button is pressed
     driverController
-        .b()
+        .a()
         .onTrue(
             Commands.runOnce(
                     () ->
@@ -237,35 +231,14 @@ public class RobotContainer {
     // Right Trigger:
     auxController.leftBumper().whileTrue(new RunIntake(m_intake, m_pivot));
     auxController.a().whileTrue(new IntakeRetract(m_intake, m_pivot));
-    // auxController.rightBumper().whileTrue(new Launch(m_shooter, m_column, m_hopper));
+    auxController.rightBumper().whileTrue(new Launch(m_shooter, auxController));
     auxController.rightTrigger().whileTrue(new Feed(m_hopper, m_column));
+
+    // Controlling hood
+    auxController.b().onTrue(new InstantCommand(() -> m_hood.setPosition(0.5)));
     auxController
-        .rightBumper()
-        .whileTrue(
-            // Start the shooter
-            Commands.runOnce(() -> m_shooter.setVelocity(SETPOINT_RPM), m_shooter)
-                // Start the column (DO WE NEED TO DO THIS BEFORE THE SHOOTER IS READY?)
-                .andThen(
-                    Commands.run(
-                        () -> m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE), m_column))
-                // Wait for the spinup to happen
-                .andThen(new WaitCommand(ShooterConstants.SPINUP_SEC))
-                // Start feeding/shooting
-                .andThen(
-                    Commands.run(
-                        () -> {
-                          m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
-                          m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
-                        },
-                        m_column,
-                        m_hopper))
-                // Stop everything when the button is released
-                .finallyDo(
-                    () -> {
-                      m_shooter.setVelocity(0.0);
-                      m_column.setVoltage(0.0);
-                      m_hopper.setVoltage(0.0);
-                    }));
+        .x()
+        .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
   }
 
   /**

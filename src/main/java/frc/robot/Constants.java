@@ -197,15 +197,24 @@ public final class Constants {
     public static final double GEAR_RATIO = 1.0;
     public static final int CURRENT_LIMIT = 30;
 
-
     // PID and FF
     public static double kP = 0.5; // 0.05
     public static double kI = 2;
     public static double kD = 0.0;
     public static double kV = 12.0 / 100;
 
-    public static double SETPOINT_RPM =
+    public static double SETPOINT_1_RPM =
         3600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
     // public static double TOLERANCE_RPM = 100; // TODO: verify
+    public static double SETPOINT_2_RPM = 2400;
+  }
+
+  public final class HoodConstants {
+    public static final int leftServoPort = 1;
+    public static final int rightServoPort = 2;
+
+    public static final double K_MIN_POSITION = 0.01;
+    public static final double K_MAX_POSITION = 0.77;
+    public static final double K_TOLERANCE = 0.01;
   }
 }

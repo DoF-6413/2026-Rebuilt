@@ -4,49 +4,42 @@
 
 package frc.robot.commands;
 
-import static frc.robot.Constants.ShooterConstants.SETPOINT_RPM;
-import static frc.robot.Constants.ShooterConstants.SPINUP_SEC;
+import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.ColumnConstants;
-import frc.robot.Constants.HopperConstants;
-import frc.robot.subsystems.column.Column;
-import frc.robot.subsystems.hopper.Hopper;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.shooter.Shooter;
 
 public class Launch extends Command {
   private final Shooter m_shooter;
-  private final Column m_column;
-  private final Hopper m_hopper;
-  private final Timer m_timer = new Timer();
+  private final CommandXboxController m_controller;
 
-  public Launch(Shooter shooter, Column column, Hopper hopper) {
+  public Launch(Shooter shooter, CommandXboxController controller) {
     m_shooter = shooter;
-    m_column = column;
-    m_hopper = hopper;
+    m_controller = controller;
 
-    addRequirements(shooter, column, hopper);
+    addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
-    m_timer.restart();
-    m_shooter.setVelocity(SETPOINT_RPM);
+    m_shooter.setVelocity(SETPOINT_2_RPM);
   }
 
   @Override
   public void execute() {
-    if (m_timer.hasElapsed(SPINUP_SEC)) {
-      m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
-      m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
+    m_shooter.setVelocity(SETPOINT_2_RPM);
+    if (m_shooter.getVelocity() > SETPOINT_2_RPM) {
+      m_controller.getHID().setRumble(RumbleType.kBothRumble, 1.0);
+    } else {
+      m_controller.getHID().setRumble(RumbleType.kBothRumble, 0.0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_hopper.setVoltage(0.0);
-    m_column.setVoltage(0.0);
     m_shooter.setVelocity(0.0);
+    m_controller.getHID().setRumble(RumbleType.kBothRumble, 0.0);
   }
 }
