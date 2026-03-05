@@ -208,7 +208,7 @@ public class RobotContainer {
     driverController
         .a()
         .onTrue(
-            Commands.runOnce(
+            new InstantCommand(
                     () ->
                         drive.setPose(
                             new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
