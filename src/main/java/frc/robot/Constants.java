@@ -125,7 +125,7 @@ public final class Constants {
     public static final boolean ENABLE_CURRENT_LIMIT = true;
     public static final int CURRENT_LIMIT = 30;
 
-    public static final double INTAKING_VOLTAGE = 6.0;
+    public static final double INTAKING_VOLTAGE = 8.0;
 
     /* PID & FF Constants */
     public static double kP = 0.0;

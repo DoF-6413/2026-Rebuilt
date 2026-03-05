@@ -21,12 +21,13 @@ public class RunIntake extends Command {
   @Override
   public void initialize() {
     m_pivot.setVoltage(2);
-    // m_pivot.deployPivot();
+    // m_pivot.deployPivot(); //TODO: implement
   }
 
   @Override
   public void execute() {
-    m_intake.setVoltage(-8.0);
+    m_pivot.setVoltage(1);
+    m_intake.setVoltage(-12.0);
   }
 
   @Override
