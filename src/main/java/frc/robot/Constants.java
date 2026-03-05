@@ -71,7 +71,7 @@ public final class Constants {
     public static final boolean ENABLE_CURRENT_LIMIT = true;
 
     public static final double INTAKING_VOLTAGE = -12.0;
-    public static final double LAUNCHING_VOLTAGE = -9.0;
+    public static final double LAUNCHING_VOLTAGE = -12.0;
   }
 
   public class HopperConstants {
@@ -171,6 +171,8 @@ public final class Constants {
     public static final double STOW_ANGLE_RAD = MIN_ANGLE_RAD + Units.degreesToRadians(5);
     public static final double DEPLOY_ANGLE_RAD = Units.degreesToRadians(15.0); // TODO: measure
 
+    public static final double AGITATING_VOLTAGE = 8.0;
+
     /* PID & FF Constants */
     public static double kP = 0.0;
     public static double kI = 0.0;
@@ -189,7 +191,7 @@ public final class Constants {
   }
 
   public final class ShooterConstants {
-    public static final double SPINUP_SEC = 1.0;
+    public static final double SPINUP_SEC = 2.0;
 
     public static final int MIDDLE_CAN_ID = 15;
     public static final int RIGHT_CAN_ID = 16;
@@ -203,10 +205,11 @@ public final class Constants {
     public static double kD = 0.0;
     public static double kV = 12.0 / 100;
 
+    //
     public static double SETPOINT_1_RPM =
         3600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
     // public static double TOLERANCE_RPM = 100; // TODO: verify
-    public static double SETPOINT_2_RPM = 2400;
+    public static final double SETPOINT_2_RPM = 50 * 60; 
   }
 
   public final class HoodConstants {

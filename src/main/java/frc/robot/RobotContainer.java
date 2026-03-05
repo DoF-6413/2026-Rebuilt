@@ -22,9 +22,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
+import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
-import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
@@ -108,21 +108,11 @@ public class RobotContainer {
 
         // The ModuleIOTalonFXS implementation provides an example implementation for
         // TalonFXS controller connected to a CANdi with a PWM encoder. The
-        // implementations
-        // of ModuleIOTalonFX, ModuleIOTalonFXS, and ModuleIOSpark (from the Spark
-        // swerve
-        // template) can be freely intermixed to support alternative hardware
+        // implementations of ModuleIOTalonFX, ModuleIOTalonFXS, and ModuleIOSpark (from the Spark
+        // swerve template) can be freely intermixed to support alternative hardware
         // arrangements.
         // Please see the AdvantageKit template documentation for more information:
         // https://docs.advantagekit.org/getting-started/template-projects/talonfx-swerve-template#custom-module-implementations
-        //
-        // drive =
-        // new Drive(
-        // new GyroIOPigeon2(),
-        // new ModuleIOTalonFXS(TunerConstants.FrontLeft),
-        // new ModuleIOTalonFXS(TunerConstants.FrontRight),
-        // new ModuleIOTalonFXS(TunerConstants.BackLeft),
-        // new ModuleIOTalonFXS(TunerConstants.BackRight));
         break;
 
       case SIM:
@@ -206,9 +196,9 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> -driverController.getLeftY(),
-            () -> -driverController.getLeftX(),
-            () -> -driverController.getRightX()));
+            () -> -0.8 * driverController.getLeftY(),
+            () -> -1 * driverController.getLeftX(),
+            () -> -0.8 * driverController.getRightX()));
 
     // Switch to X pattern when X button is pressed
     driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
@@ -230,7 +220,10 @@ public class RobotContainer {
     // Right Bumper: Start launching balls by running, the shooter, column, and agitator/hopper
     // Right Trigger:
     auxController.leftBumper().whileTrue(new RunIntake(m_intake, m_pivot));
-    auxController.a().whileTrue(new IntakeRetract(m_intake, m_pivot));
+    auxController
+        .a()
+        .whileTrue(
+            new Agitate(m_intake, m_pivot)); // removed RetractIntake, is it still necessary??
     auxController.rightBumper().whileTrue(new Launch(m_shooter, auxController));
     auxController.rightTrigger().whileTrue(new Feed(m_hopper, m_column));
 

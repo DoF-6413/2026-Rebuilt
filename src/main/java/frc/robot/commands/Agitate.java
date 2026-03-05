@@ -5,16 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeRetract extends Command {
+public class Agitate extends Command {
   public Intake m_intake;
   public Pivot m_pivot;
 
   /** Creates a new IntakeRetract. */
-  public IntakeRetract(Intake intake, Pivot pivot) {
+  public Agitate(Intake intake, Pivot pivot) {
     m_intake = intake;
     m_pivot = pivot;
     addRequirements(intake, pivot);
@@ -22,16 +24,13 @@ public class IntakeRetract extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_pivot.setVoltage(-2);
-    m_intake.setVoltage(0);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.setVoltage(-6);
-    m_intake.setVoltage(0);
+    m_pivot.setVoltage(PivotConstants.AGITATING_VOLTAGE);
+    m_intake.setVoltage(IntakeConstants.INTAKING_VOLTAGE);
   }
 
   // Called once the command ends or is interrupted.
