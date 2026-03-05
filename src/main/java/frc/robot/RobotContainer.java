@@ -25,7 +25,9 @@ import frc.robot.Constants.RobotStateConstants;
 import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Feed;
-import frc.robot.commands.Launch;
+import frc.robot.commands.IntakeRetract;
+import frc.robot.commands.LaunchSetpoint1;
+import frc.robot.commands.LaunchSetpoint2;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.column.Column;
@@ -216,19 +218,34 @@ public class RobotContainer {
   }
 
   public void auxControllerBindings() {
+    // TODO: Change the
     // Left Bumper: Deploy intake pivot and run intake rollers
-    // Right Bumper: Start launching balls by running, the shooter, column, and agitator/hopper
-    // Right Trigger:
     auxController.leftBumper().whileTrue(new RunIntake(m_intake, m_pivot));
+    // Button A: Retract the intake back up
+    auxController.a().whileTrue(new IntakeRetract(m_intake, m_pivot));
+    // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
+    // right in front of the hub
     auxController
-        .a()
+        .rightBumper()
         .whileTrue(
-            new Agitate(m_intake, m_pivot)); // removed RetractIntake, is it still necessary??
-    auxController.rightBumper().whileTrue(new Launch(m_shooter, auxController));
+            new InstantCommand(() -> m_hood.setPosition(0))
+                .alongWith(new LaunchSetpoint2(m_shooter, auxController)));
+    // Button Y: Starts up the shooter and sets the hood to 50%. This is meant for shooting from the
+    // corners of either trench
+    auxController
+        .y()
+        .whileTrue(
+            new InstantCommand(() -> m_hood.setPosition(0.5))
+                .alongWith(new LaunchSetpoint1(m_shooter, auxController)));
+    // Right Trigger: Runs the hopper (belts on the bottom) and column to feed balls to the shooter
     auxController.rightTrigger().whileTrue(new Feed(m_hopper, m_column));
 
     // Controlling hood
-    auxController.b().onTrue(new InstantCommand(() -> m_hood.setPosition(0.5)));
+    // Button B: sets the hood to the maximum position
+    auxController
+        .b()
+        .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)));
+    // Button X: sets the hood to the minimum position
     auxController
         .x()
         .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
