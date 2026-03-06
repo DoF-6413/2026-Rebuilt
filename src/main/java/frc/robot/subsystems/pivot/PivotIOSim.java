@@ -22,7 +22,7 @@ public class PivotIOSim implements PivotIO {
             PivotConstants.MIN_ANGLE_RAD,
             PivotConstants.MAX_ANGLE_RAD,
             false,
-            PivotConstants.STOW_ANGLE_RAD,
+            PivotConstants.MIN_ANGLE_RAD,
             null);
   }
 

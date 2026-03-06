@@ -30,6 +30,10 @@ public class Pivot extends SubsystemBase {
     Logger.processInputs("Pivot", m_inputs);
   }
 
+  public double getAngle() {
+    return m_inputs.relativePosRad;
+  }
+
   /**
    * Sets idle mode of motor
    *
@@ -40,12 +44,12 @@ public class Pivot extends SubsystemBase {
   }
 
   /**
-   * Sets voltage of motor
+   * Sets the pivot to the desired angle
    *
-   * @param volts A value between [-12, 12]
+   * @param angle angle for the pivot to go to
    */
-  public void setVoltage(double volts) {
-    m_io.setVoltage(volts);
+  public void setPosition(double angle) {
+    m_io.setPosition(angle);
   }
 
   public void deployPivot() {

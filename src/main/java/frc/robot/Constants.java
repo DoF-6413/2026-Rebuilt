@@ -165,11 +165,9 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 10;
 
     /* Angle positions */
-    public static final double MIN_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
-    public static final double MAX_ANGLE_RAD = Units.degreesToRadians(0.0); // TODO: measure
-
-    public static final double STOW_ANGLE_RAD = MIN_ANGLE_RAD + Units.degreesToRadians(5);
-    public static final double DEPLOY_ANGLE_RAD = Units.degreesToRadians(15.0); // TODO: measure
+    public static final double MIN_ANGLE_RAD = Units.rotationsToRadians(0.0);
+    public static final double MAX_ANGLE_RAD = Units.rotationsToRadians(15.5);
+    public static final double AGITATING_ANGLE_RAD = Units.rotationsToRadians(7.5);
 
     public static final double AGITATING_VOLTAGE = 12.0;
 
@@ -206,10 +204,9 @@ public final class Constants {
     public static double kV = 12.0 / 100;
 
     //
-    public static double SETPOINT_1_RPM =
-        3600.0; // 3500 is about max RPM & a bit high for just one motor (2-16-26)
+    public static double SETPOINT_1_RPM = 3600.0; // Meant for shooting from trench
     // public static double TOLERANCE_RPM = 100; // TODO: verify
-    public static final double SETPOINT_2_RPM = 50 * 60;
+    public static final double SETPOINT_2_RPM = 50 * 60; // Meant for shooting from hub
   }
 
   public final class HoodConstants {
