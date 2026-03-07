@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "DP0A"
+            "pathName": "DP-S2"
           }
         },
         {
@@ -50,6 +50,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "old-autos-need-renaming",
   "choreoAuto": false
 }

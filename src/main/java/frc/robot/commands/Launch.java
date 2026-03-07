@@ -7,26 +7,42 @@ package frc.robot.commands;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
+import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants.ColumnConstants;
+import frc.robot.Constants.HopperConstants;
+import frc.robot.subsystems.column.Column;
+import frc.robot.subsystems.hood.Hood;
+import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.shooter.Shooter;
 
 public class Launch extends Command {
   private final Shooter m_shooter;
-  private final CommandXboxController m_controller;
+  private final Column m_column;
+  private final Hopper m_hopper;
+  private final frc.robot.subsystems.hood.Hood m_hood;
   private final double speed;
 
-  public Launch(Shooter shooter, CommandXboxController controller, String position) {
+  public Launch(
+      Shooter shooter,
+      Hopper hopper,
+      Column column,
+      Hood hood,
+      String position) {
     m_shooter = shooter;
-    m_controller = controller;
+    m_column = column;
+    m_hopper = hopper;
+    m_hood = hood;
     if (position.equals("trench")) {
       speed = SETPOINT_1_RPM;
+      m_hood.setPosition(0.5);
     } else if (position.equals("hub")) {
       speed = SETPOINT_2_RPM;
-    } else if (position.equals("tower")){
+      m_hood.setPosition(0);
+    } else if (position.equals("tower")) {
       speed = SETPOINT_3_RPM;
+      m_hood.setPosition(0.35);
     } else {
       speed = 0.0;
     }
@@ -37,21 +53,22 @@ public class Launch extends Command {
   @Override
   public void initialize() {
     m_shooter.setVelocity(speed);
+    m_hopper.setVoltage(0.0);
+    m_column.setVoltage(0);
   }
 
   @Override
   public void execute() {
-    m_shooter.setVelocity(speed);
-    if (m_shooter.getVelocity() > speed) {
-      m_controller.getHID().setRumble(RumbleType.kBothRumble, 1.0);
-    } else {
-      m_controller.getHID().setRumble(RumbleType.kBothRumble, 0.0);
+    if (m_shooter.getVelocity() > (speed - TOLERANCE_RPM)) {
+      m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
+      m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }
   }
+
+  // public void isFinished()
 
   @Override
   public void end(boolean interrupted) {
     m_shooter.setVelocity(0.0);
-    m_controller.getHID().setRumble(RumbleType.kBothRumble, 0.0);
   }
 }

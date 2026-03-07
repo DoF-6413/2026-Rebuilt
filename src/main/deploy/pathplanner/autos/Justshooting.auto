@@ -7,25 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL-DP1"
+            "pathName": "SL1"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "DP1A"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SL2A"
+            "name": "Launch"
           }
         }
       ]
