@@ -19,10 +19,10 @@ public class PivotIOSim implements PivotIO {
             null,
             PivotConstants.GEAR_RATIO,
             PivotConstants.LENGTH_M,
-            PivotConstants.MIN_ANGLE_RAD,
-            PivotConstants.MAX_ANGLE_RAD,
+            PivotConstants.HOMED_ANGLE_ROT,
+            PivotConstants.DEPLOYED_ANGLE_ROT,
             false,
-            PivotConstants.MIN_ANGLE_RAD,
+            PivotConstants.HOMED_ANGLE_ROT,
             null);
   }
 

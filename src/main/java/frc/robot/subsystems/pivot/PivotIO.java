@@ -2,8 +2,6 @@ package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import edu.wpi.first.wpilibj2.command.Command;
-
 public interface PivotIO {
   @AutoLog
   public static class PivotIOInputs {
@@ -11,12 +9,10 @@ public interface PivotIO {
     public double appliedVoltage = 0.0;
     public double currentAmps = 0.0;
     public double tempCelsius = 0.0;
-    public double relativePosRad = 0.0;
-    public double absPositionRad = 0.0; // TODO: verify if needed, may not add encoder
+    public double relativePosRot = 0.0;
     public double velocityRadPerSec = 0.0;
+    public boolean atTarget = false;
   }
-
-  
 
   /**
    * Updates logged inputs for Pivot. Must be called periodically.
@@ -38,9 +34,4 @@ public interface PivotIO {
    * @param angle angle for the pivot to go to
    */
   public default void setPosition(double angle) {}
-
-  /** Deploys intake to ground position */
-  public default void deployPivot() {}
-
-  public default Command agitateCommand() {}
 }

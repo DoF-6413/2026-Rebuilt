@@ -28,7 +28,7 @@ public class IntakeRetract extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.setPosition(PivotConstants.MIN_ANGLE_RAD);
+    m_pivot.setPosition(PivotConstants.HOMED_ANGLE_ROT);
     m_intake.setVoltage(0);
   }
 

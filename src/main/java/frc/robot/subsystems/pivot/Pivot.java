@@ -1,11 +1,14 @@
 package frc.robot.subsystems.pivot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PivotConstants;
 import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
   private final PivotIO m_io;
   private final PivotIOInputsAutoLogged m_inputs = new PivotIOInputsAutoLogged();
+  private double m_targetPosition = PivotConstants.HOMED_ANGLE_ROT;
 
   /**
    * Constructs a new {@link Pivot} instance.
@@ -30,8 +33,13 @@ public class Pivot extends SubsystemBase {
     Logger.processInputs("Pivot", m_inputs);
   }
 
+  public boolean isAtTarget() {
+    return m_inputs.relativePosRot - m_targetPosition
+        < Units.degreesToRotations(PivotConstants.TOLERANCE_DEG);
+  }
+
   public double getAngle() {
-    return m_inputs.relativePosRad;
+    return m_inputs.relativePosRot;
   }
 
   /**
@@ -50,9 +58,5 @@ public class Pivot extends SubsystemBase {
    */
   public void setPosition(double angle) {
     m_io.setPosition(angle);
-  }
-
-  public void deployPivot() {
-    m_io.deployPivot();
   }
 }

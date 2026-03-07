@@ -4,49 +4,26 @@ import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
-import static edu.wpi.first.units.Units.Degrees;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.RobotStateConstants;
-import frc.robot.subsystems.pivot.PivotIOTalonFX.Position;
 
 public class PivotIOTalonFX implements PivotIO {
-
-  public enum Position {
-    HOMED(110),
-    STOWED(100),
-    INTAKE(-4),
-    AGITATE(20);
-
-    private final double degrees;
-
-    private Position(double degrees) {
-      this.degrees = degrees;
-    }
-
-    public Angle angle() {
-      return Degrees.of(degrees);
-    }
-  }
 
   // Motor, controller, configurator
   private final TalonFX m_pivotTalonFX = new TalonFX(PivotConstants.CAN_ID, "Drivetrain");
   private final TalonFXConfiguration m_motorConfig = new TalonFXConfiguration();
 
   // Used for setting the position of the pivot motor, taken from WCP
-  private final MotionMagicVoltage m_pivotMotionMagicRequest = new MotionMagicVoltage(0).withSlot(0); 
+  private final MotionMagicVoltage m_pivotMotionMagicRequest =
+      new MotionMagicVoltage(0).withSlot(0);
 
   // Status signals
   private StatusSignal<Voltage> m_appliedVolts;
@@ -104,8 +81,7 @@ public class PivotIOTalonFX implements PivotIO {
     inputs.appliedVoltage = m_appliedVolts.getValueAsDouble();
     inputs.currentAmps = m_currentAmps.getValueAsDouble();
     inputs.tempCelsius = m_tempCelsius.getValueAsDouble();
-    inputs.relativePosRad = m_positionRot.getValueAsDouble();
-    inputs.absPositionRad = m_positionRot.getValueAsDouble();
+    inputs.relativePosRot = m_positionRot.getValueAsDouble();
     inputs.velocityRadPerSec = m_velocityRotPerSec.getValueAsDouble();
   }
 
@@ -114,39 +90,7 @@ public class PivotIOTalonFX implements PivotIO {
     m_pivotTalonFX.setNeutralMode(enable ? NeutralModeValue.Brake : NeutralModeValue.Coast);
   }
 
-  private boolean isPositionWithinTolerance() {
-    final Angle currentPosition = m_pivotTalonFX.getPosition().getValue();
-    final Angle targetPosition = m_pivotMotionMagicRequest.getPositionMeasure();
-    return currentPosition.isNear(targetPosition, Degrees.of(5));
+  public void setPosition(double angle) {
+    m_pivotTalonFX.setControl(m_pivotMotionMagicRequest.withPosition(angle));
   }
-
-  public void set(Position position) {
-    m_pivotTalonFX.setControl(
-      m_pivotMotionMagicRequest
-        .withPosition(position.angle())
-    );
-  }
-
-  @Override
-  public void deployPivot() {
-    m_pivotTalonFX.setPosition(Units.radiansToRotations(PivotConstants.MIN_ANGLE_RAD));
-  }
-
-
-  public Command agitateCommand() {
-        return runOnce(() -> set(Speed.INTAKE))
-            .andThen(
-                Commands.sequence(
-                    runOnce(() -> set(Position.AGITATE)),
-                    Commands.waitUntil(this::isPositionWithinTolerance),
-                    runOnce(() -> set(Position.INTAKE)),
-                    Commands.waitUntil(this::isPositionWithinTolerance)
-                )
-                .repeatedly()
-            )
-            .handleInterrupt(() -> {
-                set(Position.INTAKE);
-                set(Speed.STOP);
-            });
-    }
 }

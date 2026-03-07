@@ -165,9 +165,16 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 10;
 
     /* Angle positions */
-    public static final double MIN_ANGLE_RAD = Units.rotationsToRadians(0.0);
-    public static final double MAX_ANGLE_RAD = Units.rotationsToRadians(15.5);
-    public static final double AGITATING_ANGLE_RAD = Units.rotationsToRadians(7.5);
+    /* These are measured in rotations because that's what Phoenix Tuner X gives them in, and it's also what all the methods ask for */
+
+    /* Angle of the pivot at the start of the match before it's deployed */
+    public static final double HOMED_ANGLE_ROT = 0.0;
+
+    /* Angle of the pivot after it's been deployed - used for intaking */
+    public static final double DEPLOYED_ANGLE_ROT = 15.5;
+
+    /* About half of the deploued angle; the agitate command should move the pivot from the deployed position to this position */
+    public static final double AGITATING_ANGLE_ROT = 7.5;
 
     public static final double AGITATING_VOLTAGE = 12.0;
 
@@ -176,7 +183,7 @@ public final class Constants {
     public static double kI = 0.0;
     public static double kD = 0.0;
 
-    public static double TOLERANCE_RAD = 0.0;
+    public static double TOLERANCE_DEG = 0.0;
 
     public static double kS = 0.0;
     public static double kV = 0.0;
