@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -154,7 +153,8 @@ public class RobotContainer {
 
     // Register Named Commands
     NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
-    // NamedCommands.registerCommand("Launch", new Launch(m_shooter, m_driver));
+    NamedCommands.registerCommand(
+        "Launch", new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -227,21 +227,24 @@ public class RobotContainer {
         .rightBumper()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0))
-                .alongWith(new Launch(m_shooter, auxController, "hub")));
+                .alongWith(
+                    new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")));
     // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0.5))
-                .alongWith(new Launch(m_shooter, auxController, "trench")));
+                .alongWith(
+                    new Launch(m_shooter, m_hopper, m_column, m_hood, "trench")));
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0.35))
-                .alongWith(new Launch(m_shooter, auxController, "tower")));
+                .alongWith(
+                    new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")));
     // Button Y: Runs the hopper (belts on the bottom) and column to feed balls to the shooter
     auxController.y().whileTrue(new Feed(m_hopper, m_column));
 

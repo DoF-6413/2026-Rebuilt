@@ -214,7 +214,7 @@ public final class Constants {
     public static final double SETPOINT_1_RPM = 3600.0; // Meant for shooting from trench
     public static final double SETPOINT_2_RPM = 3000; // Meant for shooting from hub
     public static final double SETPOINT_3_RPM = 3150; // Meant for shooting from sides of the tower
-    // public static double TOLERANCE_RPM = 100; // TODO: verify
+    public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 
   public final class HoodConstants {

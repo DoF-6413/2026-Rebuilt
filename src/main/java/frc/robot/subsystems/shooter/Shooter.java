@@ -46,6 +46,6 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getVelocity() {
-    return m_inputs.middleShooterRPS;
+    return m_inputs.middleShooterRPS * 60.0;
   }
 }
