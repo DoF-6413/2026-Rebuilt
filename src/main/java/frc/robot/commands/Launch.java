@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
+import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,8 @@ public class Launch extends Command {
       speed = SETPOINT_1_RPM;
     } else if (position.equals("hub")) {
       speed = SETPOINT_2_RPM;
+    } else if (position.equals("tower")){
+      speed = SETPOINT_3_RPM;
     } else {
       speed = 0.0;
     }

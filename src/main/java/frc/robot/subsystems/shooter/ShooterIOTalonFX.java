@@ -149,14 +149,6 @@ public class ShooterIOTalonFX implements ShooterIO {
     inputs.leftShooterTempCelsius = leftShooterTempCelsius.getValueAsDouble();
   }
 
-  //   @Override
-  //   public void setVoltage(double volts) {
-  //     m_middleShooter.setControl(
-  //         voltageRequest.withOutput(
-  //             MathUtil.clamp(
-  //                 volts, -RobotStateConstants.MAX_VOLTAGE, RobotStateConstants.MAX_VOLTAGE)));
-  //   }
-
   @Override
   public void setVelocity(double velocityRPM) {
     m_middleShooter.setControl(velocityRequest.withVelocity(velocityRPM / 60.0));

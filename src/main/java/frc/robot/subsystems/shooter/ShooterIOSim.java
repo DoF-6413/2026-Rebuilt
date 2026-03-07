@@ -31,11 +31,6 @@ public class ShooterIOSim implements ShooterIO {
     inputs.middleShooterCurrentAmps = shooterSim.getCurrentDrawAmps();
   }
 
-  // @Override
-  // public void setVoltage(double volts) {
-  //   shooterAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
-  // }
-
   @Override
   public void setVelocity(double velocityRPM) {
     shooterSim.setAngularVelocity(velocityRPM / 60.0);
