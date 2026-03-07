@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
@@ -31,15 +30,17 @@ public class Agitate extends Command {
   @Override
   public void execute() {
     m_intake.setVoltage(IntakeConstants.INTAKING_VOLTAGE);
-    if (m_pivot.getAngle() > (Units.radiansToRotations(PivotConstants.HOMED_ANGLE_ROT + 1))) {
-      m_pivot.setPosition(Units.radiansToRotations(PivotConstants.HOMED_ANGLE_ROT));
-    } else if (m_pivot.getAngle()
-        < (Units.radiansToRotations(PivotConstants.AGITATING_ANGLE_ROT - 1))) {
-      m_pivot.setPosition(Units.radiansToRotations(PivotConstants.AGITATING_ANGLE_ROT));
+    if (m_pivot.getAngle() > (PivotConstants.DEPLOYED_ANGLE_ROT + 1)) {
+      m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
+    } else if (m_pivot.getAngle() < (PivotConstants.AGITATING_ANGLE_ROT - 1)) {
+      m_pivot.setPosition(PivotConstants.AGITATING_ANGLE_ROT);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
+    m_intake.setVoltage(0.0);
+  }
 }

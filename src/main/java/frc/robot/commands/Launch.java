@@ -25,7 +25,7 @@ public class Launch extends Command {
       speed = SETPOINT_1_RPM;
     } else if (position.equals("hub")) {
       speed = SETPOINT_2_RPM;
-    } else if (position.equals("tower")){
+    } else if (position.equals("tower")) {
       speed = SETPOINT_3_RPM;
     } else {
       speed = 0.0;
