@@ -7,10 +7,21 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.Waypoint;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.RobotBase;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -62,6 +73,23 @@ public final class Constants {
     public static int AUX_CONTROLLER = 1;
   }
 
+  public static class PathFinderConstants {
+    static PathConstraints constraints = new PathConstraints(3.0, 3.0, 2 * Math.PI, 4 * Math.PI);
+    static List<Waypoint> blueHubWaypoints =
+        PathPlannerPath.waypointsFromPoses(
+            new Pose2d(2.00, 4.000, new Rotation2d()), new Pose2d(3.536, 4.000, new Rotation2d()));
+    static PathPlannerPath bluePath =
+        new PathPlannerPath(
+            blueHubWaypoints, constraints, null, new GoalEndState(0.0, new Rotation2d()));
+    static List<Waypoint> redHubWaypoints =
+        PathPlannerPath.waypointsFromPoses(
+            new Pose2d(14.500, 4.000, new Rotation2d()),
+            new Pose2d(13.000, 4.000, new Rotation2d()));
+    static PathPlannerPath redPath =
+        new PathPlannerPath(
+            redHubWaypoints, constraints, null, new GoalEndState(0.0, new Rotation2d()));
+  }
+
   public static class ColumnConstants {
     public static final int CAN_ID = 18;
     public static final double GEAR_RATIO = 1.0;
@@ -74,7 +102,7 @@ public final class Constants {
     public static final double LAUNCHING_VOLTAGE = -12.0;
   }
 
-  public class HopperConstants {
+  public static class HopperConstants {
     public static final int CAN_ID = 19;
     /* CAN ID for Kraken */
 
@@ -109,7 +137,7 @@ public final class Constants {
     public static double MOI_KG_M2 = 0.0;
   }
 
-  public class IntakeConstants {
+  public static class IntakeConstants {
     /* CAN ID for Kraken */
     public static final int CAN_ID = 21;
 
@@ -144,7 +172,7 @@ public final class Constants {
     public static double MOI_KG_M2 = 0.0;
   }
 
-  public class PivotConstants {
+  public static class PivotConstants {
     /* CAN ID for Kraken */
     public static final int CAN_ID = 20;
 
@@ -195,7 +223,7 @@ public final class Constants {
     public static double MOI_KG_M2 = 0.0;
   }
 
-  public final class ShooterConstants {
+  public static final class ShooterConstants {
     public static final double SPINUP_SEC = 2.0;
 
     public static final int MIDDLE_CAN_ID = 15;
@@ -217,12 +245,59 @@ public final class Constants {
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 
-  public final class HoodConstants {
+  public static final class HoodConstants {
     public static final int leftServoPort = 1;
     public static final int rightServoPort = 2;
 
     public static final double K_MIN_POSITION = 0.01;
     public static final double K_MAX_POSITION = 0.77;
     public static final double K_TOLERANCE = 0.01;
+  }
+
+  public static class VisionConstants {
+    // AprilTag layout
+    public static AprilTagFieldLayout aprilTagLayout =
+        AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
+
+    // Camera names, must match names configured on coprocessor
+    public static String camera0Name = "0_Arducam_OV9281";
+    public static String camera1Name = "1_Arducam_OV9281";
+
+    // Robot to camera transforms
+    // (Not used by Limelight, configure in web UI instead)
+    public static Transform3d robotToCamera0 =
+        new Transform3d(
+            Units.inchesToMeters(11.0),
+            Units.inchesToMeters(11.0),
+            Units.inchesToMeters(6.0),
+            new Rotation3d(0.0, Units.degreesToRadians(90), Units.degreesToRadians(90)));
+    public static Transform3d robotToCamera1 =
+        new Transform3d(
+            Units.inchesToMeters(11.0),
+            -Units.inchesToMeters(11.0),
+            Units.inchesToMeters(6.0),
+            new Rotation3d(0.0, Units.degreesToRadians(90), -Units.degreesToRadians(135)));
+
+    // Basic filtering thresholds
+    public static double maxAmbiguity = 0.3;
+    public static double maxZError = 0.75;
+
+    // Standard deviation baselines, for 1 meter distance and 1 tag
+    // (Adjusted automatically based on distance and # of tags)
+    public static double linearStdDevBaseline = 0.02; // Meters
+    public static double angularStdDevBaseline = 0.06; // Radians
+
+    // Standard deviation multipliers for each camera
+    // (Adjust to trust some cameras more than others)
+    public static double[] cameraStdDevFactors =
+        new double[] {
+          1.0, // Camera 0
+          1.0 // Camera 1
+        };
+
+    // Multipliers to apply for MegaTag 2 observations
+    public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
+    public static double angularStdDevMegatag2Factor =
+        Double.POSITIVE_INFINITY; // No rotation data available
   }
 }
