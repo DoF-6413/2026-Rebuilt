@@ -9,36 +9,30 @@ import frc.robot.Constants.HoodConstants;
 import org.littletonrobotics.junction.Logger;
 
 public class Hood extends SubsystemBase {
-  private final HoodIO io;
-  private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
+  private final HoodIO m_io;
+  private final HoodIOInputsAutoLogged m_inputs = new HoodIOInputsAutoLogged();
 
   public Hood(HoodIO io) {
-    this.io = io;
+    this.m_io = io;
   }
 
   @Override
   public void periodic() {
-    io.updateInputs(inputs);
-    Logger.processInputs("Hood", inputs);
+    m_io.updateInputs(m_inputs);
+    Logger.processInputs("Hood", m_inputs);
   }
 
   public void setPosition(double position) {
     double clamped =
         MathUtil.clamp(position, HoodConstants.K_MIN_POSITION, HoodConstants.K_MAX_POSITION);
-    io.setPosition(clamped);
+    m_io.setPosition(clamped);
   }
 
   public boolean isAtTarget() {
-    return Math.abs(inputs.targetPosition - inputs.currentPosition) < HoodConstants.K_TOLERANCE;
+    return Math.abs(m_inputs.targetPosition - m_inputs.currentPosition) < HoodConstants.K_TOLERANCE;
   }
 
   public Command positionCommand(double position) {
     return runOnce(() -> setPosition(position)).andThen(Commands.waitUntil(this::isAtTarget));
-  }
-
-  @Override
-  public void initSendable(SendableBuilder builder) {
-    builder.addDoubleProperty("Current Position", () -> inputs.currentPosition, null);
-    builder.addDoubleProperty("Target Position", () -> inputs.targetPosition, this::setPosition);
   }
 }
