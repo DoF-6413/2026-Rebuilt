@@ -29,7 +29,7 @@ public class Agitate extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setVoltage(IntakeConstants.INTAKING_VOLTAGE);
+    m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
     if (m_pivot.getAngle() > (PivotConstants.DEPLOYED_ANGLE_ROT + 1)) {
       m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
     } else if (m_pivot.getAngle() < (PivotConstants.AGITATING_ANGLE_ROT - 1)) {
