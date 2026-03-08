@@ -199,7 +199,10 @@ public class RobotContainer {
             drive,
             () -> 0.8 * driverController.getLeftY(),
             () -> 1 * driverController.getLeftX(),
-            () -> 0.8 * driverController.getRightX()));
+            () -> -0.8 * driverController.getRightX()));
+
+    // Switch to X pattern when X button is pressed
+    driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     // Reset gyro to 0° when A button is pressed
     driverController
