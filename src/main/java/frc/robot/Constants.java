@@ -186,7 +186,7 @@ public final class Constants {
     public static double TOLERANCE_DEG = 0.0;
 
     public static double kS = 0.0;
-    public static double kV = 0.0;
+    public static double kV = 12 / 100;
     public static double kA = 0.0;
 
     public static double MAX_VELOCITY_DEG_PER_S = 0.0;

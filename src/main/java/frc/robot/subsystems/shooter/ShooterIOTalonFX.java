@@ -79,10 +79,9 @@ public class ShooterIOTalonFX implements ShooterIO {
             .withSlot0(
                 new Slot0Configs()
                     .withKP(ShooterConstants.kP)
-                    .withKI(ShooterConstants.kI) // 2
+                    .withKI(ShooterConstants.kI)
                     .withKD(ShooterConstants.kD)
-                    .withKV(ShooterConstants.kV) // 12 volts when requesting max RPS
-                );
+                    .withKV(ShooterConstants.kV));
 
     tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(config, 0.25));
 

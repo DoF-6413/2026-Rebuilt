@@ -24,12 +24,7 @@ public class Launch extends Command {
   private final frc.robot.subsystems.hood.Hood m_hood;
   private final double speed;
 
-  public Launch(
-      Shooter shooter,
-      Hopper hopper,
-      Column column,
-      Hood hood,
-      String position) {
+  public Launch(Shooter shooter, Hopper hopper, Column column, Hood hood, String position) {
     m_shooter = shooter;
     m_column = column;
     m_hopper = hopper;
@@ -47,7 +42,7 @@ public class Launch extends Command {
       speed = 0.0;
     }
 
-    addRequirements(shooter);
+    addRequirements(shooter, hopper, column, hood);
   }
 
   @Override

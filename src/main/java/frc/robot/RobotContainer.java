@@ -224,24 +224,21 @@ public class RobotContainer {
         .rightBumper()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0))
-                .alongWith(
-                    new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")));
+                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")));
     // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0.5))
-                .alongWith(
-                    new Launch(m_shooter, m_hopper, m_column, m_hood, "trench")));
+                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench")));
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
         .whileTrue(
             new InstantCommand(() -> m_hood.setPosition(0.35))
-                .alongWith(
-                    new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")));
+                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")));
     // Button Y: Runs the hopper (belts on the bottom) and column to feed balls to the shooter
     auxController.y().whileTrue(new Feed(m_hopper, m_column));
 

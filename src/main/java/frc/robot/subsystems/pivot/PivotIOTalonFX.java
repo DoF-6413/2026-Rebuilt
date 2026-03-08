@@ -2,10 +2,14 @@ package frc.robot.subsystems.pivot;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -19,7 +23,26 @@ public class PivotIOTalonFX implements PivotIO {
 
   // Motor, controller, configurator
   private final TalonFX m_pivotTalonFX = new TalonFX(PivotConstants.CAN_ID, "Drivetrain");
-  private final TalonFXConfiguration m_motorConfig = new TalonFXConfiguration();
+  private final TalonFXConfiguration m_motorConfig =
+      new TalonFXConfiguration()
+          .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Coast))
+          .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
+          .withCurrentLimits(
+              new CurrentLimitsConfigs()
+                  .withStatorCurrentLimit(120)
+                  .withStatorCurrentLimitEnable(true)
+                  .withSupplyCurrentLimit(70)
+                  .withSupplyCurrentLimitEnable(true))
+          .withMotionMagic(
+              new MotionMagicConfigs()
+                  .withMotionMagicCruiseVelocity(100)
+                  .withMotionMagicAcceleration(100))
+          .withSlot0(
+              new Slot0Configs()
+                  .withKP(PivotConstants.kP)
+                  .withKI(PivotConstants.kI)
+                  .withKD(PivotConstants.kD)
+                  .withKV(PivotConstants.kV));
 
   // Used for setting the position of the pivot motor, taken from WCP
   private final MotionMagicVoltage m_pivotMotionMagicRequest =
@@ -36,24 +59,9 @@ public class PivotIOTalonFX implements PivotIO {
   public PivotIOTalonFX() {
     System.out.println("[INIT] PivotIOTalonFX");
 
-    m_motorConfig
-        .MotorOutput
-        .withInverted(
-            PivotConstants.IS_INVERTED
-                ? InvertedValue.CounterClockwise_Positive
-                : InvertedValue.Clockwise_Positive)
-        .withNeutralMode(
-            PivotConstants.IS_BRAKE_MODE_ENABLED ? NeutralModeValue.Brake : NeutralModeValue.Coast)
-        .withControlTimesyncFreqHz(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-
     m_pivotTalonFX.setPosition(0.0);
     m_pivotTalonFX.optimizeBusUtilization();
     m_pivotTalonFX.setExpiration(RobotStateConstants.CAN_CONFIG_TIMEOUT_SEC);
-
-    m_motorConfig
-        .CurrentLimits
-        .withStatorCurrentLimit(PivotConstants.CURRENT_LIMIT)
-        .withStatorCurrentLimitEnable(PivotConstants.ENABLE_CURRENT_LIMIT);
 
     m_pivotTalonFX.getConfigurator().apply(m_motorConfig);
 
