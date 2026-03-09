@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.PivotConstants;
@@ -14,26 +15,37 @@ import frc.robot.subsystems.pivot.Pivot;
 public class Agitate extends Command {
   public Intake m_intake;
   public Pivot m_pivot;
+  private Timer m_timer;
 
   /** Creates a new IntakeRetract. */
   public Agitate(Intake intake, Pivot pivot) {
     m_intake = intake;
     m_pivot = pivot;
+    m_timer = new Timer();
     addRequirements(intake, pivot);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_timer.restart();
+    m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
-    if (m_pivot.getAngle() > (PivotConstants.DEPLOYED_ANGLE_ROT + 1)) {
-      m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
-    } else if (m_pivot.getAngle() < (PivotConstants.AGITATING_ANGLE_ROT - 1)) {
-      m_pivot.setPosition(PivotConstants.AGITATING_ANGLE_ROT);
+    /**
+     * m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE); if (m_pivot.getAngle() >
+     * (PivotConstants.DEPLOYED_ANGLE_ROT + 1)) {
+     * m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT); } else if (m_pivot.getAngle() <
+     * (PivotConstants.AGITATING_ANGLE_ROT - 1)) {
+     * m_pivot.setPosition(PivotConstants.AGITATING_ANGLE_ROT); }
+     */
+    if (Math.sin(5 * m_timer.get()) > 0.0) {
+      m_pivot.setVoltage(2);
+    } else {
+      m_pivot.setVoltage(-2);
     }
   }
 

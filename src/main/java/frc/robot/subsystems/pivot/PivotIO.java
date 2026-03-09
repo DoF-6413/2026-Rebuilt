@@ -34,4 +34,6 @@ public interface PivotIO {
    * @param angle angle for the pivot to go to
    */
   public default void setPosition(double angle) {}
+
+  public default void setVoltage(double volts) {}
 }

@@ -59,4 +59,8 @@ public class Pivot extends SubsystemBase {
   public void setPosition(double angle) {
     m_io.setPosition(angle);
   }
+
+  public void setVoltage(double volts) {
+    m_io.setVoltage(volts);
+  }
 }

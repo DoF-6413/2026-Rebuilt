@@ -7,8 +7,8 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.VisionConstants.*;
 import static frc.robot.Constants.PathFinderConstants.*;
+import static frc.robot.Constants.VisionConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -249,25 +249,17 @@ public class RobotContainer {
     auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
-    auxController
-        .rightBumper()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")));
+    auxController.rightBumper().whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
     // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0.5))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench")));
+        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0.35))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")));
+        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower"));
 
     // Controlling hood
     // Button B: sets the hood to the maximum position
