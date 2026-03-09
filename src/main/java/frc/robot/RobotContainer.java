@@ -27,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.PathFinderConstants;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
@@ -292,8 +291,8 @@ public class RobotContainer {
      * Pose2d(13.652, 4.009, new Rotation2d(Units.degreesToRadians(180))); }
      */
     PathPlannerPath path;
-    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
-      path = PathFinderConstants.bluePath;
+    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+      path = bluePath;
     } else {
       path = redPath;
     }

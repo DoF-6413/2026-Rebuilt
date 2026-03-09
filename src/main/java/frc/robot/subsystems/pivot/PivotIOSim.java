@@ -22,8 +22,7 @@ public class PivotIOSim implements PivotIO {
             PivotConstants.HOMED_ANGLE_ROT,
             PivotConstants.DEPLOYED_ANGLE_ROT,
             false,
-            PivotConstants.HOMED_ANGLE_ROT,
-            null);
+            PivotConstants.HOMED_ANGLE_ROT);
   }
 
   @Override

@@ -220,7 +220,7 @@ public final class Constants {
     public static double MAX_VELOCITY_DEG_PER_S = 0.0;
     public static double MAX_ACCELERATION_DEG_PER_S2 = 0.0;
 
-    public static double MOI_KG_M2 = 0.0;
+    public static double MOI_KG_M2 = 0.1;
   }
 
   public static final class ShooterConstants {
