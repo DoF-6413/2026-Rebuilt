@@ -3,13 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.492918149466193,
-        "y": 4.008102016607354
+        "x": 6.869871238425926,
+        "y": 4.582257450810186
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.749757587434257,
-        "y": 4.046364369670535
+        "x": 7.028964832350455,
+        "y": 4.389412361756363
+      },
+      "isLocked": false,
+      "linkedName": "nz2"
+    },
+    {
+      "anchor": {
+        "x": 4.521014178240741,
+        "y": 5.775253761574074
+      },
+      "prevControl": {
+        "x": 5.644844613841298,
+        "y": 6.040696057960189
+      },
+      "nextControl": {
+        "x": 2.880494478096278,
+        "y": 5.387772427488027
       },
       "isLocked": false,
       "linkedName": null
@@ -20,15 +36,20 @@
         "y": 4.008102016607354
       },
       "prevControl": {
-        "x": 2.7505983235914573,
-        "y": 3.9908160742087273
+        "x": 3.052717686817522,
+        "y": 3.7637235284038915
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "hub"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +69,7 @@
   "folder": "old-paths-need-renaming",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
