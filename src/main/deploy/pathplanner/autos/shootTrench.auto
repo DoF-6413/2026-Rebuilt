@@ -5,21 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "SL11-DPA"
+            "name": "LaunchTrench"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "DP-S2"
+            "pathName": "LSS"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }

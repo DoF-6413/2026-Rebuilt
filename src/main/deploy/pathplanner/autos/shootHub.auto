@@ -7,19 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL1"
+            "pathName": "SL1a"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Launch"
+            "name": "LaunchHub"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }
