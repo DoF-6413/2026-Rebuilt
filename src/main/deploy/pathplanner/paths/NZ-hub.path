@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.869871238425926,
-        "y": 4.582257450810186
+        "x": 8.151648873072363,
+        "y": 4.815041518386713
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.03211885659293,
-        "y": 4.280899437625142
+        "x": 8.313896491239365,
+        "y": 4.513683505201669
       },
       "isLocked": false,
       "linkedName": "nz2"
@@ -63,11 +63,11 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.0,
-      "rotationDegrees": -145.0
+      "rotationDegrees": 45.0
     },
     {
       "waypointRelativePos": 2,
-      "rotationDegrees": -145.0
+      "rotationDegrees": 145.0
     }
   ],
   "constraintZones": [],
@@ -89,7 +89,7 @@
   "folder": "old-paths-need-renaming",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -45.0
   },
   "useDefaultConstraints": true
 }

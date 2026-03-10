@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.1780360519719615,
-        "y": 6.426939967264333
+        "x": 7.540052792670271,
+        "y": 6.875762971050475
       },
       "isLocked": false,
       "linkedName": "NZ1"
     },
     {
       "anchor": {
-        "x": 8.151648873072363,
-        "y": 4.815041518386713
+        "x": 7.904187425860025,
+        "y": 6.8485290628707
       },
       "prevControl": {
-        "x": 8.299307465613024,
-        "y": 4.57718162549506
+        "x": 7.554751915721034,
+        "y": 6.777594986771383
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "nz2"
+      "linkedName": "NZ3"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "old-paths-need-renaming",

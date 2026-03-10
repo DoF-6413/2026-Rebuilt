@@ -7,31 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL-DP1"
+            "pathName": "LTD"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "DP1A"
+            "pathName": "DS-H"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SL2A"
+            "name": "LaunchHub"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }

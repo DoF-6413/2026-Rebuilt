@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "SL1a"
+            "name": "LaunchTrench"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "LaunchHub"
+            "pathName": "LTSS"
           }
         }
       ]

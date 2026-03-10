@@ -1,0 +1,56 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NZ"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NZ2"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "NZ2-intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NZ2-hub"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LaunchHub"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "old-autos-need-renaming",
+  "choreoAuto": false
+}
