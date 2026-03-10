@@ -7,19 +7,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL1a"
+            "pathName": "SL1"
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "LaunchHub"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "old-autos-need-renaming",
   "choreoAuto": false
 }
