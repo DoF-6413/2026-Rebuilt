@@ -42,15 +42,34 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "LaunchHub"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 7.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }

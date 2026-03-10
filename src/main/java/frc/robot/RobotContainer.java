@@ -174,6 +174,7 @@ public class RobotContainer {
         "LaunchHub", new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
     NamedCommands.registerCommand(
         "LaunchTrench", new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
+    NamedCommands.registerCommand("Agitate", new Agitate(m_intake, m_pivot));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -279,17 +280,15 @@ public class RobotContainer {
   }
 
   public Command getPathFindingCommand() {
-    /**
-     * Pose2d targetPose; if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
-     * targetPose = new Pose2d(2.882, 4.009, new Rotation2d()); } else { targetPose = new
-     * Pose2d(13.652, 4.009, new Rotation2d(Units.degreesToRadians(180))); }
-     */
     PathPlannerPath path;
-    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
-      path = bluePath;
-    } else {
-      path = redPath;
+    try {
+      // Load the path you want to follow using its name in the GUI
+      path = PathPlannerPath.fromPathFile("JustShooting");
+      // Create a path following command using AutoBuilder. This will also trigger event markers.
+      return AutoBuilder.followPath(path);
+    } catch (Exception e) {
+      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
     }
-    return AutoBuilder.pathfindThenFollowPath(path, constraints);
   }
 }

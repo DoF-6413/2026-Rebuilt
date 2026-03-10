@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL1"
+            "pathName": "JustShooting"
           }
         },
         {
@@ -33,6 +33,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }

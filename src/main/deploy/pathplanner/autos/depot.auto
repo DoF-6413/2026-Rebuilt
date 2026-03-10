@@ -45,6 +45,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "old-autos-need-renaming",
+  "folder": null,
   "choreoAuto": false
 }
