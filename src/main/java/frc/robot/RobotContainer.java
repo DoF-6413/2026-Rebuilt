@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -28,6 +29,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
 import frc.robot.generated.TunerConstants;
@@ -59,6 +61,7 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIO;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import java.util.Set;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -113,6 +116,14 @@ public class RobotContainer {
          * m_vision = new Vision( drive::addVisionMeasurement, new VisionIOPhotonVision(camera0Name,
          * robotToCamera0), new VisionIOPhotonVision(camera1Name, robotToCamera1));
          */
+
+        // The ModuleIOTalonFXS implementation provides an example implementation for
+        // TalonFXS controller connected to a CANdi with a PWM encoder. The
+        // implementations of ModuleIOTalonFX, ModuleIOTalonFXS, and ModuleIOSpark (from the Spark
+        // swerve template) can be freely intermixed to support alternative hardware
+        // arrangements.
+        // Please see the AdvantageKit template documentation for more information:
+        // https://docs.advantagekit.org/getting-started/template-projects/talonfx-swerve-template#custom-module-implementations
         break;
 
       case SIM:
@@ -225,44 +236,37 @@ public class RobotContainer {
   }
 
   public void auxControllerBindings() {
-
-    // // D-pad Up: Deploy intake pivot and run intake rollers
+    // D-pad Up: Deploy intake pivot and run intake rollers
     auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot));
-
     // D-pad Down: Retract the intake back up
-    // auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
-
+    auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController.rightBumper().whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
-
     // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
         .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
-
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
         .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower"));
 
+    // Controlling hood
     // Button B: sets the hood to the maximum position
     auxController
         .b()
         .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)));
-
     // Button X: sets the hood to the minimum position
     auxController
         .x()
         .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
-
     // Right Trigger: agitate the balls by moving the pivot up and down
     auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot));
-
     // Path find to in front of hub when Y button pressed
-    // auxController.y().onTrue(new DeferredCommand(() -> getPathFindingCommand(), Set.of(drive)));
+    auxController.y().onTrue(new DeferredCommand(() -> getPathFindingCommand(), Set.of(drive)));
   }
 
   /**
