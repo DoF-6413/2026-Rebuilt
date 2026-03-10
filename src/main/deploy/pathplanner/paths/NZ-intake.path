@@ -3,48 +3,69 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0,
-        "y": 2.75
+        "x": 6.869871238425926,
+        "y": 6.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2988906451211104,
-        "y": 2.77138102972977
+        "x": 7.6413891808100445,
+        "y": 6.238947394821278
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "nz"
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 3.0
+        "x": 8.013987702546297,
+        "y": 5.431323350694445
       },
       "prevControl": {
-        "x": 1.7813225020829846,
-        "y": 2.605002055289219
+        "x": 7.746628796369936,
+        "y": 5.8173830340381
       },
       "nextControl": {
-        "x": 2.4421484691925754,
-        "y": 3.7986543574518192
+        "x": 8.17124539061783,
+        "y": 5.204247117744104
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.5,
-        "y": 6.0
+        "x": 8.013987702546297,
+        "y": 4.712691189236112
       },
       "prevControl": {
-        "x": 0.18577754405237706,
-        "y": 6.331017095515401
+        "x": 8.168484397796425,
+        "y": 4.9092383112114515
+      },
+      "nextControl": {
+        "x": 7.687220347465611,
+        "y": 4.296985318682547
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.869871238425926,
+        "y": 4.582257450810186
+      },
+      "prevControl": {
+        "x": 7.153579099291151,
+        "y": 4.541338381110275
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "nz2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -58,7 +79,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "old-paths-need-renaming",

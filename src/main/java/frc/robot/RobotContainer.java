@@ -27,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.PathFinderConstants;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.commands.Agitate;
 import frc.robot.commands.DriveCommands;
@@ -249,25 +248,17 @@ public class RobotContainer {
     auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
-    auxController
-        .rightBumper()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")));
+    auxController.rightBumper().whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
     // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0.5))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench")));
+        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
-        .whileTrue(
-            new InstantCommand(() -> m_hood.setPosition(0.35))
-                .alongWith(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")));
+        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower"));
 
     // Controlling hood
     // Button B: sets the hood to the maximum position
@@ -300,8 +291,8 @@ public class RobotContainer {
      * Pose2d(13.652, 4.009, new Rotation2d(Units.degreesToRadians(180))); }
      */
     PathPlannerPath path;
-    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
-      path = PathFinderConstants.bluePath;
+    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+      path = bluePath;
     } else {
       path = redPath;
     }

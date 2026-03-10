@@ -5,15 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "LaunchTrench"
+            "pathName": "LTD"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LTSS"
+            "pathName": "DP-LT"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LaunchTrench"
           }
         }
       ]

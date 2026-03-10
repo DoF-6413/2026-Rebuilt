@@ -23,6 +23,7 @@ public class Launch extends Command {
   private final Hopper m_hopper;
   private final frc.robot.subsystems.hood.Hood m_hood;
   private final double speed;
+  private final double hoodSetpoint;
 
   public Launch(Shooter shooter, Hopper hopper, Column column, Hood hood, String position) {
     m_shooter = shooter;
@@ -31,15 +32,16 @@ public class Launch extends Command {
     m_hood = hood;
     if (position.equals("trench")) {
       speed = SETPOINT_1_RPM;
-      m_hood.setPosition(0.5);
+      hoodSetpoint = 0.5;
     } else if (position.equals("hub")) {
       speed = SETPOINT_2_RPM;
-      m_hood.setPosition(0);
+      hoodSetpoint = 0.0;
     } else if (position.equals("tower")) {
       speed = SETPOINT_3_RPM;
-      m_hood.setPosition(0.35);
+      hoodSetpoint = 0.35;
     } else {
       speed = 0.0;
+      hoodSetpoint = 0.0;
     }
 
     addRequirements(shooter, hopper, column, hood);
@@ -48,8 +50,7 @@ public class Launch extends Command {
   @Override
   public void initialize() {
     m_shooter.setVelocity(speed);
-    m_hopper.setVoltage(0.0);
-    m_column.setVoltage(0);
+    m_hood.setPosition(hoodSetpoint);
   }
 
   @Override
@@ -65,5 +66,7 @@ public class Launch extends Command {
   @Override
   public void end(boolean interrupted) {
     m_shooter.setVelocity(0.0);
+    m_hopper.setVoltage(0.0);
+    m_column.setVoltage(0.0);
   }
 }
