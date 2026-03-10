@@ -118,7 +118,7 @@ public final class Constants {
     public static final boolean ENABLE_CURRENT_LIMIT = true;
     public static final int CURRENT_LIMIT = 30;
 
-    public static final double LAUNCHING_VOLTAGE = -6.0;
+    public static final double LAUNCHING_VOLTAGE = -12.0;
 
     /* PID & FF Constants */
     public static double kP = 0.0;
@@ -151,7 +151,7 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 30;
+    public static final int CURRENT_LIMIT = 50;
 
     public static final double INTAKING_VOLTAGE = 8.0;
 
@@ -190,7 +190,7 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 10;
+    public static final int CURRENT_LIMIT = 2; // 10 was too much
 
     /* Angle positions */
     /* These are measured in rotations because that's what Phoenix Tuner X gives them in, and it's also what all the methods ask for */
@@ -224,8 +224,6 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final double SPINUP_SEC = 2.0;
-
     public static final int MIDDLE_CAN_ID = 15;
     public static final int RIGHT_CAN_ID = 16;
     public static final int LEFT_CAN_ID = 17;
@@ -239,7 +237,7 @@ public final class Constants {
     public static double kV = 12.0 / 100;
 
     // Shooter speed setpoints
-    public static final double SETPOINT_1_RPM = 3600.0; // Meant for shooting from trench
+    public static final double SETPOINT_1_RPM = 3500; // Meant for shooting from trench
     public static final double SETPOINT_2_RPM = 3000; // Meant for shooting from hub
     public static final double SETPOINT_3_RPM = 3150; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
@@ -252,6 +250,10 @@ public final class Constants {
     public static final double K_MIN_POSITION = 0.01;
     public static final double K_MAX_POSITION = 0.77;
     public static final double K_TOLERANCE = 0.01;
+
+    public static final double SETPOINT_1 = 0.6;
+    public static final double SETPOINT_2 = 0.0;
+    public static final double SETPOINT_3 = 0.35;
   }
 
   public static class VisionConstants {

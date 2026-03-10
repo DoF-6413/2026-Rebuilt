@@ -29,12 +29,12 @@ public class PivotIOTalonFX implements PivotIO {
   private final TalonFXConfiguration m_motorConfig =
       new TalonFXConfiguration()
           .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Coast))
-          .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
+          .withVoltage(new VoltageConfigs().withPeakReverseVoltage(-2))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
-                  .withStatorCurrentLimit(120)
+                  .withStatorCurrentLimit(PivotConstants.CURRENT_LIMIT * 5) // 10
                   .withStatorCurrentLimitEnable(true)
-                  .withSupplyCurrentLimit(70)
+                  .withSupplyCurrentLimit(PivotConstants.CURRENT_LIMIT)
                   .withSupplyCurrentLimitEnable(true))
           .withMotionMagic(
               new MotionMagicConfigs()

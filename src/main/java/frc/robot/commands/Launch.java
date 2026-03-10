@@ -11,6 +11,7 @@ import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ColumnConstants;
+import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.HopperConstants;
 import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.hood.Hood;
@@ -32,13 +33,13 @@ public class Launch extends Command {
     m_hood = hood;
     if (position.equals("trench")) {
       speed = SETPOINT_1_RPM;
-      hoodSetpoint = 0.5;
+      hoodSetpoint = HoodConstants.SETPOINT_1;
     } else if (position.equals("hub")) {
       speed = SETPOINT_2_RPM;
-      hoodSetpoint = 0.0;
+      hoodSetpoint = HoodConstants.SETPOINT_2;
     } else if (position.equals("tower")) {
       speed = SETPOINT_3_RPM;
-      hoodSetpoint = 0.35;
+      hoodSetpoint = HoodConstants.SETPOINT_3;
     } else {
       speed = 0.0;
       hoodSetpoint = 0.0;
@@ -68,5 +69,6 @@ public class Launch extends Command {
     m_shooter.setVelocity(0.0);
     m_hopper.setVoltage(0.0);
     m_column.setVoltage(0.0);
+    m_hood.setPosition(HoodConstants.K_MIN_POSITION);
   }
 }
