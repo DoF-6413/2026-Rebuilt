@@ -3,67 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9555634638196917,
-        "y": 5.858683274021352
+        "x": 7.785836298932384,
+        "y": 4.535302491103202
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.841983574877459,
-        "y": 5.619013947881936
+        "x": 7.948083917099387,
+        "y": 4.2339444779181585
       },
       "isLocked": false,
-      "linkedName": "bump"
+      "linkedName": "NZ4"
     },
     {
       "anchor": {
-        "x": 5.23590747330961,
-        "y": 5.858683274021352
+        "x": 5.523739945023149,
+        "y": 5.591084997106481
       },
       "prevControl": {
-        "x": 4.385931198102018,
-        "y": 5.9124792408066424
+        "x": 6.221937082216011,
+        "y": 5.44810002723139
       },
       "nextControl": {
-        "x": 5.505525706513398,
-        "y": 5.841618828881872
+        "x": 4.343232653981056,
+        "y": 5.832843077246465
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.010569395017794,
-        "y": 5.858683274021352
+        "x": 3.6887445746527785,
+        "y": 5.591084997106481
       },
       "prevControl": {
-        "x": 5.775764402064326,
-        "y": 5.772854285421218
+        "x": 3.924496255177179,
+        "y": 5.756171555906833
       },
       "nextControl": {
-        "x": 6.358990208260697,
-        "y": 5.986042601571091
+        "x": 2.889964698692512,
+        "y": 5.031734494628924
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.054,
-        "y": 6.644
+        "x": 3.0,
+        "y": 4.008102016607354
       },
       "prevControl": {
-        "x": 6.839903934936609,
-        "y": 6.514915241316521
+        "x": 3.027441688852841,
+        "y": 3.759612673349129
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "NZ1"
+      "linkedName": "hub"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 45.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 145.0
     }
   ],
   "constraintZones": [],
@@ -79,7 +83,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "old-paths-need-renaming",
