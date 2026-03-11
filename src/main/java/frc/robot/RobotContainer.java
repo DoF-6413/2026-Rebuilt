@@ -284,8 +284,10 @@ public class RobotContainer {
     try {
       // Load the path you want to follow using its name in the GUI
       path = PathPlannerPath.fromPathFile("JustShooting");
-      // Create a path following command using AutoBuilder. This will also trigger event markers.
-      return AutoBuilder.followPath(path);
+      return AutoBuilder.pathfindThenFollowPath(path, constraints)
+          .andThen(
+              new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")
+                  .alongWith(new Agitate(m_intake, m_pivot)));
     } catch (Exception e) {
       DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
       return Commands.none();
