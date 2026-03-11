@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.PathFinderConstants.*;
+import static frc.robot.Constants.VisionConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -61,6 +61,10 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIO;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionIO;
+import frc.robot.subsystems.vision.VisionIOPhotonVision;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import java.util.Set;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -79,7 +83,7 @@ public class RobotContainer {
   private final Pivot m_pivot;
   private final Shooter m_shooter;
   private final Hood m_hood;
-  // private final Vision m_vision;
+  private final Vision m_vision;
 
   // Controller
   private final CommandXboxController driverController =
@@ -112,10 +116,12 @@ public class RobotContainer {
         m_shooter = new Shooter(new ShooterIOTalonFX());
         m_hood =
             new Hood(new HoodIOServo(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
-        /**
-         * m_vision = new Vision( drive::addVisionMeasurement, new VisionIOPhotonVision(camera0Name,
-         * robotToCamera0), new VisionIOPhotonVision(camera1Name, robotToCamera1));
-         */
+
+        m_vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOPhotonVision(camera0Name, robotToCamera0),
+                new VisionIOPhotonVision(camera1Name, robotToCamera1));
 
         // The ModuleIOTalonFXS implementation provides an example implementation for
         // TalonFXS controller connected to a CANdi with a PWM encoder. The
@@ -141,11 +147,13 @@ public class RobotContainer {
         m_pivot = new Pivot(new PivotIOSim());
         m_shooter = new Shooter(new ShooterIOSim());
         m_hood = new Hood(new HoodIOSim(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
-        /**
-         * m_vision = new Vision( drive::addVisionMeasurement, new
-         * VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose), new
-         * VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
-         */
+
+        m_vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
+                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
+
         break;
 
       default:
@@ -164,7 +172,7 @@ public class RobotContainer {
         m_pivot = new Pivot(new PivotIO() {});
         m_shooter = new Shooter(new ShooterIO() {});
         m_hood = new Hood(new HoodIO() {});
-        // m_vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+        m_vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
         break;
     }
 

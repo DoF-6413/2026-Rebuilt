@@ -20,14 +20,16 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.units.measure.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.Constants.ShooterConstants;
 
 /**
- * This superstructure implementation is for Talon FXs driving motors like the Falon 500, Kraken
+ * This superstructure implementation is for Talon FXs driving motors like the Falcon 500, Kraken
  * X44, or Kraken X60.
  */
 public class ShooterIOTalonFX implements ShooterIO {
+
   private final TalonFX m_middleShooter = new TalonFX(ShooterConstants.MIDDLE_CAN_ID, "Drivetrain");
   private final TalonFX m_rightShooter = new TalonFX(ShooterConstants.RIGHT_CAN_ID, "Drivetrain");
   private final TalonFX m_leftShooter = new TalonFX(ShooterConstants.LEFT_CAN_ID, "Drivetrain");
@@ -53,15 +55,25 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   private final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
 
-  //   private final VoltageOut voltageRequest = new VoltageOut(0.0);
+  // Track the last velocity setpoint
+  private double m_targetVelocityRPS = 0.0;
+
+  // SmartDashboard PID tuning cache
+  private double m_lastKP = ShooterConstants.kP;
+  private double m_lastKI = ShooterConstants.kI;
+  private double m_lastKD = ShooterConstants.kD;
+  private double m_lastKV = ShooterConstants.kV;
+
+  // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
   public ShooterIOTalonFX() {
+
     var shooterConfig = new TalonFXConfiguration();
-    shooterConfig.MotorOutput.Inverted =
-        InvertedValue.CounterClockwise_Positive; // TODO: migrate to init
+    shooterConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     shooterConfig.CurrentLimits.SupplyCurrentLimit = ShooterConstants.CURRENT_LIMIT;
     shooterConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
     shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+
     // tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(shooterConfig, 0.25));
     tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(shooterConfig, 0.25));
     tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(shooterConfig, 0.25));
@@ -89,6 +101,7 @@ public class ShooterIOTalonFX implements ShooterIO {
         new Follower(
             m_middleShooter.getDeviceID(),
             MotorAlignmentValue.Opposed)); // * Mounted inverted! Keep opposite */
+
     m_leftShooter.setControl(
         new Follower(m_middleShooter.getDeviceID(), MotorAlignmentValue.Aligned));
 
@@ -110,10 +123,39 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_middleShooter.optimizeBusUtilization();
     m_rightShooter.optimizeBusUtilization();
     m_leftShooter.optimizeBusUtilization();
+
+    // Initialize SmartDashboard PID tuning values
+    SmartDashboard.putNumber("Shooter/kP", ShooterConstants.kP);
+    SmartDashboard.putNumber("Shooter/kI", ShooterConstants.kI);
+    SmartDashboard.putNumber("Shooter/kD", ShooterConstants.kD);
+    SmartDashboard.putNumber("Shooter/kV", ShooterConstants.kV);
+  }
+
+  private void updatePIDFromDashboard() {
+
+    double kP = SmartDashboard.getNumber("Shooter/kP", m_lastKP);
+    double kI = SmartDashboard.getNumber("Shooter/kI", m_lastKI);
+    double kD = SmartDashboard.getNumber("Shooter/kD", m_lastKD);
+    double kV = SmartDashboard.getNumber("Shooter/kV", m_lastKV);
+
+    if (kP != m_lastKP || kI != m_lastKI || kD != m_lastKD || kV != m_lastKV) {
+
+      var slotConfig = new Slot0Configs().withKP(kP).withKI(kI).withKD(kD).withKV(kV);
+
+      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(slotConfig, 0.25));
+
+      m_lastKP = kP;
+      m_lastKI = kI;
+      m_lastKD = kD;
+      m_lastKV = kV;
+    }
   }
 
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
+
+    updatePIDFromDashboard();
+
     BaseStatusSignal.refreshAll(
         middleShooterVelocityRotPerSec,
         middleShooterAppliedVolts,
@@ -128,12 +170,14 @@ public class ShooterIOTalonFX implements ShooterIO {
         leftShooterCurrentAmps,
         leftShooterTempCelsius);
 
-    // Motor rotations -> feeder rotations * gear ratio
+    // Motor rotations -> shooter rotations * gear ratio
     inputs.middleShooterRPS =
         middleShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.middleShooterAppliedVolts = middleShooterAppliedVolts.getValueAsDouble();
     inputs.middleShooterCurrentAmps = middleShooterCurrentAmps.getValueAsDouble();
     inputs.middleShooterTempCelsius = middleShooterTempCelsius.getValueAsDouble();
+    inputs.velocityErrorRPS =
+        m_targetVelocityRPS - inputs.middleShooterRPS; // Compute the velocity error
 
     inputs.rightShooterRPS =
         rightShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
@@ -150,6 +194,7 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   @Override
   public void setVelocity(double velocityRPM) {
-    m_middleShooter.setControl(velocityRequest.withVelocity(velocityRPM / 60.0));
+    m_targetVelocityRPS = velocityRPM / 60.0;
+    m_middleShooter.setControl(velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0));
   }
 }

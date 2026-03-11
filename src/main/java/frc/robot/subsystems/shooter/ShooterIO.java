@@ -18,6 +18,7 @@ public interface ShooterIO {
     public double leftShooterCurrentAmps = 0.0;
     public double leftShooterTempCelsius = 0.0;
     public double leftShooterRPS = 0.0;
+    public double velocityErrorRPS = 0.0;
   }
 
   /** Update the set of loggable inputs. */

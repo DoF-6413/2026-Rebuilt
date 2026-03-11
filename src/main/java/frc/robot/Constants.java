@@ -231,10 +231,10 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 30;
 
     // PID and FF
-    public static double kP = 0.5; // 0.05
+    public static double kP = 0.505; // 0.05
     public static double kI = 2;
     public static double kD = 0.0;
-    public static double kV = 12.0 / 100;
+    public static double kV = 0.125;
 
     // Shooter speed setpoints
     public static final double SETPOINT_1_RPM = 3500; // Meant for shooting from trench
