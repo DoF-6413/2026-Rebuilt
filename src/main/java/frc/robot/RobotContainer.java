@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.PathFinderConstants.*;
 import static frc.robot.Constants.VisionConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -16,6 +17,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
@@ -50,6 +53,8 @@ import frc.robot.subsystems.hood.HoodIOSim;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.hopper.HopperIO;
 import frc.robot.subsystems.hopper.HopperIOTalonFX;
+import frc.robot.subsystems.hub.HubStateManager;
+import frc.robot.subsystems.hub.HubStateManager.HubIndicator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeIO;
 import frc.robot.subsystems.intake.IntakeIOTalonFX;
@@ -84,6 +89,7 @@ public class RobotContainer {
   private final Shooter m_shooter;
   private final Hood m_hood;
   private final Vision m_vision;
+  private final HubStateManager m_hubState = new HubStateManager();
 
   // Controller
   private final CommandXboxController driverController =
@@ -276,6 +282,14 @@ public class RobotContainer {
     auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot));
     // Path find to in front of hub when Y button pressed
     auxController.y().onTrue(new DeferredCommand(() -> getPathFindingCommand(), Set.of(drive)));
+
+    new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
+        .whileTrue(
+            Commands.startEnd(
+                () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 1.0),
+                () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 0.0),
+                m_hubState // Requirement ensures no other command uses rumble simultaneously
+                ));
   }
 
   /**
