@@ -67,7 +67,7 @@ public class Robot extends LoggedRobot {
     }
 
     // Start AdvantageKit logger
-    Logger.start();
+    // Logger.start();
 
     // Starts capturing camera footage
     CameraServer.startAutomaticCapture();
@@ -111,8 +111,7 @@ public class Robot extends LoggedRobot {
 
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {
-      CommandScheduler.getInstance()
-          .schedule(autonomousCommand.andThen(robotContainer.getPathFindingCommand()));
+      CommandScheduler.getInstance().schedule(autonomousCommand);
     }
   }
 

@@ -1,6 +1,6 @@
 package frc.robot.subsystems.hopper;
-
 import org.littletonrobotics.junction.AutoLog;
+
 
 public interface HopperIO {
 
@@ -9,7 +9,6 @@ public interface HopperIO {
     public double hopperRPM = 0.0;
     public double hopperAppliedVolts = 0.0;
     public double hopperCurrentAmps = 0.0;
-    public double hopperTempCelsius = 0.0;
   }
 
   /** Update the set of loggable inputs. */

@@ -1,6 +1,6 @@
 package frc.robot.subsystems.intake;
-
 import org.littletonrobotics.junction.AutoLog;
+
 
 public interface IntakeIO {
 
@@ -9,7 +9,6 @@ public interface IntakeIO {
     public double intakeRPM = 0.0;
     public double intakeAppliedVolts = 0.0;
     public double intakeCurrentAmps = 0.0;
-    public double intakeTempCelsius = 0.0;
   }
 
   /** Update the set of loggable inputs. */

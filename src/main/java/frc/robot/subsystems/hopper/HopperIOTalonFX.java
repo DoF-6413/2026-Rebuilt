@@ -9,7 +9,6 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.Constants.HopperConstants;
 import frc.robot.Constants.RobotStateConstants;
@@ -23,7 +22,6 @@ public class HopperIOTalonFX implements HopperIO {
   private final StatusSignal<AngularVelocity> hopperVelocityRotPerSec = m_hopper.getVelocity();
   private final StatusSignal<Voltage> hopperAppliedVolts = m_hopper.getMotorVoltage();
   private final StatusSignal<Current> hopperCurrentAmps = m_hopper.getSupplyCurrent();
-  private final StatusSignal<Temperature> hopperTempCelsius = m_hopper.getDeviceTemp();
 
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
@@ -40,6 +38,10 @@ public class HopperIOTalonFX implements HopperIO {
         .withNeutralMode(
             HopperConstants.IS_BRAKE_MODE_ENABLED ? NeutralModeValue.Brake : NeutralModeValue.Coast)
         .withControlTimesyncFreqHz(RobotStateConstants.UPDATE_FREQUENCY_HZ);
+    m_motorConfig.CurrentLimits.SupplyCurrentLimitEnable = HopperConstants.ENABLE_CURRENT_LIMIT;
+    m_motorConfig.CurrentLimits.SupplyCurrentLimit = HopperConstants.CURRENT_LIMIT;
+    m_motorConfig.CurrentLimits.StatorCurrentLimitEnable = HopperConstants.ENABLE_CURRENT_LIMIT;
+    m_motorConfig.CurrentLimits.StatorCurrentLimit = HopperConstants.CURRENT_LIMIT;
 
     m_hopper.getConfigurator().apply(m_motorConfig);
 
@@ -47,8 +49,7 @@ public class HopperIOTalonFX implements HopperIO {
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
         hopperAppliedVolts,
         hopperCurrentAmps,
-        hopperVelocityRotPerSec,
-        hopperTempCelsius);
+        hopperVelocityRotPerSec);
 
     m_hopper.setPosition(0.0);
     m_hopper.optimizeBusUtilization();
@@ -57,13 +58,11 @@ public class HopperIOTalonFX implements HopperIO {
 
   @Override
   public void updateInputs(HopperIOInputs inputs) {
-    BaseStatusSignal.refreshAll(
-        hopperVelocityRotPerSec, hopperAppliedVolts, hopperCurrentAmps, hopperTempCelsius);
+    BaseStatusSignal.refreshAll(hopperVelocityRotPerSec, hopperAppliedVolts, hopperCurrentAmps);
 
     inputs.hopperRPM = hopperVelocityRotPerSec.getValueAsDouble() * 60 / HopperConstants.GEAR_RATIO;
     inputs.hopperAppliedVolts = hopperAppliedVolts.getValueAsDouble();
     inputs.hopperCurrentAmps = hopperCurrentAmps.getValueAsDouble();
-    inputs.hopperTempCelsius = hopperTempCelsius.getValueAsDouble();
   }
 
   @Override

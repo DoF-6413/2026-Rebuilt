@@ -23,7 +23,6 @@ public class IntakeIOTalonFX implements IntakeIO {
   private final StatusSignal<AngularVelocity> intakeVelocityRotPerSec = m_intake.getVelocity();
   private final StatusSignal<Voltage> intakeAppliedVolts = m_intake.getMotorVoltage();
   private final StatusSignal<Current> intakeCurrentAmps = m_intake.getSupplyCurrent();
-  private final StatusSignal<Temperature> intakeTempCelsius = m_intake.getDeviceTemp();
 
   private VoltageOut voltageRequest = new VoltageOut(0.0);
 
@@ -42,8 +41,7 @@ public class IntakeIOTalonFX implements IntakeIO {
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
         intakeVelocityRotPerSec,
         intakeAppliedVolts,
-        intakeCurrentAmps,
-        intakeTempCelsius);
+        intakeCurrentAmps);
 
     m_intake.setPosition(0.0);
     m_intake.optimizeBusUtilization();
@@ -52,13 +50,11 @@ public class IntakeIOTalonFX implements IntakeIO {
 
   @Override
   public void updateInputs(IntakeIOInputs inputs) {
-    BaseStatusSignal.refreshAll(
-        intakeVelocityRotPerSec, intakeAppliedVolts, intakeCurrentAmps, intakeTempCelsius);
+    BaseStatusSignal.refreshAll(intakeVelocityRotPerSec, intakeAppliedVolts, intakeCurrentAmps);
 
     inputs.intakeRPM = intakeVelocityRotPerSec.getValueAsDouble() * 60 / IntakeConstants.GEAR_RATIO;
     inputs.intakeAppliedVolts = intakeAppliedVolts.getValueAsDouble();
     inputs.intakeCurrentAmps = intakeCurrentAmps.getValueAsDouble();
-    inputs.intakeTempCelsius = intakeTempCelsius.getValueAsDouble();
   }
 
   @Override

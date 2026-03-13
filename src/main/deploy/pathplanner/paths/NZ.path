@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9555634638196917,
-        "y": 5.858683274021352
+        "x": 3.923285883748518,
+        "y": 5.503629893238434
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.841983574877459,
-        "y": 5.619013947881936
+        "x": 4.4219446754124005,
+        "y": 5.563448765956314
       },
       "isLocked": false,
       "linkedName": "bump"
     },
     {
       "anchor": {
-        "x": 5.23590747330961,
-        "y": 5.858683274021352
+        "x": 6.0213285883748515,
+        "y": 5.6112218268090155
       },
       "prevControl": {
-        "x": 4.385931198102018,
-        "y": 5.9124792408066424
+        "x": 5.743500104545133,
+        "y": 5.4950025726000025
       },
       "nextControl": {
-        "x": 5.505525706513398,
-        "y": 5.841618828881872
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 6.010569395017794,
-        "y": 5.858683274021352
-      },
-      "prevControl": {
-        "x": 5.775764402064326,
-        "y": 5.772854285421218
-      },
-      "nextControl": {
-        "x": 6.358990208260697,
-        "y": 5.986042601571091
+        "x": 6.40039997441345,
+        "y": 5.769792298670296
       },
       "isLocked": false,
       "linkedName": null
@@ -52,8 +36,8 @@
         "y": 6.644
       },
       "prevControl": {
-        "x": 6.839903934936609,
-        "y": 6.514915241316521
+        "x": 6.842933312862287,
+        "y": 6.510019204433208
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,15 +46,15 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -45.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 4.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -85,7 +69,7 @@
   "folder": "old-paths-need-renaming",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -45.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

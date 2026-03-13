@@ -28,7 +28,6 @@ public class ColumnIOTalonFX implements ColumnIO {
   private final StatusSignal<AngularVelocity> columnVelocityRotPerSec = m_column.getVelocity();
   private final StatusSignal<Voltage> columnAppliedVolts = m_column.getMotorVoltage();
   private final StatusSignal<Current> columnCurrentAmps = m_column.getSupplyCurrent();
-  private final StatusSignal<Temperature> columnTempCelsius = m_column.getDeviceTemp();
 
   private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
@@ -40,6 +39,8 @@ public class ColumnIOTalonFX implements ColumnIO {
             : InvertedValue.Clockwise_Positive;
     columnConfig.CurrentLimits.SupplyCurrentLimitEnable = ColumnConstants.ENABLE_CURRENT_LIMIT;
     columnConfig.CurrentLimits.SupplyCurrentLimit = ColumnConstants.CURRENT_LIMIT;
+    columnConfig.CurrentLimits.StatorCurrentLimitEnable = ColumnConstants.ENABLE_CURRENT_LIMIT;
+    columnConfig.CurrentLimits.StatorCurrentLimit = ColumnConstants.CURRENT_LIMIT;
     columnConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     tryUntilOk(
         5,
@@ -52,22 +53,19 @@ public class ColumnIOTalonFX implements ColumnIO {
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
         columnVelocityRotPerSec,
         columnAppliedVolts,
-        columnCurrentAmps,
-        columnTempCelsius);
+        columnCurrentAmps);
 
     m_column.optimizeBusUtilization();
   }
 
   @Override
   public void updateInputs(ColumnIOInputs inputs) {
-    BaseStatusSignal.refreshAll(
-        columnVelocityRotPerSec, columnAppliedVolts, columnCurrentAmps, columnTempCelsius);
+    BaseStatusSignal.refreshAll(columnVelocityRotPerSec, columnAppliedVolts, columnCurrentAmps);
 
     // Motor rotations -> feeder rotations * 60 sec/min
     inputs.columnRPM = columnVelocityRotPerSec.getValueAsDouble() * 60 / ColumnConstants.GEAR_RATIO;
     inputs.columnAppliedVolts = columnAppliedVolts.getValueAsDouble();
     inputs.columnCurrentAmps = columnCurrentAmps.getValueAsDouble();
-    inputs.columnTempCelsius = columnTempCelsius.getValueAsDouble();
   }
 
   @Override

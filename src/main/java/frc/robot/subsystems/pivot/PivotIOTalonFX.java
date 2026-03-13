@@ -3,7 +3,6 @@ package frc.robot.subsystems.pivot;
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -12,10 +11,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.RobotStateConstants;
@@ -35,10 +31,6 @@ public class PivotIOTalonFX implements PivotIO {
                   .withStatorCurrentLimitEnable(true)
                   .withSupplyCurrentLimit(PivotConstants.CURRENT_LIMIT)
                   .withSupplyCurrentLimitEnable(true))
-          .withMotionMagic(
-              new MotionMagicConfigs()
-                  .withMotionMagicCruiseVelocity(100)
-                  .withMotionMagicAcceleration(100))
           .withSlot0(
               new Slot0Configs()
                   .withKP(PivotConstants.kP)
@@ -49,9 +41,6 @@ public class PivotIOTalonFX implements PivotIO {
   // Status signals
   private StatusSignal<Voltage> m_appliedVolts;
   private StatusSignal<Current> m_currentAmps;
-  private StatusSignal<Temperature> m_tempCelsius;
-  private StatusSignal<Angle> m_positionRot;
-  private StatusSignal<AngularVelocity> m_velocityRotPerSec;
 
   // Constructor
   public PivotIOTalonFX() {
@@ -64,31 +53,19 @@ public class PivotIOTalonFX implements PivotIO {
     m_pivotTalonFX.getConfigurator().apply(m_motorConfig);
 
     // Update IOs
-    m_positionRot = m_pivotTalonFX.getPosition();
-    m_velocityRotPerSec = m_pivotTalonFX.getVelocity();
     m_appliedVolts = m_pivotTalonFX.getMotorVoltage();
     m_currentAmps = m_pivotTalonFX.getStatorCurrent();
-    m_tempCelsius = m_pivotTalonFX.getDeviceTemp();
 
-    m_positionRot.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-    m_velocityRotPerSec.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
     m_appliedVolts.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
     m_currentAmps.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-    m_tempCelsius.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
   }
 
   @Override
   public void updateInputs(PivotIOInputs inputs) {
-    inputs.isOK =
-        BaseStatusSignal.refreshAll(
-                m_positionRot, m_velocityRotPerSec, m_appliedVolts, m_currentAmps, m_tempCelsius)
-            .isOK();
+    inputs.isOK = BaseStatusSignal.refreshAll(m_appliedVolts, m_currentAmps).isOK();
 
     inputs.appliedVoltage = m_appliedVolts.getValueAsDouble();
     inputs.currentAmps = m_currentAmps.getValueAsDouble();
-    inputs.tempCelsius = m_tempCelsius.getValueAsDouble();
-    inputs.relativePosRot = m_positionRot.getValueAsDouble();
-    inputs.velocityRadPerSec = m_velocityRotPerSec.getValueAsDouble();
   }
 
   @Override

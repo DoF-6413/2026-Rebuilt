@@ -1,14 +1,11 @@
 package frc.robot.subsystems.column;
 
-import org.littletonrobotics.junction.AutoLog;
-
 public interface ColumnIO {
 
-  @AutoLog
+  // @AutoLog
   public static class ColumnIOInputs {
     public double columnAppliedVolts = 0.0;
     public double columnCurrentAmps = 0.0;
-    public double columnTempCelsius = 0.0;
     public double columnRPM = 0.0;
   }
 

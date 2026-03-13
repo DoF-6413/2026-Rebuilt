@@ -98,8 +98,8 @@ public final class Constants {
     public static final boolean IS_INVERTED = false; // false = CCW
     public static final boolean ENABLE_CURRENT_LIMIT = true;
 
-    public static final double INTAKING_VOLTAGE = -12.0;
-    public static final double LAUNCHING_VOLTAGE = -12.0;
+    public static final double INTAKING_VOLTAGE = -8; // -12.0;
+    public static final double LAUNCHING_VOLTAGE = -8; // -12.0;
   }
 
   public static class HopperConstants {
@@ -116,9 +116,9 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 30;
+    public static final int CURRENT_LIMIT = 20;
 
-    public static final double LAUNCHING_VOLTAGE = -12.0;
+    public static final double LAUNCHING_VOLTAGE = -6.0;
 
     /* PID & FF Constants */
     public static double kP = 0.0;
@@ -228,7 +228,7 @@ public final class Constants {
     public static final int RIGHT_CAN_ID = 16;
     public static final int LEFT_CAN_ID = 17;
     public static final double GEAR_RATIO = 1.0;
-    public static final int CURRENT_LIMIT = 30;
+    public static final int CURRENT_LIMIT = 40;
 
     // PID and FF
     public static double kP = 0.505; // 0.05

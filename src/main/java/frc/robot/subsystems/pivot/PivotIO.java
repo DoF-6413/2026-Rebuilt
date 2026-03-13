@@ -1,6 +1,6 @@
 package frc.robot.subsystems.pivot;
-
 import org.littletonrobotics.junction.AutoLog;
+
 
 public interface PivotIO {
   @AutoLog
@@ -8,7 +8,6 @@ public interface PivotIO {
     public boolean isOK = true;
     public double appliedVoltage = 0.0;
     public double currentAmps = 0.0;
-    public double tempCelsius = 0.0;
     public double relativePosRot = 0.0;
     public double velocityRadPerSec = 0.0;
     public boolean atTarget = false;

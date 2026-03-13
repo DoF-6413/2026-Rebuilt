@@ -38,20 +38,16 @@ public class ShooterIOTalonFX implements ShooterIO {
       m_middleShooter.getVelocity();
   private final StatusSignal<Voltage> middleShooterAppliedVolts = m_middleShooter.getMotorVoltage();
   private final StatusSignal<Current> middleShooterCurrentAmps = m_middleShooter.getSupplyCurrent();
-  private final StatusSignal<Temperature> middleShooterTempCelsius =
-      m_middleShooter.getDeviceTemp();
 
   private final StatusSignal<AngularVelocity> rightShooterVelocityRotPerSec =
       m_rightShooter.getVelocity();
   private final StatusSignal<Voltage> rightShooterAppliedVolts = m_rightShooter.getMotorVoltage();
   private final StatusSignal<Current> rightShooterCurrentAmps = m_rightShooter.getSupplyCurrent();
-  private final StatusSignal<Temperature> rightShooterTempCelsius = m_rightShooter.getDeviceTemp();
 
   private final StatusSignal<AngularVelocity> leftShooterVelocityRotPerSec =
       m_leftShooter.getVelocity();
   private final StatusSignal<Voltage> leftShooterAppliedVolts = m_leftShooter.getMotorVoltage();
   private final StatusSignal<Current> leftShooterCurrentAmps = m_leftShooter.getSupplyCurrent();
-  private final StatusSignal<Temperature> leftShooterTempCelsius = m_leftShooter.getDeviceTemp();
 
   private final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
 
@@ -110,15 +106,12 @@ public class ShooterIOTalonFX implements ShooterIO {
         middleShooterVelocityRotPerSec,
         middleShooterAppliedVolts,
         middleShooterCurrentAmps,
-        middleShooterTempCelsius,
         rightShooterVelocityRotPerSec,
         rightShooterAppliedVolts,
         rightShooterCurrentAmps,
-        rightShooterTempCelsius,
         leftShooterVelocityRotPerSec,
         leftShooterAppliedVolts,
-        leftShooterCurrentAmps,
-        leftShooterTempCelsius);
+        leftShooterCurrentAmps);
 
     m_middleShooter.optimizeBusUtilization();
     m_rightShooter.optimizeBusUtilization();
@@ -160,22 +153,18 @@ public class ShooterIOTalonFX implements ShooterIO {
         middleShooterVelocityRotPerSec,
         middleShooterAppliedVolts,
         middleShooterCurrentAmps,
-        middleShooterTempCelsius,
         rightShooterVelocityRotPerSec,
         rightShooterAppliedVolts,
         rightShooterCurrentAmps,
-        rightShooterTempCelsius,
         leftShooterVelocityRotPerSec,
         leftShooterAppliedVolts,
-        leftShooterCurrentAmps,
-        leftShooterTempCelsius);
+        leftShooterCurrentAmps);
 
     // Motor rotations -> shooter rotations * gear ratio
     inputs.middleShooterRPS =
         middleShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.middleShooterAppliedVolts = middleShooterAppliedVolts.getValueAsDouble();
     inputs.middleShooterCurrentAmps = middleShooterCurrentAmps.getValueAsDouble();
-    inputs.middleShooterTempCelsius = middleShooterTempCelsius.getValueAsDouble();
     inputs.velocityErrorRPS =
         m_targetVelocityRPS - inputs.middleShooterRPS; // Compute the velocity error
 
@@ -183,13 +172,11 @@ public class ShooterIOTalonFX implements ShooterIO {
         rightShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.rightShooterAppliedVolts = rightShooterAppliedVolts.getValueAsDouble();
     inputs.rightShooterCurrentAmps = rightShooterCurrentAmps.getValueAsDouble();
-    inputs.rightShooterTempCelsius = rightShooterTempCelsius.getValueAsDouble();
 
     inputs.leftShooterRPS =
         leftShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
     inputs.leftShooterAppliedVolts = leftShooterAppliedVolts.getValueAsDouble();
     inputs.leftShooterCurrentAmps = leftShooterCurrentAmps.getValueAsDouble();
-    inputs.leftShooterTempCelsius = leftShooterTempCelsius.getValueAsDouble();
   }
 
   @Override

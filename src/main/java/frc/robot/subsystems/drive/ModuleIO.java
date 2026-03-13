@@ -8,10 +8,9 @@
 package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import org.littletonrobotics.junction.AutoLog;
 
 public interface ModuleIO {
-  @AutoLog
+  // @AutoLog
   public static class ModuleIOInputs {
     public boolean driveConnected = false;
     public double drivePositionRad = 0.0;

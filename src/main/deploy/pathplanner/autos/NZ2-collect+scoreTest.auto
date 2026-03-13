@@ -7,6 +7,37 @@
         {
           "type": "path",
           "data": {
+            "pathName": "JustShooting"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "HUB-BUMP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "NZ"
           }
         },
