@@ -85,7 +85,7 @@ public class RobotContainer {
   private final Shooter m_shooter;
   private final Hood m_hood;
   //   private final Vision m_vision;
-  private final HubStateManager m_hubState = new HubStateManager();
+//  private final HubStateManager m_hubState = new HubStateManager();
 
   // Controller
   private final CommandXboxController driverController =
@@ -279,13 +279,14 @@ public class RobotContainer {
     // Path find to in front of hub when Y button pressed
     auxController.y().onTrue(new DeferredCommand(() -> getPathFindingCommand(), Set.of(drive)));
 
-    new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
+    /*new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
         .whileTrue(
             Commands.startEnd(
                 () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 1.0),
                 () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 0.0),
                 m_hubState // Requirement ensures no other command uses rumble simultaneously
                 ));
+    */
   }
 
   /**
