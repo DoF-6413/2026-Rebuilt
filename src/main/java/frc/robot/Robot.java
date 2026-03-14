@@ -67,7 +67,7 @@ public class Robot extends LoggedRobot {
     }
 
     // Start AdvantageKit logger
-    // Logger.start();
+    Logger.start();
 
     // Starts capturing camera footage
     CameraServer.startAutomaticCapture();
@@ -129,6 +129,8 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+
+    // Logger.end(); //TODO: deploy this line if rio CPU usage spikes again
   }
 
   /** This function is called periodically during operator control. */

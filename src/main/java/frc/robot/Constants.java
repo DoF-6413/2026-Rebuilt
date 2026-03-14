@@ -98,8 +98,8 @@ public final class Constants {
     public static final boolean IS_INVERTED = false; // false = CCW
     public static final boolean ENABLE_CURRENT_LIMIT = true;
 
-    public static final double INTAKING_VOLTAGE = -8; // -12.0;
-    public static final double LAUNCHING_VOLTAGE = -8; // -12.0;
+    public static final double INTAKING_VOLTAGE = -12; // -12.0;
+    public static final double LAUNCHING_VOLTAGE = -12; // -12.0;
   }
 
   public static class HopperConstants {
@@ -165,9 +165,6 @@ public final class Constants {
     public static double kS = 0.0;
     public static double kV = 0.0;
     public static double kA = 0.0;
-
-    public static double MAX_VELOCITY_DEG_PER_S = 0.0;
-    public static double MAX_ACCELERATION_DEG_PER_S2 = 0.0;
 
     public static double MOI_KG_M2 = 0.0;
   }

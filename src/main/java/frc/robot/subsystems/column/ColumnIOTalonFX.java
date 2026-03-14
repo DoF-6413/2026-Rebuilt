@@ -39,8 +39,8 @@ public class ColumnIOTalonFX implements ColumnIO {
             : InvertedValue.Clockwise_Positive;
     columnConfig.CurrentLimits.SupplyCurrentLimitEnable = ColumnConstants.ENABLE_CURRENT_LIMIT;
     columnConfig.CurrentLimits.SupplyCurrentLimit = ColumnConstants.CURRENT_LIMIT;
-    columnConfig.CurrentLimits.StatorCurrentLimitEnable = ColumnConstants.ENABLE_CURRENT_LIMIT;
-    columnConfig.CurrentLimits.StatorCurrentLimit = ColumnConstants.CURRENT_LIMIT;
+    // columnConfig.CurrentLimits.StatorCurrentLimitEnable = ColumnConstants.ENABLE_CURRENT_LIMIT;
+    // columnConfig.CurrentLimits.StatorCurrentLimit = ColumnConstants.CURRENT_LIMIT;
     columnConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
     tryUntilOk(
         5,

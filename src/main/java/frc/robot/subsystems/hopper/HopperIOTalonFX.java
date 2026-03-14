@@ -40,8 +40,8 @@ public class HopperIOTalonFX implements HopperIO {
         .withControlTimesyncFreqHz(RobotStateConstants.UPDATE_FREQUENCY_HZ);
     m_motorConfig.CurrentLimits.SupplyCurrentLimitEnable = HopperConstants.ENABLE_CURRENT_LIMIT;
     m_motorConfig.CurrentLimits.SupplyCurrentLimit = HopperConstants.CURRENT_LIMIT;
-    m_motorConfig.CurrentLimits.StatorCurrentLimitEnable = HopperConstants.ENABLE_CURRENT_LIMIT;
-    m_motorConfig.CurrentLimits.StatorCurrentLimit = HopperConstants.CURRENT_LIMIT;
+    // m_motorConfig.CurrentLimits.StatorCurrentLimitEnable = HopperConstants.ENABLE_CURRENT_LIMIT;
+    // m_motorConfig.CurrentLimits.StatorCurrentLimit = HopperConstants.CURRENT_LIMIT;
 
     m_hopper.getConfigurator().apply(m_motorConfig);
 

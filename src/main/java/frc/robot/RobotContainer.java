@@ -8,7 +8,6 @@
 package frc.robot;
 
 import static frc.robot.Constants.PathFinderConstants.*;
-import static frc.robot.Constants.VisionConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -17,7 +16,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -25,7 +23,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
@@ -53,8 +50,6 @@ import frc.robot.subsystems.hood.HoodIOSim;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.hopper.HopperIO;
 import frc.robot.subsystems.hopper.HopperIOTalonFX;
-import frc.robot.subsystems.hub.HubStateManager;
-import frc.robot.subsystems.hub.HubStateManager.HubIndicator;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeIO;
 import frc.robot.subsystems.intake.IntakeIOTalonFX;
@@ -85,7 +80,7 @@ public class RobotContainer {
   private final Shooter m_shooter;
   private final Hood m_hood;
   //   private final Vision m_vision;
-//  private final HubStateManager m_hubState = new HubStateManager();
+  //  private final HubStateManager m_hubState = new HubStateManager();
 
   // Controller
   private final CommandXboxController driverController =
@@ -227,7 +222,7 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> 0.8 * driverController.getLeftY(),
+            () -> 1 * driverController.getLeftY(),
             () -> 1 * driverController.getLeftX(),
             () -> -0.8 * driverController.getRightX()));
 
@@ -248,7 +243,7 @@ public class RobotContainer {
 
   public void auxControllerBindings() {
     // D-pad Up: Deploy intake pivot and run intake rollers
-    auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot));
+    auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
     // D-pad Down: Retract the intake back up
     auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from

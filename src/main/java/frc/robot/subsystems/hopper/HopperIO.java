@@ -1,6 +1,6 @@
 package frc.robot.subsystems.hopper;
-import org.littletonrobotics.junction.AutoLog;
 
+import org.littletonrobotics.junction.AutoLog;
 
 public interface HopperIO {
 
