@@ -38,13 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "NZ"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "NZ2"
+            "pathName": "overBump"
           }
         },
         {
@@ -52,9 +46,22 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "NZ2-intake"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "bump2-mid"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "NZ2-intake"
+                      }
+                    }
+                  ]
                 }
               },
               {

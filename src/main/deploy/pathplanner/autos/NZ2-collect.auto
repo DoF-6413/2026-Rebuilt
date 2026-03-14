@@ -42,19 +42,26 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "NZ2"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "NZ2-intake"
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "NZ2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "NZ2-intake"
+                      }
+                    }
+                  ]
                 }
               },
               {
