@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.DeferredCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -61,7 +60,6 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIO;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
-import java.util.Set;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -226,9 +224,6 @@ public class RobotContainer {
             () -> 1 * driverController.getLeftX(),
             () -> -0.8 * driverController.getRightX()));
 
-    // Switch to X pattern when X button is pressed
-    driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
-
     // Reset gyro to 0° when A button is pressed
     driverController
         .a()
@@ -261,18 +256,18 @@ public class RobotContainer {
         .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower"));
 
     // Controlling hood
-    // Button B: sets the hood to the maximum position
+    // Button Y: sets the hood to the maximum position
     auxController
-        .b()
+        .y()
         .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)));
-    // Button X: sets the hood to the minimum position
+    // Button A: sets the hood to the minimum position
     auxController
-        .x()
+        .a()
         .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
     // Right Trigger: agitate the balls by moving the pivot up and down
     auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot));
-    // Path find to in front of hub when Y button pressed
-    auxController.y().onTrue(new DeferredCommand(() -> getPathFindingCommand(), Set.of(drive)));
+    // Button X: switch to x pattern
+    auxController.x().whileTrue(Commands.runOnce(drive::stopWithX, drive));
 
     /*new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
         .whileTrue(
@@ -290,7 +285,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+    return autoChooser.get().andThen(getPathFindingCommand());
   }
 
   public Command getPathFindingCommand() {
@@ -303,6 +298,42 @@ public class RobotContainer {
           .andThen(
               new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")
                   .alongWith(new Agitate(m_intake, m_pivot)));
+    } catch (Exception e) {
+      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
+  public Command blockLeft() {
+    PathPlannerPath path;
+    try {
+      // Load the path you want to follow using its name in the GUI
+      path = PathPlannerPath.fromPathFile("blockLeft");
+      return AutoBuilder.pathfindThenFollowPath(path, constraints);
+    } catch (Exception e) {
+      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
+  public Command blockCenter() {
+    PathPlannerPath path;
+    try {
+      // Load the path you want to follow using its name in the GUI
+      path = PathPlannerPath.fromPathFile("blockCenter");
+      return AutoBuilder.pathfindThenFollowPath(path, constraints);
+    } catch (Exception e) {
+      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
+      return Commands.none();
+    }
+  }
+
+  public Command blockRight() {
+    PathPlannerPath path;
+    try {
+      // Load the path you want to follow using its name in the GUI
+      path = PathPlannerPath.fromPathFile("blockRight");
+      return AutoBuilder.pathfindThenFollowPath(path, constraints);
     } catch (Exception e) {
       DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
       return Commands.none();
