@@ -8,6 +8,7 @@
 package frc.robot;
 
 import static frc.robot.Constants.PathFinderConstants.*;
+import static frc.robot.Constants.VisionConstants.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -48,9 +49,11 @@ import frc.robot.subsystems.hood.HoodIOServo;
 import frc.robot.subsystems.hood.HoodIOSim;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.hopper.HopperIO;
+import frc.robot.subsystems.hopper.HopperIOSim;
 import frc.robot.subsystems.hopper.HopperIOTalonFX;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeIO;
+import frc.robot.subsystems.intake.IntakeIOSim;
 import frc.robot.subsystems.intake.IntakeIOTalonFX;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotIO;
@@ -60,6 +63,10 @@ import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.subsystems.shooter.ShooterIO;
 import frc.robot.subsystems.shooter.ShooterIOSim;
 import frc.robot.subsystems.shooter.ShooterIOTalonFX;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionIO;
+import frc.robot.subsystems.vision.VisionIOPhotonVision;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -77,7 +84,7 @@ public class RobotContainer {
   private final Pivot m_pivot;
   private final Shooter m_shooter;
   private final Hood m_hood;
-  //   private final Vision m_vision;
+  private final Vision m_vision;
   //  private final HubStateManager m_hubState = new HubStateManager();
 
   // Controller
@@ -112,11 +119,11 @@ public class RobotContainer {
         m_hood =
             new Hood(new HoodIOServo(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
 
-        // m_vision =
-        //     new Vision(
-        //         drive::addVisionMeasurement,
-        //         new VisionIOPhotonVision(camera0Name, robotToCamera0),
-        //         new VisionIOPhotonVision(camera1Name, robotToCamera1));
+        m_vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOPhotonVision(camera0Name, robotToCamera0),
+                new VisionIOPhotonVision(camera1Name, robotToCamera1));
 
         // The ModuleIOTalonFXS implementation provides an example implementation for
         // TalonFXS controller connected to a CANdi with a PWM encoder. The
@@ -137,17 +144,17 @@ public class RobotContainer {
                 new ModuleIOSim(TunerConstants.BackLeft),
                 new ModuleIOSim(TunerConstants.BackRight));
         m_column = new Column(new ColumnIOSim());
-        m_hopper = new Hopper(new HopperIOTalonFX()); // TODO: implement sim
-        m_intake = new Intake(new IntakeIOTalonFX()); // TODO: implement sim
+        m_hopper = new Hopper(new HopperIOSim());
+        m_intake = new Intake(new IntakeIOSim());
         m_pivot = new Pivot(new PivotIOSim());
         m_shooter = new Shooter(new ShooterIOSim());
         m_hood = new Hood(new HoodIOSim(HoodConstants.leftServoPort, HoodConstants.rightServoPort));
 
-        // m_vision =
-        //     new Vision(
-        //         drive::addVisionMeasurement,
-        //         new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
-        //         new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
+        m_vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
+                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
 
         break;
 
@@ -167,7 +174,7 @@ public class RobotContainer {
         m_pivot = new Pivot(new PivotIO() {});
         m_shooter = new Shooter(new ShooterIO() {});
         m_hood = new Hood(new HoodIO() {});
-        // m_vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+        m_vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
         break;
     }
 
@@ -236,7 +243,7 @@ public class RobotContainer {
                 .ignoringDisable(true));
   }
 
-  public void auxControllerBindings() {
+  private void auxControllerBindings() {
     // D-pad Up: Deploy intake pivot and run intake rollers
     auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
     // D-pad Down: Retract the intake back up
@@ -244,7 +251,7 @@ public class RobotContainer {
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController.rightBumper().whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
-    // Left Bumper: Starts up the shooter and sets the hood to 50%. This is meant for shooting from
+    // Left Bumper: Starts up the shooter and sets the hood to 60%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
@@ -267,7 +274,7 @@ public class RobotContainer {
     // Right Trigger: agitate the balls by moving the pivot up and down
     auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot));
     // Button X: switch to x pattern
-    auxController.x().whileTrue(Commands.runOnce(drive::stopWithX, drive));
+    auxController.x().whileTrue(Commands.run(drive::stopWithX, drive));
 
     /*new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
         .whileTrue(
@@ -285,7 +292,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get().andThen(getPathFindingCommand());
+    return autoChooser.get();
   }
 
   public Command getPathFindingCommand() {
@@ -298,42 +305,6 @@ public class RobotContainer {
           .andThen(
               new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")
                   .alongWith(new Agitate(m_intake, m_pivot)));
-    } catch (Exception e) {
-      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
-      return Commands.none();
-    }
-  }
-
-  public Command blockLeft() {
-    PathPlannerPath path;
-    try {
-      // Load the path you want to follow using its name in the GUI
-      path = PathPlannerPath.fromPathFile("blockLeft");
-      return AutoBuilder.pathfindThenFollowPath(path, constraints);
-    } catch (Exception e) {
-      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
-      return Commands.none();
-    }
-  }
-
-  public Command blockCenter() {
-    PathPlannerPath path;
-    try {
-      // Load the path you want to follow using its name in the GUI
-      path = PathPlannerPath.fromPathFile("blockCenter");
-      return AutoBuilder.pathfindThenFollowPath(path, constraints);
-    } catch (Exception e) {
-      DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
-      return Commands.none();
-    }
-  }
-
-  public Command blockRight() {
-    PathPlannerPath path;
-    try {
-      // Load the path you want to follow using its name in the GUI
-      path = PathPlannerPath.fromPathFile("blockRight");
-      return AutoBuilder.pathfindThenFollowPath(path, constraints);
     } catch (Exception e) {
       DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());
       return Commands.none();
