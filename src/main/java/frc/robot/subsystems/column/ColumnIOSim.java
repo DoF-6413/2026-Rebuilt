@@ -15,25 +15,25 @@ import frc.robot.Constants.ColumnConstants;
 import frc.robot.Constants.RobotStateConstants;
 
 public class ColumnIOSim implements ColumnIO {
-  private DCMotorSim columnSim =
+  private final DCMotorSim m_columnSim =
       new DCMotorSim(
           LinearSystemId.createDCMotorSystem(DCMotor.getCIM(1), 0.004, ColumnConstants.GEAR_RATIO),
           DCMotor.getCIM(1));
 
-  private double columnAppliedVolts = 0.0;
+  private double m_columnAppliedVolts = 0.0;
 
   @Override
   public void updateInputs(ColumnIOInputs inputs) {
-    columnSim.setInputVoltage(columnAppliedVolts);
-    columnSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
+    m_columnSim.setInputVoltage(m_columnAppliedVolts);
+    m_columnSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.columnRPM = columnSim.getAngularVelocityRPM();
-    inputs.columnAppliedVolts = columnAppliedVolts;
-    inputs.columnCurrentAmps = columnSim.getCurrentDrawAmps();
+    inputs.columnRPM = m_columnSim.getAngularVelocityRPM();
+    inputs.columnAppliedVolts = m_columnAppliedVolts;
+    inputs.columnCurrentAmps = m_columnSim.getCurrentDrawAmps();
   }
 
   @Override
   public void setVoltage(double volts) {
-    columnAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
+    m_columnAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
   }
 }

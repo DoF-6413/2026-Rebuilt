@@ -25,11 +25,11 @@ import frc.robot.Constants.RobotStateConstants;
  */
 public class ColumnIOTalonFX implements ColumnIO {
   private final TalonFX m_column = new TalonFX(ColumnConstants.CAN_ID, "Drivetrain");
-  private final StatusSignal<AngularVelocity> columnVelocityRotPerSec = m_column.getVelocity();
-  private final StatusSignal<Voltage> columnAppliedVolts = m_column.getMotorVoltage();
-  private final StatusSignal<Current> columnCurrentAmps = m_column.getSupplyCurrent();
+  private final StatusSignal<AngularVelocity> m_columnVelocityRotPerSec = m_column.getVelocity();
+  private final StatusSignal<Voltage> m_columnAppliedVolts = m_column.getMotorVoltage();
+  private final StatusSignal<Current> m_columnCurrentAmps = m_column.getSupplyCurrent();
 
-  private final VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final VoltageOut m_voltageRequest = new VoltageOut(0.0);
 
   public ColumnIOTalonFX() {
     var columnConfig = new TalonFXConfiguration();
@@ -51,27 +51,29 @@ public class ColumnIOTalonFX implements ColumnIO {
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
-        columnVelocityRotPerSec,
-        columnAppliedVolts,
-        columnCurrentAmps);
+        m_columnVelocityRotPerSec,
+        m_columnAppliedVolts,
+        m_columnCurrentAmps);
 
     m_column.optimizeBusUtilization();
   }
 
   @Override
   public void updateInputs(ColumnIOInputs inputs) {
-    BaseStatusSignal.refreshAll(columnVelocityRotPerSec, columnAppliedVolts, columnCurrentAmps);
+    BaseStatusSignal.refreshAll(
+        m_columnVelocityRotPerSec, m_columnAppliedVolts, m_columnCurrentAmps);
 
     // Motor rotations -> feeder rotations * 60 sec/min
-    inputs.columnRPM = columnVelocityRotPerSec.getValueAsDouble() * 60 / ColumnConstants.GEAR_RATIO;
-    inputs.columnAppliedVolts = columnAppliedVolts.getValueAsDouble();
-    inputs.columnCurrentAmps = columnCurrentAmps.getValueAsDouble();
+    inputs.columnRPM =
+        m_columnVelocityRotPerSec.getValueAsDouble() * 60 / ColumnConstants.GEAR_RATIO;
+    inputs.columnAppliedVolts = m_columnAppliedVolts.getValueAsDouble();
+    inputs.columnCurrentAmps = m_columnCurrentAmps.getValueAsDouble();
   }
 
   @Override
   public void setVoltage(double volts) {
     m_column.setControl(
-        voltageRequest.withOutput(
+        m_voltageRequest.withOutput(
             MathUtil.clamp(
                 volts, -RobotStateConstants.MAX_VOLTAGE, RobotStateConstants.MAX_VOLTAGE)));
   }

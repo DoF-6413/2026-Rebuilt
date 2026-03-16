@@ -13,9 +13,9 @@ import frc.robot.subsystems.pivot.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Agitate extends Command {
-  public Intake m_intake;
-  public Pivot m_pivot;
-  private Timer m_timer;
+  private final Intake m_intake;
+  private final Pivot m_pivot;
+  private final Timer m_timer;
 
   /** Creates a new IntakeRetract. */
   public Agitate(Intake intake, Pivot pivot) {

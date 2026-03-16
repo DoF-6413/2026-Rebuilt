@@ -15,26 +15,26 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.RobotStateConstants;
 
 public class IntakeIOSim implements IntakeIO {
-  private DCMotorSim intakeSim =
+  private final DCMotorSim m_intakeSim =
       new DCMotorSim(
           LinearSystemId.createDCMotorSystem(DCMotor.getCIM(1), 0.004, IntakeConstants.GEAR_RATIO),
           DCMotor.getCIM(1));
 
-  private double intakeAppliedVolts = 0.0;
+  private double m_intakeAppliedVolts = 0.0;
 
   @Override
   public void updateInputs(IntakeIOInputs inputs) {
-    intakeSim.setInputVoltage(intakeAppliedVolts);
-    intakeSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
+    m_intakeSim.setInputVoltage(m_intakeAppliedVolts);
+    m_intakeSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.intakeRPM = intakeSim.getAngularVelocityRPM();
-    inputs.intakeAppliedVolts = intakeAppliedVolts;
-    inputs.intakeCurrentAmps = intakeSim.getCurrentDrawAmps();
+    inputs.intakeRPM = m_intakeSim.getAngularVelocityRPM();
+    inputs.intakeAppliedVolts = m_intakeAppliedVolts;
+    inputs.intakeCurrentAmps = m_intakeSim.getCurrentDrawAmps();
   }
 
   @Override
   public void setVoltage(double volts) {
-    intakeAppliedVolts =
+    m_intakeAppliedVolts =
         MathUtil.clamp(volts, -RobotStateConstants.MAX_VOLTAGE, RobotStateConstants.MAX_VOLTAGE);
   }
 }

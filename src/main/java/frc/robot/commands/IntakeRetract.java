@@ -11,8 +11,8 @@ import frc.robot.subsystems.pivot.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class IntakeRetract extends Command {
-  public Intake m_intake;
-  public Pivot m_pivot;
+  private final Intake m_intake;
+  private final Pivot m_pivot;
 
   /** Creates a new IntakeRetract. */
   public IntakeRetract(Intake intake, Pivot pivot) {

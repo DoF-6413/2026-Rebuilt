@@ -12,8 +12,8 @@ import frc.robot.subsystems.intake.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Eject extends Command {
-  private Column m_column;
-  private Intake m_intake;
+  private final Column m_column;
+  private final Intake m_intake;
 
   /** Creates a new Eject. */
   public Eject(Column feeder, Intake intake) {

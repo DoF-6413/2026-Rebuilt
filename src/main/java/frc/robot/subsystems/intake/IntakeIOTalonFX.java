@@ -20,11 +20,11 @@ public class IntakeIOTalonFX implements IntakeIO {
   private final TalonFX m_intake = new TalonFX(IntakeConstants.CAN_ID, "Drivetrain");
 
   // Status signals
-  private final StatusSignal<AngularVelocity> intakeVelocityRotPerSec = m_intake.getVelocity();
-  private final StatusSignal<Voltage> intakeAppliedVolts = m_intake.getMotorVoltage();
-  private final StatusSignal<Current> intakeCurrentAmps = m_intake.getSupplyCurrent();
+  private final StatusSignal<AngularVelocity> m_intakeVelocityRotPerSec = m_intake.getVelocity();
+  private final StatusSignal<Voltage> m_intakeAppliedVolts = m_intake.getMotorVoltage();
+  private final StatusSignal<Current> m_intakeCurrentAmps = m_intake.getSupplyCurrent();
 
-  private VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final VoltageOut m_voltageRequest = new VoltageOut(0.0);
 
   // Constructor
   public IntakeIOTalonFX() {
@@ -39,9 +39,9 @@ public class IntakeIOTalonFX implements IntakeIO {
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
-        intakeVelocityRotPerSec,
-        intakeAppliedVolts,
-        intakeCurrentAmps);
+        m_intakeVelocityRotPerSec,
+        m_intakeAppliedVolts,
+        m_intakeCurrentAmps);
 
     m_intake.setPosition(0.0);
     m_intake.optimizeBusUtilization();
@@ -50,15 +50,17 @@ public class IntakeIOTalonFX implements IntakeIO {
 
   @Override
   public void updateInputs(IntakeIOInputs inputs) {
-    BaseStatusSignal.refreshAll(intakeVelocityRotPerSec, intakeAppliedVolts, intakeCurrentAmps);
+    BaseStatusSignal.refreshAll(
+        m_intakeVelocityRotPerSec, m_intakeAppliedVolts, m_intakeCurrentAmps);
 
-    inputs.intakeRPM = intakeVelocityRotPerSec.getValueAsDouble() * 60 / IntakeConstants.GEAR_RATIO;
-    inputs.intakeAppliedVolts = intakeAppliedVolts.getValueAsDouble();
-    inputs.intakeCurrentAmps = intakeCurrentAmps.getValueAsDouble();
+    inputs.intakeRPM =
+        m_intakeVelocityRotPerSec.getValueAsDouble() * 60 / IntakeConstants.GEAR_RATIO;
+    inputs.intakeAppliedVolts = m_intakeAppliedVolts.getValueAsDouble();
+    inputs.intakeCurrentAmps = m_intakeCurrentAmps.getValueAsDouble();
   }
 
   @Override
   public void setVoltage(double volts) {
-    m_intake.setControl(voltageRequest.withOutput(volts));
+    m_intake.setControl(m_voltageRequest.withOutput(volts));
   }
 }

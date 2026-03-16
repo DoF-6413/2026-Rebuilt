@@ -34,22 +34,24 @@ public class ShooterIOTalonFX implements ShooterIO {
   private final TalonFX m_rightShooter = new TalonFX(ShooterConstants.RIGHT_CAN_ID, "Drivetrain");
   private final TalonFX m_leftShooter = new TalonFX(ShooterConstants.LEFT_CAN_ID, "Drivetrain");
 
-  private final StatusSignal<AngularVelocity> middleShooterVelocityRotPerSec =
+  private final StatusSignal<AngularVelocity> m_middleShooterVelocityRotPerSec =
       m_middleShooter.getVelocity();
-  private final StatusSignal<Voltage> middleShooterAppliedVolts = m_middleShooter.getMotorVoltage();
-  private final StatusSignal<Current> middleShooterCurrentAmps = m_middleShooter.getSupplyCurrent();
+  private final StatusSignal<Voltage> m_middleShooterAppliedVolts =
+      m_middleShooter.getMotorVoltage();
+  private final StatusSignal<Current> m_middleShooterCurrentAmps =
+      m_middleShooter.getSupplyCurrent();
 
-  private final StatusSignal<AngularVelocity> rightShooterVelocityRotPerSec =
+  private final StatusSignal<AngularVelocity> m_rightShooterVelocityRotPerSec =
       m_rightShooter.getVelocity();
-  private final StatusSignal<Voltage> rightShooterAppliedVolts = m_rightShooter.getMotorVoltage();
-  private final StatusSignal<Current> rightShooterCurrentAmps = m_rightShooter.getSupplyCurrent();
+  private final StatusSignal<Voltage> m_rightShooterAppliedVolts = m_rightShooter.getMotorVoltage();
+  private final StatusSignal<Current> m_rightShooterCurrentAmps = m_rightShooter.getSupplyCurrent();
 
-  private final StatusSignal<AngularVelocity> leftShooterVelocityRotPerSec =
+  private final StatusSignal<AngularVelocity> m_leftShooterVelocityRotPerSec =
       m_leftShooter.getVelocity();
-  private final StatusSignal<Voltage> leftShooterAppliedVolts = m_leftShooter.getMotorVoltage();
-  private final StatusSignal<Current> leftShooterCurrentAmps = m_leftShooter.getSupplyCurrent();
+  private final StatusSignal<Voltage> m_leftShooterAppliedVolts = m_leftShooter.getMotorVoltage();
+  private final StatusSignal<Current> m_leftShooterCurrentAmps = m_leftShooter.getSupplyCurrent();
 
-  private final VelocityVoltage velocityRequest = new VelocityVoltage(0).withSlot(0);
+  private final VelocityVoltage m_velocityRequest = new VelocityVoltage(0).withSlot(0);
 
   // Track the last velocity setpoint
   private double m_targetVelocityRPS = 0.0;
@@ -103,15 +105,15 @@ public class ShooterIOTalonFX implements ShooterIO {
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
-        middleShooterVelocityRotPerSec,
-        middleShooterAppliedVolts,
-        middleShooterCurrentAmps,
-        rightShooterVelocityRotPerSec,
-        rightShooterAppliedVolts,
-        rightShooterCurrentAmps,
-        leftShooterVelocityRotPerSec,
-        leftShooterAppliedVolts,
-        leftShooterCurrentAmps);
+        m_middleShooterVelocityRotPerSec,
+        m_middleShooterAppliedVolts,
+        m_middleShooterCurrentAmps,
+        m_rightShooterVelocityRotPerSec,
+        m_rightShooterAppliedVolts,
+        m_rightShooterCurrentAmps,
+        m_leftShooterVelocityRotPerSec,
+        m_leftShooterAppliedVolts,
+        m_leftShooterCurrentAmps);
 
     m_middleShooter.optimizeBusUtilization();
     m_rightShooter.optimizeBusUtilization();
@@ -150,38 +152,38 @@ public class ShooterIOTalonFX implements ShooterIO {
     updatePIDFromDashboard();
 
     BaseStatusSignal.refreshAll(
-        middleShooterVelocityRotPerSec,
-        middleShooterAppliedVolts,
-        middleShooterCurrentAmps,
-        rightShooterVelocityRotPerSec,
-        rightShooterAppliedVolts,
-        rightShooterCurrentAmps,
-        leftShooterVelocityRotPerSec,
-        leftShooterAppliedVolts,
-        leftShooterCurrentAmps);
+        m_middleShooterVelocityRotPerSec,
+        m_middleShooterAppliedVolts,
+        m_middleShooterCurrentAmps,
+        m_rightShooterVelocityRotPerSec,
+        m_rightShooterAppliedVolts,
+        m_rightShooterCurrentAmps,
+        m_leftShooterVelocityRotPerSec,
+        m_leftShooterAppliedVolts,
+        m_leftShooterCurrentAmps);
 
     // Motor rotations -> shooter rotations * gear ratio
     inputs.middleShooterRPS =
-        middleShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
-    inputs.middleShooterAppliedVolts = middleShooterAppliedVolts.getValueAsDouble();
-    inputs.middleShooterCurrentAmps = middleShooterCurrentAmps.getValueAsDouble();
+        m_middleShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
+    inputs.middleShooterAppliedVolts = m_middleShooterAppliedVolts.getValueAsDouble();
+    inputs.middleShooterCurrentAmps = m_middleShooterCurrentAmps.getValueAsDouble();
     inputs.velocityErrorRPS =
         m_targetVelocityRPS - inputs.middleShooterRPS; // Compute the velocity error
 
     inputs.rightShooterRPS =
-        rightShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
-    inputs.rightShooterAppliedVolts = rightShooterAppliedVolts.getValueAsDouble();
-    inputs.rightShooterCurrentAmps = rightShooterCurrentAmps.getValueAsDouble();
+        m_rightShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
+    inputs.rightShooterAppliedVolts = m_rightShooterAppliedVolts.getValueAsDouble();
+    inputs.rightShooterCurrentAmps = m_rightShooterCurrentAmps.getValueAsDouble();
 
     inputs.leftShooterRPS =
-        leftShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
-    inputs.leftShooterAppliedVolts = leftShooterAppliedVolts.getValueAsDouble();
-    inputs.leftShooterCurrentAmps = leftShooterCurrentAmps.getValueAsDouble();
+        m_leftShooterVelocityRotPerSec.getValueAsDouble() * ShooterConstants.GEAR_RATIO;
+    inputs.leftShooterAppliedVolts = m_leftShooterAppliedVolts.getValueAsDouble();
+    inputs.leftShooterCurrentAmps = m_leftShooterCurrentAmps.getValueAsDouble();
   }
 
   @Override
   public void setVelocity(double velocityRPM) {
     m_targetVelocityRPS = velocityRPM / 60.0;
-    m_middleShooter.setControl(velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0));
+    m_middleShooter.setControl(m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0));
   }
 }

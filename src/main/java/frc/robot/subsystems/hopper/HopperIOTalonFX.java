@@ -19,11 +19,11 @@ public class HopperIOTalonFX implements HopperIO {
   private final TalonFXConfiguration m_motorConfig = new TalonFXConfiguration();
 
   // Status signals
-  private final StatusSignal<AngularVelocity> hopperVelocityRotPerSec = m_hopper.getVelocity();
-  private final StatusSignal<Voltage> hopperAppliedVolts = m_hopper.getMotorVoltage();
-  private final StatusSignal<Current> hopperCurrentAmps = m_hopper.getSupplyCurrent();
+  private final StatusSignal<AngularVelocity> m_hopperVelocityRotPerSec = m_hopper.getVelocity();
+  private final StatusSignal<Voltage> m_hopperAppliedVolts = m_hopper.getMotorVoltage();
+  private final StatusSignal<Current> m_hopperCurrentAmps = m_hopper.getSupplyCurrent();
 
-  private final VoltageOut voltageRequest = new VoltageOut(0.0);
+  private final VoltageOut m_voltageRequest = new VoltageOut(0.0);
 
   // Constructor
   public HopperIOTalonFX() {
@@ -47,9 +47,9 @@ public class HopperIOTalonFX implements HopperIO {
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
-        hopperAppliedVolts,
-        hopperCurrentAmps,
-        hopperVelocityRotPerSec);
+        m_hopperAppliedVolts,
+        m_hopperCurrentAmps,
+        m_hopperVelocityRotPerSec);
 
     m_hopper.setPosition(0.0);
     m_hopper.optimizeBusUtilization();
@@ -58,15 +58,17 @@ public class HopperIOTalonFX implements HopperIO {
 
   @Override
   public void updateInputs(HopperIOInputs inputs) {
-    BaseStatusSignal.refreshAll(hopperVelocityRotPerSec, hopperAppliedVolts, hopperCurrentAmps);
+    BaseStatusSignal.refreshAll(
+        m_hopperVelocityRotPerSec, m_hopperAppliedVolts, m_hopperCurrentAmps);
 
-    inputs.hopperRPM = hopperVelocityRotPerSec.getValueAsDouble() * 60 / HopperConstants.GEAR_RATIO;
-    inputs.hopperAppliedVolts = hopperAppliedVolts.getValueAsDouble();
-    inputs.hopperCurrentAmps = hopperCurrentAmps.getValueAsDouble();
+    inputs.hopperRPM =
+        m_hopperVelocityRotPerSec.getValueAsDouble() * 60 / HopperConstants.GEAR_RATIO;
+    inputs.hopperAppliedVolts = m_hopperAppliedVolts.getValueAsDouble();
+    inputs.hopperCurrentAmps = m_hopperCurrentAmps.getValueAsDouble();
   }
 
   @Override
   public void setVoltage(double volts) {
-    m_hopper.setControl(voltageRequest.withOutput(volts));
+    m_hopper.setControl(m_voltageRequest.withOutput(volts));
   }
 }

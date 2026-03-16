@@ -41,10 +41,10 @@ public class PivotIOTalonFX implements PivotIO {
                   .withKV(PivotConstants.kV));
 
   // Status signals
-  private StatusSignal<Angle> m_position;
-  private StatusSignal<AngularVelocity> m_velocity;
-  private StatusSignal<Voltage> m_appliedVolts;
-  private StatusSignal<Current> m_currentAmps;
+  private final StatusSignal<Angle> m_position;
+  private final StatusSignal<AngularVelocity> m_velocity;
+  private final StatusSignal<Voltage> m_appliedVolts;
+  private final StatusSignal<Current> m_currentAmps;
 
   // Constructor
   public PivotIOTalonFX() {

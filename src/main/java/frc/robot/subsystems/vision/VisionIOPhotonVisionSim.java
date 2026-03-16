@@ -20,8 +20,8 @@ import org.photonvision.simulation.VisionSystemSim;
 public class VisionIOPhotonVisionSim extends VisionIOPhotonVision {
   private static VisionSystemSim visionSim;
 
-  private final Supplier<Pose2d> poseSupplier;
-  private final PhotonCameraSim cameraSim;
+  private final Supplier<Pose2d> m_poseSupplier;
+  private final PhotonCameraSim m_cameraSim;
 
   /**
    * Creates a new VisionIOPhotonVisionSim.
@@ -32,7 +32,7 @@ public class VisionIOPhotonVisionSim extends VisionIOPhotonVision {
   public VisionIOPhotonVisionSim(
       String name, Transform3d robotToCamera, Supplier<Pose2d> poseSupplier) {
     super(name, robotToCamera);
-    this.poseSupplier = poseSupplier;
+    this.m_poseSupplier = poseSupplier;
 
     // Initialize vision sim
     if (visionSim == null) {
@@ -42,13 +42,13 @@ public class VisionIOPhotonVisionSim extends VisionIOPhotonVision {
 
     // Add sim camera
     var cameraProperties = new SimCameraProperties();
-    cameraSim = new PhotonCameraSim(camera, cameraProperties, aprilTagLayout);
-    visionSim.addCamera(cameraSim, robotToCamera);
+    m_cameraSim = new PhotonCameraSim(m_camera, cameraProperties, aprilTagLayout);
+    visionSim.addCamera(m_cameraSim, robotToCamera);
   }
 
   @Override
   public void updateInputs(VisionIOInputs inputs) {
-    visionSim.update(poseSupplier.get());
+    visionSim.update(m_poseSupplier.get());
     super.updateInputs(inputs);
   }
 }

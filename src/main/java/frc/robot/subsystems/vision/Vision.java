@@ -25,25 +25,25 @@ import java.util.List;
 import org.littletonrobotics.junction.Logger;
 
 public class Vision extends SubsystemBase {
-  private final VisionConsumer consumer;
-  private final VisionIO[] io;
-  private final VisionIOInputsAutoLogged[] inputs;
-  private final Alert[] disconnectedAlerts;
+  private final VisionConsumer m_consumer;
+  private final VisionIO[] m_io;
+  private final VisionIOInputsAutoLogged[] m_inputs;
+  private final Alert[] m_disconnectedAlerts;
 
   public Vision(VisionConsumer consumer, VisionIO... io) {
-    this.consumer = consumer;
-    this.io = io;
+    this.m_consumer = consumer;
+    this.m_io = io;
 
     // Initialize inputs
-    this.inputs = new VisionIOInputsAutoLogged[io.length];
-    for (int i = 0; i < inputs.length; i++) {
-      inputs[i] = new VisionIOInputsAutoLogged();
+    this.m_inputs = new VisionIOInputsAutoLogged[io.length];
+    for (int i = 0; i < m_inputs.length; i++) {
+      m_inputs[i] = new VisionIOInputsAutoLogged();
     }
 
     // Initialize disconnected alerts
-    this.disconnectedAlerts = new Alert[io.length];
-    for (int i = 0; i < inputs.length; i++) {
-      disconnectedAlerts[i] =
+    this.m_disconnectedAlerts = new Alert[io.length];
+    for (int i = 0; i < m_inputs.length; i++) {
+      m_disconnectedAlerts[i] =
           new Alert(
               "Vision camera " + Integer.toString(i) + " is disconnected.", AlertType.kWarning);
     }
@@ -55,14 +55,14 @@ public class Vision extends SubsystemBase {
    * @param cameraIndex The index of the camera to use.
    */
   public Rotation2d getTargetX(int cameraIndex) {
-    return inputs[cameraIndex].latestTargetObservation.tx();
+    return m_inputs[cameraIndex].latestTargetObservation.tx();
   }
 
   @Override
   public void periodic() {
-    for (int i = 0; i < io.length; i++) {
-      io[i].updateInputs(inputs[i]);
-      Logger.processInputs("Vision/Camera" + Integer.toString(i), inputs[i]);
+    for (int i = 0; i < m_io.length; i++) {
+      m_io[i].updateInputs(m_inputs[i]);
+      Logger.processInputs("Vision/Camera" + Integer.toString(i), m_inputs[i]);
     }
 
     // Initialize logging values
@@ -72,9 +72,9 @@ public class Vision extends SubsystemBase {
     List<Pose3d> allRobotPosesRejected = new LinkedList<>();
 
     // Loop over cameras
-    for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
+    for (int cameraIndex = 0; cameraIndex < m_io.length; cameraIndex++) {
       // Update disconnected alert
-      disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
+      m_disconnectedAlerts[cameraIndex].set(!m_inputs[cameraIndex].connected);
 
       // Initialize logging values
       List<Pose3d> tagPoses = new LinkedList<>();
@@ -83,7 +83,7 @@ public class Vision extends SubsystemBase {
       List<Pose3d> robotPosesRejected = new LinkedList<>();
 
       // Add tag poses
-      for (int tagId : inputs[cameraIndex].tagIds) {
+      for (int tagId : m_inputs[cameraIndex].tagIds) {
         var tagPose = aprilTagLayout.getTagPose(tagId);
         if (tagPose.isPresent()) {
           tagPoses.add(tagPose.get());
@@ -91,7 +91,7 @@ public class Vision extends SubsystemBase {
       }
 
       // Loop over pose observations
-      for (var observation : inputs[cameraIndex].poseObservations) {
+      for (var observation : m_inputs[cameraIndex].poseObservations) {
         // Check whether to reject pose
         boolean rejectPose =
             observation.tagCount() == 0 // Must have at least one tag
@@ -134,7 +134,7 @@ public class Vision extends SubsystemBase {
         }
 
         // Send vision observation
-        consumer.accept(
+        m_consumer.accept(
             observation.pose().toPose2d(),
             observation.timestamp(),
             VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev));

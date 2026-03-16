@@ -19,94 +19,95 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
-  private final ModuleIO io;
-  private final ModuleIOInputsAutoLogged inputs = new ModuleIOInputsAutoLogged();
-  private final int index;
+  private final ModuleIO m_io;
+  private final ModuleIOInputsAutoLogged m_inputs = new ModuleIOInputsAutoLogged();
+  private final int m_index;
   private final SwerveModuleConstants<
           TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>
-      constants;
+      m_constants;
 
-  private final Alert driveDisconnectedAlert;
-  private final Alert turnDisconnectedAlert;
-  private final Alert turnEncoderDisconnectedAlert;
-  private SwerveModulePosition[] odometryPositions = new SwerveModulePosition[] {};
+  private final Alert m_driveDisconnectedAlert;
+  private final Alert m_turnDisconnectedAlert;
+  private final Alert m_turnEncoderDisconnectedAlert;
+  private SwerveModulePosition[] m_odometryPositions = new SwerveModulePosition[] {};
 
   public Module(
       ModuleIO io,
       int index,
       SwerveModuleConstants<TalonFXConfiguration, TalonFXConfiguration, CANcoderConfiguration>
           constants) {
-    this.io = io;
-    this.index = index;
-    this.constants = constants;
-    driveDisconnectedAlert =
+    this.m_io = io;
+    this.m_index = index;
+    this.m_constants = constants;
+    m_driveDisconnectedAlert =
         new Alert(
-            "Disconnected drive motor on module " + Integer.toString(index) + ".",
+            "Disconnected drive motor on module " + Integer.toString(m_index) + ".",
             AlertType.kError);
-    turnDisconnectedAlert =
+    m_turnDisconnectedAlert =
         new Alert(
-            "Disconnected turn motor on module " + Integer.toString(index) + ".", AlertType.kError);
-    turnEncoderDisconnectedAlert =
+            "Disconnected turn motor on module " + Integer.toString(m_index) + ".",
+            AlertType.kError);
+    m_turnEncoderDisconnectedAlert =
         new Alert(
-            "Disconnected turn encoder on module " + Integer.toString(index) + ".",
+            "Disconnected turn encoder on module " + Integer.toString(m_index) + ".",
             AlertType.kError);
   }
 
   public void periodic() {
-    io.updateInputs(inputs);
-    Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
+    m_io.updateInputs(m_inputs);
+    Logger.processInputs("Drive/Module" + Integer.toString(m_index), m_inputs);
 
     // Calculate positions for odometry
-    int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together
-    odometryPositions = new SwerveModulePosition[sampleCount];
+    int sampleCount = m_inputs.odometryTimestamps.length; // All signals are sampled together
+    m_odometryPositions = new SwerveModulePosition[sampleCount];
     for (int i = 0; i < sampleCount; i++) {
-      double positionMeters = inputs.odometryDrivePositionsRad[i] * constants.WheelRadius;
-      Rotation2d angle = inputs.odometryTurnPositions[i];
-      odometryPositions[i] = new SwerveModulePosition(positionMeters, angle);
+      double positionMeters = m_inputs.odometryDrivePositionsRad[i] * m_constants.WheelRadius;
+      Rotation2d angle = m_inputs.odometryTurnPositions[i];
+      m_odometryPositions[i] = new SwerveModulePosition(positionMeters, angle);
     }
 
     // Update alerts
-    driveDisconnectedAlert.set(!inputs.driveConnected);
-    turnDisconnectedAlert.set(!inputs.turnConnected);
-    turnEncoderDisconnectedAlert.set(!inputs.turnEncoderConnected);
+    m_driveDisconnectedAlert.set(!m_inputs.driveConnected);
+    m_turnDisconnectedAlert.set(!m_inputs.turnConnected);
+    m_turnEncoderDisconnectedAlert.set(!m_inputs.turnEncoderConnected);
   }
 
   /** Runs the module with the specified setpoint state. Mutates the state to optimize it. */
   public void runSetpoint(SwerveModuleState state) {
     // Optimize velocity setpoint
     state.optimize(getAngle());
-    state.cosineScale(inputs.turnPosition);
+    state.cosineScale(m_inputs.turnPosition);
 
     // Apply setpoints
-    io.setDriveVelocity(state.speedMetersPerSecond / constants.WheelRadius);
-    io.setTurnPosition(state.angle);
+    m_io.setDriveVelocity(state.speedMetersPerSecond / m_constants.WheelRadius);
+    m_io.setTurnPosition(state.angle);
   }
 
   /** Runs the module with the specified output while controlling to zero degrees. */
   public void runCharacterization(double output) {
-    io.setDriveOpenLoop(output);
-    io.setTurnPosition(Rotation2d.kZero);
+    m_io.setDriveOpenLoop(output);
+    m_io.setTurnPosition(Rotation2d.kZero);
   }
 
   /** Disables all outputs to motors. */
   public void stop() {
-    io.setDriveOpenLoop(0.0);
-    io.setTurnOpenLoop(0.0);
+    m_io.setDriveOpenLoop(0.0);
+    m_io.setTurnOpenLoop(0.0);
   }
 
   /** Returns the current turn angle of the module. */
   public Rotation2d getAngle() {
-    return inputs.turnPosition;
+    return m_inputs.turnPosition;
   }
 
   /** Returns the current drive position of the module in meters. */
   public double getPositionMeters() {
-    return inputs.drivePositionRad * constants.WheelRadius;
+    return m_inputs.drivePositionRad * m_constants.WheelRadius;
   }
 
   /** Returns the current drive velocity of the module in meters per second. */
   public double getVelocityMetersPerSec() {
-    return inputs.driveVelocityRadPerSec * constants.WheelRadius;
+    return m_inputs.driveVelocityRadPerSec * m_constants.WheelRadius;
   }
 
   /** Returns the module position (turn angle and drive position). */
@@ -121,21 +122,21 @@ public class Module {
 
   /** Returns the module positions received this cycle. */
   public SwerveModulePosition[] getOdometryPositions() {
-    return odometryPositions;
+    return m_odometryPositions;
   }
 
   /** Returns the timestamps of the samples received this cycle. */
   public double[] getOdometryTimestamps() {
-    return inputs.odometryTimestamps;
+    return m_inputs.odometryTimestamps;
   }
 
   /** Returns the module position in radians. */
   public double getWheelRadiusCharacterizationPosition() {
-    return inputs.drivePositionRad;
+    return m_inputs.drivePositionRad;
   }
 
   /** Returns the module velocity in rotations/sec (Phoenix native units). */
   public double getFFCharacterizationVelocity() {
-    return Units.radiansToRotations(inputs.driveVelocityRadPerSec);
+    return Units.radiansToRotations(m_inputs.driveVelocityRadPerSec);
   }
 }

@@ -14,25 +14,25 @@ import frc.robot.Constants.RobotStateConstants;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterIOSim implements ShooterIO {
-  private DCMotorSim shooterSim =
+  private final DCMotorSim m_shooterSim =
       new DCMotorSim(
           LinearSystemId.createDCMotorSystem(DCMotor.getCIM(1), 0.004, ShooterConstants.GEAR_RATIO),
           DCMotor.getCIM(1));
 
-  private double shooterAppliedVolts = 0.0;
+  private double m_shooterAppliedVolts = 0.0;
 
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
-    shooterSim.setInputVoltage(shooterAppliedVolts);
-    shooterSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
+    m_shooterSim.setInputVoltage(m_shooterAppliedVolts);
+    m_shooterSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.middleShooterRPS = shooterSim.getAngularVelocityRPM() / 60.0;
-    inputs.middleShooterAppliedVolts = shooterAppliedVolts;
-    inputs.middleShooterCurrentAmps = shooterSim.getCurrentDrawAmps();
+    inputs.middleShooterRPS = m_shooterSim.getAngularVelocityRPM() / 60.0;
+    inputs.middleShooterAppliedVolts = m_shooterAppliedVolts;
+    inputs.middleShooterCurrentAmps = m_shooterSim.getCurrentDrawAmps();
   }
 
   @Override
   public void setVelocity(double velocityRPM) {
-    shooterSim.setAngularVelocity(velocityRPM / 60.0);
+    m_shooterSim.setAngularVelocity(velocityRPM / 60.0);
   }
 }

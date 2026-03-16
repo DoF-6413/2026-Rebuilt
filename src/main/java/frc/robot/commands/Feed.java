@@ -11,8 +11,8 @@ import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.hopper.Hopper;
 
 public class Feed extends Command {
-  public Hopper m_hopper;
-  public Column m_column;
+  private final Hopper m_hopper;
+  private final Column m_column;
 
   public Feed(Hopper hopper, Column column) {
     m_hopper = hopper;

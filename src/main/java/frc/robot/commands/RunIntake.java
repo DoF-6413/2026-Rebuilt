@@ -10,8 +10,8 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
 
 public class RunIntake extends Command {
-  public Intake m_intake;
-  public Pivot m_pivot;
+  private final Intake m_intake;
+  private final Pivot m_pivot;
 
   public RunIntake(Intake intake, Pivot pivot) {
     m_intake = intake;
