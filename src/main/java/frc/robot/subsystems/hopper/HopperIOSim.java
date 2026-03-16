@@ -28,7 +28,7 @@ public class HopperIOSim implements HopperIO {
     hopperSim.setInputVoltage(hopperAppliedVolts);
     hopperSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.hopperRPM = hopperSim.getAngularPositionRad();
+    inputs.hopperRPM = hopperSim.getAngularVelocityRPM();
     inputs.hopperAppliedVolts = hopperAppliedVolts;
     inputs.hopperCurrentAmps = hopperSim.getCurrentDrawAmps();
   }

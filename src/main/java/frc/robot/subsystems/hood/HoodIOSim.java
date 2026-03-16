@@ -19,8 +19,8 @@ public class HoodIOSim implements HoodIO {
   @Override
   public void updateInputs(HoodIOInputs inputs) {
     // Servos don't have feedback, so we assume they are where we told them to be
-    // for the "current" state, or we rely on the Subsystem's estimation.
     inputs.targetPosition = this.targetPosition;
+    inputs.currentPosition = this.targetPosition;
   }
 
   @Override

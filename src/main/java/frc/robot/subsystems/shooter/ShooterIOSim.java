@@ -26,7 +26,7 @@ public class ShooterIOSim implements ShooterIO {
     shooterSim.setInputVoltage(shooterAppliedVolts);
     shooterSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.middleShooterRPS = shooterSim.getAngularVelocityRPM();
+    inputs.middleShooterRPS = shooterSim.getAngularVelocityRPM() / 60.0;
     inputs.middleShooterAppliedVolts = shooterAppliedVolts;
     inputs.middleShooterCurrentAmps = shooterSim.getCurrentDrawAmps();
   }

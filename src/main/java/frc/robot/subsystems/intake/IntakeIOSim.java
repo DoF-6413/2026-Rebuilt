@@ -27,9 +27,8 @@ public class IntakeIOSim implements IntakeIO {
     intakeSim.setInputVoltage(intakeAppliedVolts);
     intakeSim.update(RobotStateConstants.PERIODIC_LOOP_SEC);
 
-    inputs.intakeRPM = intakeSim.getAngularPositionRad();
+    inputs.intakeRPM = intakeSim.getAngularVelocityRPM();
     inputs.intakeAppliedVolts = intakeAppliedVolts;
-    inputs.intakeCurrentAmps = intakeSim.getCurrentDrawAmps();
     inputs.intakeCurrentAmps = intakeSim.getCurrentDrawAmps();
   }
 

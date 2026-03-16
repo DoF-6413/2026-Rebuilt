@@ -34,7 +34,7 @@ public class Pivot extends SubsystemBase {
   }
 
   public boolean isAtTarget() {
-    return m_inputs.relativePosRot - m_targetPosition
+    return Math.abs(m_inputs.relativePosRot - m_targetPosition)
         < Units.degreesToRotations(PivotConstants.TOLERANCE_DEG);
   }
 

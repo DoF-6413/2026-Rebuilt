@@ -11,6 +11,8 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.Constants.PivotConstants;
@@ -39,6 +41,8 @@ public class PivotIOTalonFX implements PivotIO {
                   .withKV(PivotConstants.kV));
 
   // Status signals
+  private StatusSignal<Angle> m_position;
+  private StatusSignal<AngularVelocity> m_velocity;
   private StatusSignal<Voltage> m_appliedVolts;
   private StatusSignal<Current> m_currentAmps;
 
@@ -53,17 +57,25 @@ public class PivotIOTalonFX implements PivotIO {
     m_pivotTalonFX.getConfigurator().apply(m_motorConfig);
 
     // Update IOs
+    m_position = m_pivotTalonFX.getPosition();
+    m_velocity = m_pivotTalonFX.getVelocity();
     m_appliedVolts = m_pivotTalonFX.getMotorVoltage();
     m_currentAmps = m_pivotTalonFX.getStatorCurrent();
 
+    m_position.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
+    m_velocity.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
     m_appliedVolts.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
     m_currentAmps.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
   }
 
   @Override
   public void updateInputs(PivotIOInputs inputs) {
-    inputs.isOK = BaseStatusSignal.refreshAll(m_appliedVolts, m_currentAmps).isOK();
+    inputs.isOK =
+        BaseStatusSignal.refreshAll(m_position, m_velocity, m_appliedVolts, m_currentAmps).isOK();
 
+    inputs.relativePosRot = m_position.getValueAsDouble();
+    inputs.velocityRadPerSec =
+        edu.wpi.first.math.util.Units.rotationsToRadians(m_velocity.getValueAsDouble());
     inputs.appliedVoltage = m_appliedVolts.getValueAsDouble();
     inputs.currentAmps = m_currentAmps.getValueAsDouble();
   }
