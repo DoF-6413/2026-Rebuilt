@@ -226,10 +226,11 @@ public class RobotContainer {
     // Default command, normal field-relative drive
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
-            drive,
-            () -> 1 * driverController.getLeftY(),
-            () -> 1 * driverController.getLeftX(),
-            () -> -0.8 * driverController.getRightX()));
+                drive,
+                () -> 1 * driverController.getLeftY(),
+                () -> 1 * driverController.getLeftX(),
+                () -> -0.8 * driverController.getRightX())
+            .withName("JoystickDrive"));
 
     // Reset gyro to 0° when A button is pressed
     driverController
@@ -240,41 +241,52 @@ public class RobotContainer {
                         drive.setPose(
                             new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
                     drive)
-                .ignoringDisable(true));
+                .ignoringDisable(true)
+                .withName("ResetPose"));
   }
 
   private void auxControllerBindings() {
     // D-pad Up: Deploy intake pivot and run intake rollers
     auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
     // D-pad Down: Retract the intake back up
-    auxController.povDown().whileTrue(new IntakeRetract(m_intake, m_pivot));
+    auxController
+        .povDown()
+        .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
-    auxController.rightBumper().whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub"));
+    auxController
+        .rightBumper()
+        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub").withName("LaunchHub"));
     // Left Bumper: Starts up the shooter and sets the hood to 60%. This is meant for shooting from
     // the corners of either trench
     auxController
         .leftBumper()
-        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "trench"));
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, "trench").withName("LaunchTrench"));
     // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
     // the sides of the Tower
     auxController
         .leftTrigger()
-        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "tower"));
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, "tower").withName("LaunchTower"));
 
     // Controlling hood
     // Button Y: sets the hood to the maximum position
     auxController
         .y()
-        .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)));
+        .onTrue(
+            new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION))
+                .withName("HoodMax"));
     // Button A: sets the hood to the minimum position
     auxController
         .a()
-        .onTrue(new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
+        .onTrue(
+            new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION))
+                .withName("HoodMin"));
     // Right Trigger: agitate the balls by moving the pivot up and down
-    auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot));
+    auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot).withName("Agitate"));
     // Button X: switch to x pattern
-    auxController.x().whileTrue(Commands.run(drive::stopWithX, drive));
+    auxController.x().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
 
     /*new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
         .whileTrue(
