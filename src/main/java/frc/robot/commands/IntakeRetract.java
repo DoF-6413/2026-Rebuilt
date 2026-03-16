@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
 
@@ -27,8 +28,7 @@ public class IntakeRetract extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_pivot.setPosition(PivotConstants.HOMED_ANGLE_ROT);
-    m_pivot.setVoltage(2.0);
+    m_pivot.setPosition(PivotConstants.HOMED_ANGLE_ROT);
     m_intake.setVoltage(0.0);
   }
 

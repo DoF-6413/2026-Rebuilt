@@ -25,7 +25,6 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
-    m_pivot.setVoltage(-2);
     m_intake.setVoltage(-12.0);
   }
 
