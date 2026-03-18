@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LTD"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "DP-LT"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LaunchTrench"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
