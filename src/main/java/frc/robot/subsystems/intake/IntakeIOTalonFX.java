@@ -37,8 +37,9 @@ public class IntakeIOTalonFX implements IntakeIO {
         IntakeConstants.IS_BRAKE_MODE_ENABLED ? NeutralModeValue.Brake : NeutralModeValue.Coast;
     tryUntilOk(5, () -> m_intake.getConfigurator().apply(motorConfig, 0.25));
 
+    // All signals are diagnostic (voltage-controlled, no PID) — reduced frequency, logging only
     BaseStatusSignal.setUpdateFrequencyForAll(
-        RobotStateConstants.UPDATE_FREQUENCY_HZ,
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ,
         m_intakeVelocityRotPerSec,
         m_intakeAppliedVolts,
         m_intakeCurrentAmps);
