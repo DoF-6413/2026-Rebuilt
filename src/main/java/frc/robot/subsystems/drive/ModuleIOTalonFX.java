@@ -34,6 +34,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
+import frc.robot.Constants.RobotStateConstants;
 import frc.robot.generated.TunerConstants;
 import java.util.Queue;
 
@@ -173,13 +174,17 @@ public class ModuleIOTalonFX implements ModuleIO {
     // Configure periodic frames
     BaseStatusSignal.setUpdateFrequencyForAll(
         Drive.ODOMETRY_FREQUENCY, m_drivePosition, m_turnPosition);
+
+    // Control signals — high frequency for PID feedback
     BaseStatusSignal.setUpdateFrequencyForAll(
-        50.0,
-        m_driveVelocity,
+        RobotStateConstants.UPDATE_FREQUENCY_HZ, m_driveVelocity, m_turnVelocity);
+
+    // Diagnostic signals — reduced frequency, logging only
+    BaseStatusSignal.setUpdateFrequencyForAll(
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ,
         m_driveAppliedVolts,
         m_driveCurrent,
         m_turnAbsolutePosition,
-        m_turnVelocity,
         m_turnAppliedVolts,
         m_turnCurrent);
     ParentDevice.optimizeBusUtilizationForAll(m_driveTalon, m_turnTalon);
