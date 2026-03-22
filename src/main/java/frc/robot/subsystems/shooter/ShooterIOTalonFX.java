@@ -61,6 +61,7 @@ public class ShooterIOTalonFX implements ShooterIO {
   private double m_lastKI = ShooterConstants.kI;
   private double m_lastKD = ShooterConstants.kD;
   private double m_lastKV = ShooterConstants.kV;
+  private int m_pidUpdateCounter = 0; // Throttle SmartDashboard reads to every 50 calls (~1 second)
 
   // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
@@ -127,6 +128,8 @@ public class ShooterIOTalonFX implements ShooterIO {
   }
 
   private void updatePIDFromDashboard() {
+    if (++m_pidUpdateCounter < 50) return;
+    m_pidUpdateCounter = 0;
 
     double kP = SmartDashboard.getNumber("Shooter/kP", m_lastKP);
     double kI = SmartDashboard.getNumber("Shooter/kI", m_lastKI);
