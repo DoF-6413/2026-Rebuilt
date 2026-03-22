@@ -49,8 +49,9 @@ public class ColumnIOTalonFX implements ColumnIO {
                 .getConfigurator()
                 .apply(columnConfig, RobotStateConstants.PHX_CONFIG_TIMEOUT_SEC));
 
+    // All signals are diagnostic (voltage-controlled, no PID) — reduced frequency, logging only
     BaseStatusSignal.setUpdateFrequencyForAll(
-        RobotStateConstants.UPDATE_FREQUENCY_HZ,
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ,
         m_columnVelocityRotPerSec,
         m_columnAppliedVolts,
         m_columnCurrentAmps);
