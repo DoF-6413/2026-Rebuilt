@@ -56,6 +56,8 @@ public final class Constants {
     /* Motor Configs */
     /* Refreshes TalonFX signals 50 times a second (every 0.02 seconds) */
     public static final double UPDATE_FREQUENCY_HZ = 50;
+    /* Refreshes follower/diagnostic TalonFX signals 5 times a second (every 0.2 seconds) */
+    public static final double FOLLOWER_UPDATE_FREQUENCY_HZ = 5;
     /* Times out PHX tuner config after 0.25 sec */
     public static final double PHX_CONFIG_TIMEOUT_SEC = 0.25;
     /* Times out CAN bus after 30 sec */

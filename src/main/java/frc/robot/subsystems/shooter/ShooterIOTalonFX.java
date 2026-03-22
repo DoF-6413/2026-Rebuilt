@@ -56,6 +56,8 @@ public class ShooterIOTalonFX implements ShooterIO {
   // Track the last velocity setpoint
   private double m_targetVelocityRPS = 0.0;
 
+  private int m_loopCounter = 0;
+
   // SmartDashboard PID tuning cache
   private double m_lastKP = ShooterConstants.kP;
   private double m_lastKI = ShooterConstants.kI;
@@ -103,9 +105,14 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_leftShooter.setControl(
         new Follower(m_middleShooter.getDeviceID(), MotorAlignmentValue.Aligned));
 
+    // Control signal — high frequency for PID feedback
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
-        m_middleShooterVelocityRotPerSec,
+        m_middleShooterVelocityRotPerSec);
+
+    // Diagnostic signals — reduced frequency, logging only
+    BaseStatusSignal.setUpdateFrequencyForAll(
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ,
         m_middleShooterAppliedVolts,
         m_middleShooterCurrentAmps,
         m_rightShooterVelocityRotPerSec,
@@ -149,18 +156,29 @@ public class ShooterIOTalonFX implements ShooterIO {
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
 
-    updatePIDFromDashboard();
+    m_loopCounter++;
 
-    BaseStatusSignal.refreshAll(
-        m_middleShooterVelocityRotPerSec,
-        m_middleShooterAppliedVolts,
-        m_middleShooterCurrentAmps,
-        m_rightShooterVelocityRotPerSec,
-        m_rightShooterAppliedVolts,
-        m_rightShooterCurrentAmps,
-        m_leftShooterVelocityRotPerSec,
-        m_leftShooterAppliedVolts,
-        m_leftShooterCurrentAmps);
+    // Control signal — refresh every loop for PID
+    BaseStatusSignal.refreshAll(m_middleShooterVelocityRotPerSec);
+
+    // Diagnostic signals — refresh every 10 loops (~200ms)
+    if (m_loopCounter % 10 == 0) {
+      BaseStatusSignal.refreshAll(
+          m_middleShooterAppliedVolts,
+          m_middleShooterCurrentAmps,
+          m_rightShooterVelocityRotPerSec,
+          m_rightShooterAppliedVolts,
+          m_rightShooterCurrentAmps,
+          m_leftShooterVelocityRotPerSec,
+          m_leftShooterAppliedVolts,
+          m_leftShooterCurrentAmps);
+    }
+
+    // PID tuning — poll SmartDashboard every 50 loops (~1 second)
+    if (m_loopCounter % 50 == 0) {
+      updatePIDFromDashboard();
+      m_loopCounter = 0;
+    }
 
     // Motor rotations -> shooter rotations * gear ratio
     inputs.middleShooterRPS =
