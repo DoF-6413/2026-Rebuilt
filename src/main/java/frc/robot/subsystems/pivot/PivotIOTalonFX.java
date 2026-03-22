@@ -62,10 +62,13 @@ public class PivotIOTalonFX implements PivotIO {
     m_appliedVolts = m_pivotTalonFX.getMotorVoltage();
     m_currentAmps = m_pivotTalonFX.getStatorCurrent();
 
-    m_position.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-    m_velocity.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-    m_appliedVolts.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
-    m_currentAmps.setUpdateFrequency(RobotStateConstants.UPDATE_FREQUENCY_HZ);
+    // Control signals — high frequency for position PID feedback
+    BaseStatusSignal.setUpdateFrequencyForAll(
+        RobotStateConstants.UPDATE_FREQUENCY_HZ, m_position, m_velocity);
+
+    // Diagnostic signals — reduced frequency, logging only
+    BaseStatusSignal.setUpdateFrequencyForAll(
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ, m_appliedVolts, m_currentAmps);
   }
 
   @Override
