@@ -45,8 +45,9 @@ public class HopperIOTalonFX implements HopperIO {
 
     m_hopper.getConfigurator().apply(m_motorConfig);
 
+    // All signals are diagnostic (voltage-controlled, no PID) — reduced frequency, logging only
     BaseStatusSignal.setUpdateFrequencyForAll(
-        RobotStateConstants.UPDATE_FREQUENCY_HZ,
+        RobotStateConstants.FOLLOWER_UPDATE_FREQUENCY_HZ,
         m_hopperAppliedVolts,
         m_hopperCurrentAmps,
         m_hopperVelocityRotPerSec);
