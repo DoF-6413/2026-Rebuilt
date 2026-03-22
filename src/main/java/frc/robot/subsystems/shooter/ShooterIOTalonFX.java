@@ -56,12 +56,13 @@ public class ShooterIOTalonFX implements ShooterIO {
   // Track the last velocity setpoint
   private double m_targetVelocityRPS = 0.0;
 
+  private int m_loopCounter = 0;
+
   // SmartDashboard PID tuning cache
   private double m_lastKP = ShooterConstants.kP;
   private double m_lastKI = ShooterConstants.kI;
   private double m_lastKD = ShooterConstants.kD;
   private double m_lastKV = ShooterConstants.kV;
-  private int m_pidUpdateCounter = 0; // Throttle SmartDashboard reads to every 50 calls (~1 second)
 
   // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
@@ -128,8 +129,6 @@ public class ShooterIOTalonFX implements ShooterIO {
   }
 
   private void updatePIDFromDashboard() {
-    if (++m_pidUpdateCounter < 50) return;
-    m_pidUpdateCounter = 0;
 
     double kP = SmartDashboard.getNumber("Shooter/kP", m_lastKP);
     double kI = SmartDashboard.getNumber("Shooter/kI", m_lastKI);
@@ -152,7 +151,13 @@ public class ShooterIOTalonFX implements ShooterIO {
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
 
-    updatePIDFromDashboard();
+    m_loopCounter++;
+
+    // PID tuning — poll SmartDashboard every 50 loops (~1 second)
+    if (m_loopCounter % 50 == 0) {
+        updatePIDFromDashboard();
+        m_loopCounter = 0;
+    }
 
     BaseStatusSignal.refreshAll(
         m_middleShooterVelocityRotPerSec,
