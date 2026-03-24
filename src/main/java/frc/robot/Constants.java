@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -71,6 +72,12 @@ public final class Constants {
   public static class OperatorConstants {
     public static int DRIVE_CONTROLLER = 0;
     public static int AUX_CONTROLLER = 1;
+  }
+
+  public static class FieldConstants {
+    // Hub center positions for auto-aim (field coordinates, meters)
+    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(5.02, 4.11);
+    public static final Translation2d RED_HUB_POSITION = new Translation2d(12.52, 4.11);
   }
 
   public static class PathFinderConstants {
@@ -259,23 +266,23 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
 
     // Camera names, must match names configured on coprocessor
-    public static String camera0Name = "0_Arducam_OV9281";
-    public static String camera1Name = "1_Arducam_OV9281";
+    public static String camera0Name = "Camera_1";
+    public static String camera1Name = "Camera_2";
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
     public static Transform3d robotToCamera0 =
-      new Transform3d(
-        Units.inchesToMeters(-13.0),
-        Units.inchesToMeters(13.0),
-        Units.inchesToMeters(6.0),
-        new Rotation3d(0.0, Units.degreesToRadians(45), Units.degreesToRadians(225)));
+        new Transform3d(
+            Units.inchesToMeters(-13.0),
+            Units.inchesToMeters(13.0),
+            Units.inchesToMeters(6.0),
+            new Rotation3d(0.0, Units.degreesToRadians(45), Units.degreesToRadians(225)));
     public static Transform3d robotToCamera1 =
-      new Transform3d(
-        Units.inchesToMeters(-13.0),
-        -Units.inchesToMeters(-13.0),
-        Units.inchesToMeters(6.0),
-        new Rotation3d(0.0, Units.degreesToRadians(45), -Units.degreesToRadians(315)));
+        new Transform3d(
+            Units.inchesToMeters(-13.0),
+            -Units.inchesToMeters(-13.0),
+            Units.inchesToMeters(6.0),
+            new Rotation3d(0.0, Units.degreesToRadians(45), -Units.degreesToRadians(315)));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;

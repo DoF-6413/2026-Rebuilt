@@ -15,7 +15,9 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotStateConstants;
@@ -256,7 +259,25 @@ public class RobotContainer {
     // right in front of the hub
     auxController
         .rightBumper()
-        .whileTrue(new Launch(m_shooter, m_hopper, m_column, m_hood, "hub").withName("LaunchHub"));
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")
+                .alongWith(
+                    DriveCommands.joystickDriveAtAngle(
+                        drive,
+                        () -> -driverController.getLeftY(), // forward
+                        () -> -driverController.getLeftX(), // strafe
+                        () -> {
+                          Translation2d target =
+                              DriverStation.getAlliance()
+                                  .filter(a -> a == Alliance.Red)
+                                  .map(a -> FieldConstants.RED_HUB_POSITION)
+                                  .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+                          Pose2d robot = drive.getPose();
+                          return new Rotation2d(
+                              target.getX() - robot.getX(), target.getY() - robot.getY());
+                        }))
+                .withName("Launch Hub"));
     // Left Bumper: Starts up the shooter and sets the hood to 60%. This is meant for shooting from
     // the corners of either trench
     auxController
@@ -268,7 +289,24 @@ public class RobotContainer {
     auxController
         .leftTrigger()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, "tower").withName("LaunchTower"));
+            new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")
+                .alongWith(
+                    DriveCommands.joystickDriveAtAngle(
+                        drive,
+                        () -> -driverController.getLeftY(), // forward
+                        () -> -driverController.getLeftX(), // strafe
+                        () -> {
+                          Translation2d target =
+                              DriverStation.getAlliance()
+                                  .filter(a -> a == Alliance.Red)
+                                  .map(a -> FieldConstants.RED_HUB_POSITION)
+                                  .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+                          Pose2d robot = drive.getPose();
+                          return new Rotation2d(
+                              target.getX() - robot.getX(), target.getY() - robot.getY());
+                        }))
+                .withName("Launch tower"));
 
     // Controlling hood
     // Button Y: sets the hood to the maximum position

@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.pivot.Pivot;
 
@@ -24,7 +23,7 @@ public class RunIntake extends Command {
 
   @Override
   public void execute() {
-    m_pivot.setPosition(PivotConstants.DEPLOYED_ANGLE_ROT);
+    m_pivot.setVoltage(-2.0);
     m_intake.setVoltage(-12.0);
   }
 
