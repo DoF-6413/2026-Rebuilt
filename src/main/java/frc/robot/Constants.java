@@ -194,7 +194,7 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 2; // 10 was too much
+    public static final int CURRENT_LIMIT = 5; // 10 was too much
 
     /* Angle positions */
     /* These are measured in rotations because that's what Phoenix Tuner X gives them in, and it's also what all the methods ask for */
@@ -266,23 +266,23 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
 
     // Camera names, must match names configured on coprocessor
-    public static String camera0Name = "Camera_1";
-    public static String camera1Name = "Camera_2";
+    public static String camera1Name = "Camera_1";
+    public static String camera2Name = "Camera_2";
 
     // Robot to camera transforms
     // (Not used by Limelight, configure in web UI instead)
-    public static Transform3d robotToCamera0 =
+    public static Transform3d robotToCamera1 =
         new Transform3d(
             Units.inchesToMeters(-13.0),
             Units.inchesToMeters(13.0),
             Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(45), Units.degreesToRadians(225)));
-    public static Transform3d robotToCamera1 =
+            new Rotation3d(0.0, Units.degreesToRadians(-45), Units.degreesToRadians(225)));
+    public static Transform3d robotToCamera2 =
         new Transform3d(
             Units.inchesToMeters(-13.0),
             -Units.inchesToMeters(-13.0),
             Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(45), -Units.degreesToRadians(315)));
+            new Rotation3d(0.0, Units.degreesToRadians(-45), -Units.degreesToRadians(315)));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;

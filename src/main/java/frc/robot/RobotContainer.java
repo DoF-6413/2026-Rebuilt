@@ -125,8 +125,8 @@ public class RobotContainer {
         m_vision =
             new Vision(
                 drive::addVisionMeasurement,
-                new VisionIOPhotonVision(camera0Name, robotToCamera0),
-                new VisionIOPhotonVision(camera1Name, robotToCamera1));
+                new VisionIOPhotonVision(camera1Name, robotToCamera1),
+                new VisionIOPhotonVision(camera2Name, robotToCamera2));
 
         // The ModuleIOTalonFXS implementation provides an example implementation for
         // TalonFXS controller connected to a CANdi with a PWM encoder. The
@@ -156,8 +156,8 @@ public class RobotContainer {
         m_vision =
             new Vision(
                 drive::addVisionMeasurement,
-                new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
-                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
+                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose),
+                new VisionIOPhotonVisionSim(camera2Name, robotToCamera2, drive::getPose));
 
         break;
 
@@ -261,52 +261,28 @@ public class RobotContainer {
         .rightBumper()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, "hub")
-                .alongWith(
-                    DriveCommands.joystickDriveAtAngle(
-                        drive,
-                        () -> -driverController.getLeftY(), // forward
-                        () -> -driverController.getLeftX(), // strafe
-                        () -> {
-                          Translation2d target =
-                              DriverStation.getAlliance()
-                                  .filter(a -> a == Alliance.Red)
-                                  .map(a -> FieldConstants.RED_HUB_POSITION)
-                                  .orElse(FieldConstants.BLUE_HUB_POSITION);
-
-                          Pose2d robot = drive.getPose();
-                          return new Rotation2d(
-                              target.getX() - robot.getX(), target.getY() - robot.getY());
-                        }))
+                .alongWith()
                 .withName("Launch Hub"));
-    // Left Bumper: Starts up the shooter and sets the hood to 60%. This is meant for shooting from
-    // the corners of either trench
+    // Left Bumper: auto aims the robot towards the hub
     auxController
         .leftBumper()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, "trench").withName("LaunchTrench"));
-    // Left Trigger: Starts the shooter and sets the hood to 35%. This is meant for shooting from
-    // the sides of the Tower
-    auxController
-        .leftTrigger()
-        .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, "tower")
-                .alongWith(
-                    DriveCommands.joystickDriveAtAngle(
-                        drive,
-                        () -> -driverController.getLeftY(), // forward
-                        () -> -driverController.getLeftX(), // strafe
-                        () -> {
-                          Translation2d target =
-                              DriverStation.getAlliance()
-                                  .filter(a -> a == Alliance.Red)
-                                  .map(a -> FieldConstants.RED_HUB_POSITION)
-                                  .orElse(FieldConstants.BLUE_HUB_POSITION);
+            DriveCommands.joystickDriveAtAngle(
+                    drive,
+                    () -> -driverController.getLeftY(), // forward
+                    () -> -driverController.getLeftX(), // strafe
+                    () -> {
+                      Translation2d target =
+                          DriverStation.getAlliance()
+                              .filter(a -> a == Alliance.Red)
+                              .map(a -> FieldConstants.RED_HUB_POSITION)
+                              .orElse(FieldConstants.BLUE_HUB_POSITION);
 
-                          Pose2d robot = drive.getPose();
-                          return new Rotation2d(
-                              target.getX() - robot.getX(), target.getY() - robot.getY());
-                        }))
-                .withName("Launch tower"));
+                      Pose2d robot = drive.getPose();
+                      return new Rotation2d(
+                          target.getX() - robot.getX(), target.getY() - robot.getY());
+                    })
+                .withName("Auto aiming"));
 
     // Controlling hood
     // Button Y: sets the hood to the maximum position

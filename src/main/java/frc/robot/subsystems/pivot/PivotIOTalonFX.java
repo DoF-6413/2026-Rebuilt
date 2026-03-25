@@ -7,7 +7,6 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.MathUtil;
@@ -22,11 +21,11 @@ public class PivotIOTalonFX implements PivotIO {
 
   // Motor, controller, configurator
   private final TalonFX m_pivotTalonFX = new TalonFX(PivotConstants.CAN_ID, "Drivetrain");
-  private final PositionVoltage m_positionVoltageRequest = new PositionVoltage(0.0);
   private final TalonFXConfiguration m_motorConfig =
       new TalonFXConfiguration()
           .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Coast))
-          .withVoltage(new VoltageConfigs().withPeakReverseVoltage(-2))
+          .withVoltage(
+              new VoltageConfigs().withPeakReverseVoltage(-RobotStateConstants.MAX_VOLTAGE))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
                   .withStatorCurrentLimit(PivotConstants.CURRENT_LIMIT * 5) // 10
@@ -83,11 +82,6 @@ public class PivotIOTalonFX implements PivotIO {
   @Override
   public void enableBrakeMode(boolean enable) {
     m_pivotTalonFX.setNeutralMode(enable ? NeutralModeValue.Brake : NeutralModeValue.Coast);
-  }
-
-  @Override
-  public void setPosition(double angle) {
-    m_pivotTalonFX.setControl(m_positionVoltageRequest.withPosition(angle));
   }
 
   @Override
