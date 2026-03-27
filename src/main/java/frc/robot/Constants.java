@@ -77,7 +77,7 @@ public final class Constants {
   public static class FieldConstants {
     // Hub center positions for auto-aim (field coordinates, meters)
     public static final Translation2d BLUE_HUB_POSITION = new Translation2d(5.02, 4.11);
-    public static final Translation2d RED_HUB_POSITION = new Translation2d(12.52, 4.11);
+    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.702, 4.11);
   }
 
   public static class PathFinderConstants {
@@ -273,16 +273,22 @@ public final class Constants {
     // (Not used by Limelight, configure in web UI instead)
     public static Transform3d robotToCamera1 =
         new Transform3d(
-            Units.inchesToMeters(-13.0),
-            Units.inchesToMeters(13.0),
-            Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(-45), Units.degreesToRadians(225)));
+            Units.inchesToMeters(3.75),
+            Units.inchesToMeters(12.5),
+            Units.inchesToMeters(12.5),
+            new Rotation3d(
+                Units.degreesToRadians(17.0),
+                Units.degreesToRadians(0.0),
+                Units.degreesToRadians(90.0)));
     public static Transform3d robotToCamera2 =
         new Transform3d(
-            Units.inchesToMeters(-13.0),
-            -Units.inchesToMeters(-13.0),
-            Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(-45), -Units.degreesToRadians(315)));
+            Units.inchesToMeters(3.75),
+            -Units.inchesToMeters(-11.5),
+            Units.inchesToMeters(12.5),
+            new Rotation3d(
+                Units.degreesToRadians(-17),
+                Units.degreesToRadians(0.0),
+                -Units.degreesToRadians(-90.0)));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;
