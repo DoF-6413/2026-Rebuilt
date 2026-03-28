@@ -185,9 +185,11 @@ public class RobotContainer {
     // Register Named Commands
     NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
     NamedCommands.registerCommand(
-        "LaunchHub", new Launch(m_shooter, m_hopper, m_column, m_hood, ()-> drive.getPose(), "hub"));
+        "LaunchHub",
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub"));
     NamedCommands.registerCommand(
-        "LaunchTrench", new Launch(m_shooter, m_hopper, m_column, m_hood, ()-> drive.getPose(), "trench"));
+        "LaunchTrench",
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench"));
     NamedCommands.registerCommand("Agitate", new Agitate(m_intake, m_pivot));
 
     // Set up auto routines
@@ -261,9 +263,14 @@ public class RobotContainer {
     auxController
         .rightBumper()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, ()-> drive.getPose(), "hub")
-                .alongWith()
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                 .withName("Launch Hub"));
+    // Left Trigger: Shoots from anywhere by keeping the shooter RPM constant and adjusting the hood angle
+    auxController
+        .leftTrigger()
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
+                .withName("Launching from anywhere"));
     // Left Bumper: auto aims the robot towards the hub
     auxController
         .leftBumper()
@@ -332,7 +339,7 @@ public class RobotContainer {
       return AutoBuilder.pathfindThenFollowPath(path, constraints)
           .andThen(AutoBuilder.pathfindThenFollowPath(path, constraints))
           .andThen(
-              new Launch(m_shooter, m_hopper, m_column, m_hood, ()-> drive.getPose(), "hub")
+              new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                   .alongWith(new Agitate(m_intake, m_pivot)));
     } catch (Exception e) {
       DriverStation.reportError("Path following failed: " + e.getMessage(), e.getStackTrace());

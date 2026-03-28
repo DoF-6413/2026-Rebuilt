@@ -15,8 +15,9 @@ public class Hood extends SubsystemBase {
 
   public Hood(HoodIO io) {
     this.m_io = io;
-    //First value: distance from robot to hub, in meters | Second value: angle the hood needs to be at to shoot
-    //TODO: find and add more values from different distances
+    // First value: distance from robot to hub, in meters | Second value: angle the hood needs to be
+    // at to shoot
+    // TODO: find and add more values from different distances
     m_hoodAngle.put(1.65, 0.0);
     m_hoodAngle.put(0.0, 0.0);
     m_hoodAngle.put(0.0, 0.0);

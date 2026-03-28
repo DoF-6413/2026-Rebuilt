@@ -9,8 +9,6 @@ import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
 import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,6 +22,7 @@ import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.hood.Hood;
 import frc.robot.subsystems.hopper.Hopper;
 import frc.robot.subsystems.shooter.Shooter;
+import java.util.function.Supplier;
 
 public class Launch extends Command {
   private final Shooter m_shooter;
@@ -35,13 +34,18 @@ public class Launch extends Command {
   private final Supplier<Pose2d> m_poseSupplier;
 
   private Translation2d target =
-    DriverStation.getAlliance()
-      .filter(a -> a == Alliance.Red)
-      .map(a -> FieldConstants.RED_HUB_POSITION)
-      .orElse(FieldConstants.BLUE_HUB_POSITION);
+      DriverStation.getAlliance()
+          .filter(a -> a == Alliance.Red)
+          .map(a -> FieldConstants.RED_HUB_POSITION)
+          .orElse(FieldConstants.BLUE_HUB_POSITION);
 
-
-  public Launch(Shooter shooter, Hopper hopper, Column column, Hood hood, Supplier<Pose2d> robotPose, String position) {
+  public Launch(
+      Shooter shooter,
+      Hopper hopper,
+      Column column,
+      Hood hood,
+      Supplier<Pose2d> robotPose,
+      String position) {
     m_shooter = shooter;
     m_column = column;
     m_hopper = hopper;
@@ -57,8 +61,8 @@ public class Launch extends Command {
       speed = SETPOINT_3_RPM;
       hoodSetpoint = HoodConstants.SETPOINT_3;
     } else {
-      speed = 0.0;
-      hoodSetpoint = 0.0;
+      speed = SETPOINT_2_RPM;
+      hoodSetpoint = m_hood.getHoodAngle(getDistanceToHub());
     }
 
     addRequirements(shooter, hopper, column, hood);
@@ -93,5 +97,4 @@ public class Launch extends Command {
     Translation2d robotPosition = m_poseSupplier.get().getTranslation();
     return robotPosition.getDistance(target);
   }
-
 }
