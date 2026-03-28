@@ -1,6 +1,7 @@
 package frc.robot.subsystems.hood;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -10,9 +11,15 @@ import org.littletonrobotics.junction.Logger;
 public class Hood extends SubsystemBase {
   private final HoodIO m_io;
   private final HoodIOInputsAutoLogged m_inputs = new HoodIOInputsAutoLogged();
+  private final InterpolatingDoubleTreeMap m_hoodAngle = new InterpolatingDoubleTreeMap();
 
   public Hood(HoodIO io) {
     this.m_io = io;
+    //First value: distance from robot to hub, in meters | Second value: angle the hood needs to be at to shoot
+    //TODO: find and add more values from different distances
+    m_hoodAngle.put(1.65, 0.0);
+    m_hoodAngle.put(0.0, 0.0);
+    m_hoodAngle.put(0.0, 0.0);
   }
 
   @Override
@@ -33,5 +40,9 @@ public class Hood extends SubsystemBase {
 
   public Command positionCommand(double position) {
     return runOnce(() -> setPosition(position)).andThen(Commands.waitUntil(this::isAtTarget));
+  }
+
+  public double getHoodAngle(double position) {
+    return m_hoodAngle.get(position);
   }
 }

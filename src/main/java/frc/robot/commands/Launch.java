@@ -9,8 +9,15 @@ import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
 import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ColumnConstants;
+import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.HopperConstants;
 import frc.robot.subsystems.column.Column;
@@ -25,12 +32,21 @@ public class Launch extends Command {
   private final frc.robot.subsystems.hood.Hood m_hood;
   private final double speed;
   private final double hoodSetpoint;
+  private final Supplier<Pose2d> m_poseSupplier;
 
-  public Launch(Shooter shooter, Hopper hopper, Column column, Hood hood, String position) {
+  private Translation2d target =
+    DriverStation.getAlliance()
+      .filter(a -> a == Alliance.Red)
+      .map(a -> FieldConstants.RED_HUB_POSITION)
+      .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+
+  public Launch(Shooter shooter, Hopper hopper, Column column, Hood hood, Supplier<Pose2d> robotPose, String position) {
     m_shooter = shooter;
     m_column = column;
     m_hopper = hopper;
     m_hood = hood;
+    m_poseSupplier = robotPose;
     if (position.equals("trench")) {
       speed = SETPOINT_1_RPM;
       hoodSetpoint = HoodConstants.SETPOINT_1;
@@ -56,6 +72,7 @@ public class Launch extends Command {
 
   @Override
   public void execute() {
+    m_hood.setPosition(m_hood.getHoodAngle(getDistanceToHub()));
     if (m_shooter.getVelocity() > (speed - TOLERANCE_RPM)) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
@@ -71,4 +88,10 @@ public class Launch extends Command {
     m_column.setVoltage(0.0);
     m_hood.setPosition(HoodConstants.K_MIN_POSITION);
   }
+
+  public double getDistanceToHub() {
+    Translation2d robotPosition = m_poseSupplier.get().getTranslation();
+    return robotPosition.getDistance(target);
+  }
+
 }
