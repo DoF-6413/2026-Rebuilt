@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
@@ -11,6 +13,10 @@ import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
+import edu.wpi.first.math.interpolation.Interpolator;
+import edu.wpi.first.math.interpolation.InverseInterpolator;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,9 +35,27 @@ public class Launch extends Command {
   private final Column m_column;
   private final Hopper m_hopper;
   private final frc.robot.subsystems.hood.Hood m_hood;
-  private final double speed;
-  private final double hoodSetpoint;
   private final Supplier<Pose2d> m_poseSupplier;
+  private final Shot m_shot;
+
+   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap = new InterpolatingTreeMap<>(
+        (startValue, endValue, q) -> 
+            InverseInterpolator.forDouble()
+                .inverseInterpolate(startValue.in(Meters), endValue.in(Meters), q.in(Meters)),
+        (startValue, endValue, t) ->
+            new Shot(
+                Interpolator.forDouble()
+                    .interpolate(startValue.m_shooterRPM, endValue.m_shooterRPM, t),
+                Interpolator.forDouble()
+                    .interpolate(startValue.m_hoodPosition, endValue.m_hoodPosition, t)
+            )
+    );
+
+    static {
+      distanceToShotMap.put(Inches.of(64.96), new Shot(3000, 0.0));
+      distanceToShotMap.put(Inches.of(114.4), new Shot(3275, 0.40));
+      distanceToShotMap.put(Inches.of(165.5), new Shot(3650, 0.48));
+    }
 
   private Translation2d m_target =
       DriverStation.getAlliance()
@@ -52,17 +76,13 @@ public class Launch extends Command {
     m_hood = hood;
     m_poseSupplier = robotPose;
     if (position.equals("trench")) {
-      speed = SETPOINT_1_RPM;
-      hoodSetpoint = HoodConstants.SETPOINT_1;
+      m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
     } else if (position.equals("hub")) {
-      speed = SETPOINT_2_RPM;
-      hoodSetpoint = HoodConstants.SETPOINT_2;
+      m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
     } else if (position.equals("tower")) {
-      speed = SETPOINT_3_RPM;
-      hoodSetpoint = HoodConstants.SETPOINT_3;
+      m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
     } else {
-      speed = SETPOINT_2_RPM;
-      hoodSetpoint = m_hood.getHoodAngle(getDistanceToHub());
+      m_shot = distanceToShotMap.get(getDistanceToHub());
     }
 
     addRequirements(shooter, hopper, column, hood);
@@ -70,14 +90,14 @@ public class Launch extends Command {
 
   @Override
   public void initialize() {
-    m_shooter.setVelocity(speed);
-    m_hood.setPosition(hoodSetpoint);
+    m_shooter.setVelocity(m_shot.m_shooterRPM);
+    m_hood.setPosition(m_shot.m_hoodPosition);
   }
 
   @Override
   public void execute() {
-    m_hood.setPosition(m_hood.getHoodAngle(getDistanceToHub()));
-    if (m_shooter.getVelocity() > (speed - TOLERANCE_RPM)) {
+    m_hood.setPosition(m_shot.m_hoodPosition);
+    if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - TOLERANCE_RPM)) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }
@@ -93,8 +113,18 @@ public class Launch extends Command {
     m_hood.setPosition(HoodConstants.K_MIN_POSITION);
   }
 
-  public double getDistanceToHub() {
+  public Distance getDistanceToHub() {
     Translation2d robotPosition = m_poseSupplier.get().getTranslation();
-    return robotPosition.getDistance(m_target);
+    return Meters.of(robotPosition.getDistance(m_target));
+  }
+
+  public static class Shot {
+    public final double m_shooterRPM;
+    public final double m_hoodPosition;
+
+    public Shot (double shooterRPM, double hoodPosition) {
+      m_shooterRPM = shooterRPM;
+      m_hoodPosition = hoodPosition;
+    }
   }
 }
