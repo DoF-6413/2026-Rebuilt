@@ -284,12 +284,12 @@ public final class Constants {
     public static Transform3d robotToCamera2 =
         new Transform3d(
             Units.inchesToMeters(3.75),
-            -Units.inchesToMeters(-11.5),
+            Units.inchesToMeters(-11.5),
             Units.inchesToMeters(12.5),
             new Rotation3d(
-                Units.degreesToRadians(-17),
+                Units.degreesToRadians(17),
                 Units.degreesToRadians(0.0),
-                -Units.degreesToRadians(-90.0)));
+                Units.degreesToRadians(-90.0)));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;

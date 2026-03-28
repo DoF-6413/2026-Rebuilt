@@ -33,7 +33,7 @@ public class Launch extends Command {
   private final double hoodSetpoint;
   private final Supplier<Pose2d> m_poseSupplier;
 
-  private Translation2d target =
+  private Translation2d m_target =
       DriverStation.getAlliance()
           .filter(a -> a == Alliance.Red)
           .map(a -> FieldConstants.RED_HUB_POSITION)
@@ -95,6 +95,6 @@ public class Launch extends Command {
 
   public double getDistanceToHub() {
     Translation2d robotPosition = m_poseSupplier.get().getTranslation();
-    return robotPosition.getDistance(target);
+    return robotPosition.getDistance(m_target);
   }
 }
