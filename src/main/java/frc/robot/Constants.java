@@ -126,6 +126,7 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 20;
 
     public static final double LAUNCHING_VOLTAGE = -6.0;
+    public static final double OUTTAKING_VOLTAGE = 3.0;
 
     /* PID & FF Constants */
     public static double kP = 0.0;
