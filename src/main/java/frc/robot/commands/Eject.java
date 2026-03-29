@@ -37,7 +37,7 @@ public class Eject extends Command {
   public void execute() {
     m_column.setVoltage(-ColumnConstants.INTAKING_VOLTAGE);
     m_hopper.setVoltage(HopperConstants.OUTTAKING_VOLTAGE);
-    m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
+    m_intake.setVoltage(IntakeConstants.INTAKING_VOLTAGE);
   }
 
   // Called once the command ends or is interrupted.

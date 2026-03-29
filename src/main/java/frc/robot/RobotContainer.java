@@ -265,7 +265,8 @@ public class RobotContainer {
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                 .withName("Launch Hub"));
-    // Left Trigger: Shoots from anywhere by keeping the shooter RPM constant and adjusting the hood angle
+    // Left Trigger: Shoots from anywhere by keeping the shooter RPM constant and adjusting the hood
+    // angle
     auxController
         .leftTrigger()
         .whileTrue(
@@ -291,6 +292,16 @@ public class RobotContainer {
                           target.getX() - robot.getX(), target.getY() - robot.getY());
                     })
                 .withName("Auto aiming"));
+    auxController
+        .povLeft()
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
+                .withName("Launching from tower"));
+    auxController
+        .povRight()
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
+                .withName("Launching from trench"));
 
     // Controlling hood
     // Button Y: sets the hood to the maximum position

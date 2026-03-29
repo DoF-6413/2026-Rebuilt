@@ -19,6 +19,7 @@ import edu.wpi.first.math.interpolation.InverseInterpolator;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ColumnConstants;
 import frc.robot.Constants.FieldConstants;
@@ -37,25 +38,25 @@ public class Launch extends Command {
   private final frc.robot.subsystems.hood.Hood m_hood;
   private final Supplier<Pose2d> m_poseSupplier;
   private final Shot m_shot;
+  private final Timer m_timer = new Timer();
 
-   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap = new InterpolatingTreeMap<>(
-        (startValue, endValue, q) -> 
-            InverseInterpolator.forDouble()
-                .inverseInterpolate(startValue.in(Meters), endValue.in(Meters), q.in(Meters)),
-        (startValue, endValue, t) ->
-            new Shot(
-                Interpolator.forDouble()
-                    .interpolate(startValue.m_shooterRPM, endValue.m_shooterRPM, t),
-                Interpolator.forDouble()
-                    .interpolate(startValue.m_hoodPosition, endValue.m_hoodPosition, t)
-            )
-    );
+  private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
+      new InterpolatingTreeMap<>(
+          (startValue, endValue, q) ->
+              InverseInterpolator.forDouble()
+                  .inverseInterpolate(startValue.in(Meters), endValue.in(Meters), q.in(Meters)),
+          (startValue, endValue, t) ->
+              new Shot(
+                  Interpolator.forDouble()
+                      .interpolate(startValue.m_shooterRPM, endValue.m_shooterRPM, t),
+                  Interpolator.forDouble()
+                      .interpolate(startValue.m_hoodPosition, endValue.m_hoodPosition, t)));
 
-    static {
-      distanceToShotMap.put(Inches.of(64.96), new Shot(3000, 0.0));
-      distanceToShotMap.put(Inches.of(114.4), new Shot(3275, 0.40));
-      distanceToShotMap.put(Inches.of(165.5), new Shot(3650, 0.48));
-    }
+  static {
+    distanceToShotMap.put(Inches.of(64.96), new Shot(3000, 0.0));
+    distanceToShotMap.put(Inches.of(114.4), new Shot(3275, 0.40));
+    distanceToShotMap.put(Inches.of(165.5), new Shot(3650, 0.48));
+  }
 
   private Translation2d m_target =
       DriverStation.getAlliance()
@@ -92,12 +93,14 @@ public class Launch extends Command {
   public void initialize() {
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
+    m_timer.restart();
   }
 
   @Override
   public void execute() {
     m_hood.setPosition(m_shot.m_hoodPosition);
-    if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - TOLERANCE_RPM)) {
+    if ((m_shooter.getVelocity() > (m_shot.m_shooterRPM - TOLERANCE_RPM))
+        && m_timer.hasElapsed(1.7)) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }
@@ -122,7 +125,7 @@ public class Launch extends Command {
     public final double m_shooterRPM;
     public final double m_hoodPosition;
 
-    public Shot (double shooterRPM, double hoodPosition) {
+    public Shot(double shooterRPM, double hoodPosition) {
       m_shooterRPM = shooterRPM;
       m_hoodPosition = hoodPosition;
     }

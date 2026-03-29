@@ -15,7 +15,6 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
@@ -56,6 +55,8 @@ public class ShooterIOTalonFX implements ShooterIO {
   // Track the last velocity setpoint
   private double m_targetVelocityRPS = 0.0;
 
+  private int m_loopCounter = 0;
+
   // SmartDashboard PID tuning cache
   private double m_lastKP = ShooterConstants.kP;
   private double m_lastKI = ShooterConstants.kI;
@@ -66,25 +67,39 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   public ShooterIOTalonFX() {
 
-    var shooterConfig = new TalonFXConfiguration();
-    shooterConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    shooterConfig.CurrentLimits.SupplyCurrentLimit = ShooterConstants.CURRENT_LIMIT;
-    shooterConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-    shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-
-    // tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(shooterConfig, 0.25));
-    tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(shooterConfig, 0.25));
-    tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(shooterConfig, 0.25));
-
-    TalonFXConfiguration config =
+    // Config for left and middle shooter motors
+    TalonFXConfiguration config1 =
         new TalonFXConfiguration()
-            .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Coast))
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    .withInverted(InvertedValue.CounterClockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Coast))
             .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
             .withCurrentLimits(
                 new CurrentLimitsConfigs()
-                    .withStatorCurrentLimit(120)
+                    .withStatorCurrentLimit(ShooterConstants.STATOR_CURRENT_LIMIT)
                     .withStatorCurrentLimitEnable(true)
-                    .withSupplyCurrentLimit(70)
+                    .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
+                    .withSupplyCurrentLimitEnable(true))
+            .withSlot0(
+                new Slot0Configs()
+                    .withKP(ShooterConstants.kP)
+                    .withKI(ShooterConstants.kI)
+                    .withKD(ShooterConstants.kD)
+                    .withKV(ShooterConstants.kV));
+    // config for right shooter motor
+    TalonFXConfiguration config2 =
+        new TalonFXConfiguration()
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    .withInverted(InvertedValue.Clockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Coast))
+            .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
+            .withCurrentLimits(
+                new CurrentLimitsConfigs()
+                    .withStatorCurrentLimit(ShooterConstants.STATOR_CURRENT_LIMIT)
+                    .withStatorCurrentLimitEnable(true)
+                    .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
                     .withSupplyCurrentLimitEnable(true))
             .withSlot0(
                 new Slot0Configs()
@@ -93,15 +108,12 @@ public class ShooterIOTalonFX implements ShooterIO {
                     .withKD(ShooterConstants.kD)
                     .withKV(ShooterConstants.kV));
 
-    tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(config, 0.25));
-
-    m_rightShooter.setControl(
-        new Follower(
-            m_middleShooter.getDeviceID(),
-            MotorAlignmentValue.Opposed)); // * Mounted inverted! Keep opposite */
-
-    m_leftShooter.setControl(
-        new Follower(m_middleShooter.getDeviceID(), MotorAlignmentValue.Aligned));
+    // Middle axle — invert if spinning wrong direction: change to ClockWise_Positive
+    tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(config1, 0.25));
+    // Left axle — invert if spinning wrong direction: change to ClockWise_Positive
+    tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(config1, 0.25));
+    // Right axle — invert if spinning wrong direction: change to ClockWise_Positive
+    tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(config2, 0.25));
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
@@ -138,6 +150,8 @@ public class ShooterIOTalonFX implements ShooterIO {
       var slotConfig = new Slot0Configs().withKP(kP).withKI(kI).withKD(kD).withKV(kV);
 
       tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(slotConfig, 0.25));
+      tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(slotConfig, 0.25));
+      tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(slotConfig, 0.25));
 
       m_lastKP = kP;
       m_lastKI = kI;
@@ -149,7 +163,13 @@ public class ShooterIOTalonFX implements ShooterIO {
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
 
-    updatePIDFromDashboard();
+    m_loopCounter++;
+
+    // PID tuning — poll SmartDashboard every 50 loops (~1 second)
+    if (m_loopCounter % 50 == 0) {
+      updatePIDFromDashboard();
+      m_loopCounter = 0;
+    }
 
     BaseStatusSignal.refreshAll(
         m_middleShooterVelocityRotPerSec,
@@ -184,6 +204,11 @@ public class ShooterIOTalonFX implements ShooterIO {
   @Override
   public void setVelocity(double velocityRPM) {
     m_targetVelocityRPS = velocityRPM / 60.0;
-    m_middleShooter.setControl(m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0));
+
+    var request = m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0);
+
+    m_middleShooter.setControl(request);
+    m_rightShooter.setControl(request);
+    m_leftShooter.setControl(request);
   }
 }

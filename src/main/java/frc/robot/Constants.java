@@ -234,6 +234,7 @@ public final class Constants {
     public static final int LEFT_CAN_ID = 17;
     public static final double GEAR_RATIO = 1.0;
     public static final int CURRENT_LIMIT = 40;
+    public static final int STATOR_CURRENT_LIMIT = 120;
 
     // PID and FF
     public static double kP = 0.505; // 0.05
@@ -243,8 +244,8 @@ public final class Constants {
 
     // Shooter speed setpoints
     public static final double SETPOINT_1_RPM = 3500; // Meant for shooting from trench
-    public static final double SETPOINT_2_RPM = 3000; // Meant for shooting from hub
-    public static final double SETPOINT_3_RPM = 3150; // Meant for shooting from sides of the tower
+    public static final double SETPOINT_2_RPM = 3200; // Meant for shooting from hub
+    public static final double SETPOINT_3_RPM = 3300; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 
@@ -257,8 +258,8 @@ public final class Constants {
     public static final double K_TOLERANCE = 0.01;
 
     public static final double SETPOINT_1 = 0.6;
-    public static final double SETPOINT_2 = 0.0;
-    public static final double SETPOINT_3 = 0.35;
+    public static final double SETPOINT_2 = 0.2;
+    public static final double SETPOINT_3 = 0.6;
   }
 
   public static class VisionConstants {
