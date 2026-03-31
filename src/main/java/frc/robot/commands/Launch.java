@@ -25,6 +25,7 @@ import frc.robot.Constants.ColumnConstants;
 import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.HopperConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.hood.Hood;
 import frc.robot.subsystems.hopper.Hopper;
@@ -53,9 +54,12 @@ public class Launch extends Command {
                       .interpolate(startValue.m_hoodPosition, endValue.m_hoodPosition, t)));
 
   static {
-    distanceToShotMap.put(Inches.of(64.96), new Shot(3000, 0.0));
-    distanceToShotMap.put(Inches.of(114.4), new Shot(3275, 0.40));
-    distanceToShotMap.put(Inches.of(165.5), new Shot(3650, 0.48));
+    distanceToShotMap.put(
+        Inches.of(64.96), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
+    distanceToShotMap.put(
+        Inches.of(114.4), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
+    distanceToShotMap.put(
+        Inches.of(165.5), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
   }
 
   private Translation2d m_target =

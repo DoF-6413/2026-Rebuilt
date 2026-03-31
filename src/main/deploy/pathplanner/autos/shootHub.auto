@@ -9,12 +9,6 @@
           "data": {
             "pathName": "SL1a"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LaunchHub"
-          }
         }
       ]
     }

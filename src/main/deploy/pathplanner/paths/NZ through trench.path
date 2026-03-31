@@ -3,71 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.151648873072363,
-        "y": 4.815041518386713
+        "x": 3.535954922894425,
+        "y": 4.008102016607354
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.313896491239365,
-        "y": 4.513683505201669
+        "x": 3.786085192719631,
+        "y": 3.9699136914477893
       },
       "isLocked": false,
-      "linkedName": "nz2"
+      "linkedName": "Hub"
     },
     {
       "anchor": {
-        "x": 5.523739945023149,
-        "y": 5.591084997106481
+        "x": 3.363807829181496,
+        "y": 7.472562277580071
       },
       "prevControl": {
-        "x": 6.221937082216011,
-        "y": 5.44810002723139
+        "x": 1.7163736577938586,
+        "y": 7.53496508710233
       },
       "nextControl": {
-        "x": 4.343232653981056,
-        "y": 5.832843077246465
+        "x": 4.784021352313168,
+        "y": 7.41876631079478
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.6887445746527785,
-        "y": 5.591084997106481
+        "x": 5.935255041518388,
+        "y": 7.472562277580071
       },
       "prevControl": {
-        "x": 3.924496255177179,
-        "y": 5.756171555906833
+        "x": 5.403455511816584,
+        "y": 7.448974476373603
       },
       "nextControl": {
-        "x": 2.889964698692512,
-        "y": 5.031734494628924
+        "x": 6.857693881701555,
+        "y": 7.513476762780096
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.008102016607354
+        "x": 7.689003558718861,
+        "y": 7.36497034400949
       },
       "prevControl": {
-        "x": 3.027441688852841,
-        "y": 3.759612673349129
+        "x": 6.3441043890865965,
+        "y": 7.3219335705812565
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "hub"
+      "linkedName": "NZ from trench"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 45.0
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 2,
-      "rotationDegrees": 145.0
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -83,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

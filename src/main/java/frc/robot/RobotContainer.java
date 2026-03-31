@@ -357,4 +357,8 @@ public class RobotContainer {
       return Commands.none();
     }
   }
+
+  public Command hoodDown() {
+    return new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION));
+  }
 }

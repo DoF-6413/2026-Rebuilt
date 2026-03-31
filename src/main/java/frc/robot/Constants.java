@@ -125,7 +125,7 @@ public final class Constants {
     public static final boolean ENABLE_CURRENT_LIMIT = true;
     public static final int CURRENT_LIMIT = 20;
 
-    public static final double LAUNCHING_VOLTAGE = -6.0;
+    public static final double LAUNCHING_VOLTAGE = -12.0;
     public static final double OUTTAKING_VOLTAGE = 3.0;
 
     /* PID & FF Constants */
@@ -272,23 +272,24 @@ public final class Constants {
     public static String camera2Name = "Camera_2";
 
     // Robot to camera transforms
-    // (Not used by Limelight, configure in web UI instead)
+    // Camera translation for right camera
     public static Transform3d robotToCamera1 =
         new Transform3d(
             Units.inchesToMeters(3.75),
             Units.inchesToMeters(12.5),
             Units.inchesToMeters(12.5),
             new Rotation3d(
-                Units.degreesToRadians(17.0),
+                Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
                 Units.degreesToRadians(90.0)));
+    // Camera translation for left camera
     public static Transform3d robotToCamera2 =
         new Transform3d(
             Units.inchesToMeters(3.75),
             Units.inchesToMeters(-11.5),
             Units.inchesToMeters(12.5),
             new Rotation3d(
-                Units.degreesToRadians(17),
+                Units.degreesToRadians(21),
                 Units.degreesToRadians(0.0),
                 Units.degreesToRadians(-90.0)));
 

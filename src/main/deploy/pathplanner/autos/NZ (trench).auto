@@ -17,10 +17,16 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
+                  "waitTime": 4.0
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "NZ through trench"
           }
         },
         {
@@ -28,22 +34,9 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Hub-DP"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "DP-Intake"
-                      }
-                    }
-                  ]
+                  "name": "Intake"
                 }
               },
               {
@@ -57,9 +50,9 @@
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "Intake"
+                        "pathName": "NZ-intake (trench)"
                       }
                     }
                   ]
@@ -71,13 +64,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "DP-Hub"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "pathName": "NZ-hub (trench)"
           }
         },
         {
@@ -93,13 +80,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 6.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Agitate"
+                  "waitTime": 10.0
                 }
               }
             ]

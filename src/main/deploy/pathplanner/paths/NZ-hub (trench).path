@@ -3,71 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.151648873072363,
-        "y": 4.815041518386713
+        "x": 7.721281138790035,
+        "y": 3.9543060498220637
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.313896491239365,
-        "y": 4.513683505201669
+        "x": 7.721281138790035,
+        "y": 4.954306049822064
       },
       "isLocked": false,
-      "linkedName": "nz2"
+      "linkedName": "NZ finished intake"
     },
     {
       "anchor": {
-        "x": 5.523739945023149,
-        "y": 5.591084997106481
+        "x": 5.709311981020167,
+        "y": 7.332692763938315
       },
       "prevControl": {
-        "x": 6.221937082216011,
-        "y": 5.44810002723139
+        "x": 6.171957295373666,
+        "y": 7.3219335705812565
       },
       "nextControl": {
-        "x": 4.343232653981056,
-        "y": 5.832843077246465
+        "x": 3.482527150716458,
+        "y": 7.384478457666311
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.6887445746527785,
-        "y": 5.591084997106481
+        "x": 2.8688849347568213,
+        "y": 7.332692763938315
       },
       "prevControl": {
-        "x": 3.924496255177179,
-        "y": 5.756171555906833
+        "x": 4.977686832740213,
+        "y": 7.3219335705812565
       },
       "nextControl": {
-        "x": 2.889964698692512,
-        "y": 5.031734494628924
+        "x": 1.758749997529159,
+        "y": 7.338356717699681
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.008102016607354
+        "x": 3.417603795966786,
+        "y": 3.9543060498220637
       },
       "prevControl": {
-        "x": 3.027441688852841,
-        "y": 3.759612673349129
+        "x": 2.417603795966786,
+        "y": 3.9543060498220637
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "hub"
+      "linkedName": "Hub scoring spot"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1.0,
-      "rotationDegrees": 45.0
+      "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2,
-      "rotationDegrees": 145.0
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -86,10 +86,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
