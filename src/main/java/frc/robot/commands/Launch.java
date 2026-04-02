@@ -25,13 +25,10 @@ import frc.robot.Constants.ColumnConstants;
 import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.HoodConstants;
 import frc.robot.Constants.HopperConstants;
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.hood.Hood;
 import frc.robot.subsystems.hopper.Hopper;
-import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.shooter.Shooter;
 import java.util.function.Supplier;
 
@@ -40,8 +37,6 @@ public class Launch extends Command {
   private final Column m_column;
   private final Hopper m_hopper;
   private final frc.robot.subsystems.hood.Hood m_hood;
-  private final Intake m_intake;
-  private final Pivot m_pivot;
   private final Supplier<Pose2d> m_poseSupplier;
   private final Shot m_shot;
   private final Timer m_timer = new Timer();
@@ -77,15 +72,13 @@ public class Launch extends Command {
       Shooter shooter,
       Hopper hopper,
       Column column,
-      Hood hood, Intake intake, Pivot pivot,
+      Hood hood,
       Supplier<Pose2d> robotPose,
       String position) {
     m_shooter = shooter;
     m_column = column;
     m_hopper = hopper;
     m_hood = hood;
-    m_intake = intake;
-    m_pivot = pivot;
     m_poseSupplier = robotPose;
     if (position.equals("trench")) {
       m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
@@ -104,17 +97,10 @@ public class Launch extends Command {
   public void initialize() {
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
-    m_timer.restart();
   }
 
   @Override
   public void execute() {
-    m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
-    if (Math.sin(5 * m_timer.get()) > 0.0) {
-      m_pivot.setVoltage(2);
-    } else {
-      m_pivot.setVoltage(-2);
-    }
     m_hood.setPosition(m_shot.m_hoodPosition);
     if ((m_shooter.getVelocity() > (m_shot.m_shooterRPM - TOLERANCE_RPM))
         && m_timer.hasElapsed(1.7)) {
@@ -131,8 +117,6 @@ public class Launch extends Command {
     m_hopper.setVoltage(0.0);
     m_column.setVoltage(0.0);
     m_hood.setPosition(HoodConstants.K_MIN_POSITION);
-    m_pivot.setVoltage(0.0);
-    m_intake.setVoltage(0.0);
   }
 
   public Distance getDistanceToHub() {
