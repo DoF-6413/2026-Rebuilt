@@ -9,7 +9,6 @@ import static edu.wpi.first.units.Units.Meters;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
-import static frc.robot.Constants.ShooterConstants.TOLERANCE_RPM;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -97,13 +96,15 @@ public class Launch extends Command {
   public void initialize() {
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
+
+    m_timer.restart();
   }
 
   @Override
   public void execute() {
     m_hood.setPosition(m_shot.m_hoodPosition);
-    if ((m_shooter.getVelocity() > (m_shot.m_shooterRPM - TOLERANCE_RPM))
-        && m_timer.hasElapsed(1.7)) {
+    if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)
+        && (m_timer.hasElapsed(1.7))) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }
@@ -117,6 +118,8 @@ public class Launch extends Command {
     m_hopper.setVoltage(0.0);
     m_column.setVoltage(0.0);
     m_hood.setPosition(HoodConstants.K_MIN_POSITION);
+
+    m_timer.stop();
   }
 
   public Distance getDistanceToHub() {

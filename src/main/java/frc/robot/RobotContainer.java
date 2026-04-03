@@ -261,14 +261,16 @@ public class RobotContainer {
     auxController
         .rightBumper()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub").alongWith(new Agitate(m_intake, m_pivot))
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
     // Left Trigger: Shoots from anywhere by keeping the shooter RPM constant and adjusting the hood
     // angle
     auxController
         .leftTrigger()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none").alongWith(new Agitate(m_intake, m_pivot))
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from anywhere"));
     // Left Bumper: auto aims the robot towards the hub
     auxController
@@ -293,12 +295,14 @@ public class RobotContainer {
     auxController
         .povLeft()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower").alongWith(new Agitate(m_intake, m_pivot))
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
     auxController
         .povRight()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench").alongWith(new Agitate(m_intake, m_pivot))
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from trench"));
 
     // Controlling hood
