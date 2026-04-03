@@ -55,11 +55,11 @@ public class Launch extends Command {
 
   static {
     distanceToShotMap.put(
-        Inches.of(64.96), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
+        Inches.of(134.13), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
     distanceToShotMap.put(
-        Inches.of(114.4), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
+        Inches.of(47.96), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
     distanceToShotMap.put(
-        Inches.of(165.5), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
+        Inches.of(122.12), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
   }
 
   private Translation2d m_target =
