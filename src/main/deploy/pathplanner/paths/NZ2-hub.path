@@ -12,7 +12,7 @@
         "y": 4.240420534108006
       },
       "isLocked": false,
-      "linkedName": "NZ4"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -53,7 +53,7 @@
       },
       "prevControl": {
         "x": 3.0508405846170517,
-        "y": 3.763326129404802
+        "y": 3.7633261294048017
       },
       "nextControl": null,
       "isLocked": false,

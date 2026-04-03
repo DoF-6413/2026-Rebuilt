@@ -9,78 +9,59 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "LaunchHub"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 3.5
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchTrench"
                 }
               }
             ]
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "NZ through trench"
+            "pathName": "NZ - left trench"
           }
         },
         {
           "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "NZ-intake (trench)"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "NZ-hub (trench)"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "LaunchHub"
-                }
-              },
               {
                 "type": "wait",
                 "data": {
                   "waitTime": 10.0
+                }
+              },
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "LaunchHub"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Agitate"
+                      }
+                    }
+                  ]
                 }
               }
             ]
