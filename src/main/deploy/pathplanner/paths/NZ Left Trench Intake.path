@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.130130486358246,
-        "y": 6.880806642941875
+        "x": 7.7853946940104155,
+        "y": 6.861779320126488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.148255798223085,
-        "y": 6.589382502853838
+        "x": 7.8008725915663195,
+        "y": 6.604239124064002
       },
       "isLocked": false,
-      "linkedName": "NZ3"
+      "linkedName": "Left NZ start intake"
     },
     {
       "anchor": {
-        "x": 8.130130486358246,
-        "y": 4.481506524317912
+        "x": 7.7853946940104155,
+        "y": 4.509358549572173
       },
       "prevControl": {
-        "x": 8.132991683357332,
-        "y": 4.7794887089114635
+        "x": 7.783647721456523,
+        "y": 4.878230561692099
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left NZ finished intake"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -45,10 +45,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

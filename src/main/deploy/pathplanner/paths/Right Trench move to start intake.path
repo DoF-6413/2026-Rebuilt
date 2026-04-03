@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0720996441281145,
-        "y": 5.923238434163701
+        "x": 6.159372093563987,
+        "y": 0.6912947591145837
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0720996441281145,
-        "y": 5.923238434163701
+        "x": 7.407071320602794,
+        "y": 1.0933032876718216
       },
       "isLocked": false,
-      "linkedName": "DP"
+      "linkedName": "Crossed Right Trench"
     },
     {
       "anchor": {
-        "x": 4.087219032531456,
-        "y": 7.326491680755671
+        "x": 7.841267554873511,
+        "y": 1.2474744233630952
       },
       "prevControl": {
-        "x": 3.087219032531456,
-        "y": 7.326491680755671
+        "x": 6.762779300147804,
+        "y": 0.8836115591745611
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "right NZ start intake"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -178.51213247117224
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

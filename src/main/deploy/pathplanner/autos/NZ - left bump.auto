@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "JustShooting"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
@@ -32,13 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "HUB-BUMP"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "overBump"
+            "pathName": "Hub - Left Bump"
           }
         },
         {
@@ -52,13 +40,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "bump2-mid"
+                        "pathName": "Left Bump2-mid"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "NZ2-intake"
+                        "pathName": "Left NZ - intake"
                       }
                     }
                   ]
@@ -76,7 +64,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "NZ2-hub"
+            "pathName": "Left NZ - Hub (Left Bump)"
           }
         }
       ]

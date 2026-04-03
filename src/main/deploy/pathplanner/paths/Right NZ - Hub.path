@@ -4,47 +4,47 @@
     {
       "anchor": {
         "x": 7.841267554873511,
-        "y": 3.552331891741072
+        "y": 3.5540141950334823
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.841267554873511,
-        "y": 4.552331891741072
+        "x": 8.248246616840957,
+        "y": 3.8302374459438706
       },
       "isLocked": false,
-      "linkedName": "NZ finished intake"
+      "linkedName": "right NZ finished intake"
     },
     {
       "anchor": {
-        "x": 5.709311981020167,
-        "y": 7.332692763938315
+        "x": 5.712032354445685,
+        "y": 2.5449380929129473
       },
       "prevControl": {
-        "x": 6.171957295373666,
-        "y": 7.3219335705812565
+        "x": 6.43349721269137,
+        "y": 2.635236631154277
       },
       "nextControl": {
-        "x": 3.482527150716458,
-        "y": 7.384478457666311
+        "x": 5.463967773164778,
+        "y": 2.5138903310946086
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump2"
     },
     {
       "anchor": {
-        "x": 2.8688849347568213,
-        "y": 7.332692763938315
+        "x": 3.5985496303013385,
+        "y": 2.676871454148065
       },
       "prevControl": {
-        "x": 4.977686832740213,
-        "y": 7.3219335705812565
+        "x": 3.989554115929745,
+        "y": 2.2215219060574816
       },
       "nextControl": {
-        "x": 1.758749997529159,
-        "y": 7.338356717699681
+        "x": 3.3363378188431065,
+        "y": 2.982233756218916
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump"
     },
     {
       "anchor": {
@@ -52,8 +52,8 @@
         "y": 3.9543060498220637
       },
       "prevControl": {
-        "x": 2.417603795966786,
-        "y": 3.9543060498220637
+        "x": 3.298351055553515,
+        "y": 3.7345817136553
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,12 +62,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1,
+      "rotationDegrees": 45.0
     },
     {
-      "waypointRelativePos": 2.0,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 2,
+      "rotationDegrees": 45.0
     }
   ],
   "constraintZones": [],
@@ -89,7 +89,7 @@
   "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

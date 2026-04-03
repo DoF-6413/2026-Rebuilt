@@ -3,71 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.151648873072363,
-        "y": 4.815041518386713
+        "x": 7.7853946940104155,
+        "y": 4.509358549572173
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.313896491239365,
-        "y": 4.513683505201669
+        "x": 8.02428825604022,
+        "y": 4.435670924961851
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left NZ finished intake"
     },
     {
       "anchor": {
-        "x": 5.523739945023149,
-        "y": 5.591084997106481
+        "x": 5.806144721233689,
+        "y": 5.503629893238434
       },
       "prevControl": {
-        "x": 6.221937082216011,
-        "y": 5.44810002723139
+        "x": 7.233291373572582,
+        "y": 5.097864106775371
       },
       "nextControl": {
-        "x": 4.343232653981056,
-        "y": 5.832843077246465
+        "x": 4.584644810289667,
+        "y": 5.8509262774022295
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Bump2"
     },
     {
       "anchor": {
-        "x": 3.6887445746527785,
-        "y": 5.591084997106481
+        "x": 3.923285883748518,
+        "y": 5.503629893238434
       },
       "prevControl": {
-        "x": 3.924496255177179,
-        "y": 5.756171555906833
+        "x": 4.123733617836492,
+        "y": 5.653031050861115
       },
       "nextControl": {
-        "x": 2.889964698692512,
-        "y": 5.031734494628924
+        "x": 3.4472957983242307,
+        "y": 5.148856764458158
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Bump"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.008102016607354
+        "x": 3.417603795966786,
+        "y": 3.9543060498220637
       },
       "prevControl": {
-        "x": 3.027441688852841,
-        "y": 3.759612673349129
+        "x": 3.3144182529903934,
+        "y": 4.182018025178361
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "hub"
+      "linkedName": "Hub scoring spot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 45.0
+      "waypointRelativePos": 1,
+      "rotationDegrees": -45.0
     },
     {
       "waypointRelativePos": 2,
-      "rotationDegrees": 145.0
+      "rotationDegrees": -45.0
     }
   ],
   "constraintZones": [],
@@ -86,10 +86,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

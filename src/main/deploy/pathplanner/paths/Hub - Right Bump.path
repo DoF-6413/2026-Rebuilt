@@ -3,48 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4825546875000005,
-        "y": 4.977888961226852
+        "x": 3.59207531156994,
+        "y": 4.012977120535714
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5166076993488908,
-        "y": 4.966140293141858
+        "x": 3.3413623534043637,
+        "y": 3.6178599265050155
       },
       "isLocked": false,
-      "linkedName": "depot2"
+      "linkedName": "Hub"
     },
     {
       "anchor": {
-        "x": 2.0314881365740747,
-        "y": 4.977888961226852
+        "x": 3.5985496303013385,
+        "y": 2.676871454148065
       },
       "prevControl": {
-        "x": 1.740354592338437,
-        "y": 5.058513207371797
+        "x": 3.4129343428244496,
+        "y": 3.037094673575801
       },
       "nextControl": {
-        "x": 2.477725809304245,
-        "y": 4.854311391147107
+        "x": 3.835762345176347,
+        "y": 2.216513209937666
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.008102016607354
+        "x": 5.712032354445685,
+        "y": 2.5449380929129473
       },
       "prevControl": {
-        "x": 2.7919123726665704,
-        "y": 4.146664418978069
+        "x": 5.34400216830121,
+        "y": 2.4750829088582393
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "hub"
+      "linkedName": "Right Bump2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 45.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -58,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 45.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

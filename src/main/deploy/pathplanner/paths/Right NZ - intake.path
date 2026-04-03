@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5,
-        "y": 4.0
+        "x": 7.841267554873511,
+        "y": 1.2474744233630952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.5,
-        "y": 4.0
+        "x": 7.852770275192804,
+        "y": 2.2523137099908546
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "right NZ start intake"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 7.841267554873511,
+        "y": 3.5540141950334823
       },
       "prevControl": {
-        "x": 2.0,
-        "y": 6.0
+        "x": 7.835724772553473,
+        "y": 3.246067915653652
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "right NZ finished intake"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -3,8 +3,9 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "NZ (Trench)",
-    "old-paths-need-renaming"
+    "Depot",
+    "NZ (Bump)",
+    "NZ (Trench)"
   ],
   "autoFolders": [],
   "defaultMaxVel": 5.0,

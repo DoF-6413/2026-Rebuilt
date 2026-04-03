@@ -12,7 +12,7 @@
         "y": 5.988735163094192
       },
       "isLocked": false,
-      "linkedName": "DP Start"
+      "linkedName": "Depot"
     },
     {
       "anchor": {
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Depot",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

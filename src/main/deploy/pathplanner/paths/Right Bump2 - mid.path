@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0,
-        "y": 6.0
+        "x": 5.712032354445685,
+        "y": 2.5449380929129473
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6780291905667652,
-        "y": 5.66662245540545
+        "x": 5.929814162481399,
+        "y": 1.704092320033483
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump2"
     },
     {
       "anchor": {
-        "x": 3.5,
-        "y": 4.5
+        "x": 7.841267554873511,
+        "y": 1.2474744233630952
       },
       "prevControl": {
-        "x": 2.8122791233798057,
-        "y": 4.810925672123815
+        "x": 6.841267554873511,
+        "y": 1.2474744233630952
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "right NZ start intake"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -6.124020290017287
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 45.0
   },
   "useDefaultConstraints": true
 }

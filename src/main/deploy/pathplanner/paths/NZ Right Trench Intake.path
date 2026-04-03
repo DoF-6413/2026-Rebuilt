@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0720996441281145,
-        "y": 5.923238434163701
+        "x": 7.841267554873511,
+        "y": 1.2474744233630952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.729554662480913,
-        "y": 5.234516414786036
+        "x": 7.852003904984884,
+        "y": 1.7845928627848986
       },
       "isLocked": false,
-      "linkedName": "DP"
+      "linkedName": "right NZ start intake"
     },
     {
       "anchor": {
-        "x": 3.5574733096085422,
-        "y": 3.9543060498220637
+        "x": 7.841267554873511,
+        "y": 3.5540141950334823
       },
       "prevControl": {
-        "x": 0.8690348285085121,
-        "y": 4.4479266841602145
+        "x": 7.8348825179662915,
+        "y": 2.423841154496958
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "right NZ finished intake"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 1.301952672578929
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "NZ (Trench)",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -178.51213247117224
+    "velocity": 0.0,
+    "rotation": 90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

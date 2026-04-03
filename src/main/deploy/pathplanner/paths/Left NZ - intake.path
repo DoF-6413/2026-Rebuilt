@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.0
+        "x": 7.7853946940104155,
+        "y": 6.861779320126488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8809343353555987,
-        "y": 4.173679190820356
+        "x": 7.803520005875255,
+        "y": 6.570355180038452
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left NZ start intake"
     },
     {
       "anchor": {
-        "x": 1.4,
-        "y": 3.8
+        "x": 7.7853946940104155,
+        "y": 4.509358549572173
       },
       "prevControl": {
-        "x": 1.1561670692580397,
-        "y": 3.7448139339526136
+        "x": 7.788255891009502,
+        "y": 4.807340734165725
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left NZ finished intake"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

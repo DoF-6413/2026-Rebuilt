@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.0,
-        "y": 6.0
+        "x": 6.159,
+        "y": 7.418876604352679
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7882535614946937,
-        "y": 6.308222570028188
+        "x": 6.473452392766526,
+        "y": 7.317540966732067
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Crossed Left Trench"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.0
+        "x": 7.7853946940104155,
+        "y": 6.861779320126488
       },
       "prevControl": {
-        "x": 2.338986297605953,
-        "y": 4.196617245885492
+        "x": 7.51577146872205,
+        "y": 6.952368924937321
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left NZ start intake"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "old-paths-need-renaming",
+  "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
