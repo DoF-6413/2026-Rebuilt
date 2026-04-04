@@ -61,11 +61,7 @@ public class Launch extends Command {
         Inches.of(122.12), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
   }
 
-  private Translation2d m_target =
-      DriverStation.getAlliance()
-          .filter(a -> a == Alliance.Red)
-          .map(a -> FieldConstants.RED_HUB_POSITION)
-          .orElse(FieldConstants.BLUE_HUB_POSITION);
+  private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
 
   public Launch(
       Shooter shooter,
@@ -86,6 +82,8 @@ public class Launch extends Command {
     } else if (position.equals("tower")) {
       m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
     } else {
+      // TODO: m_shot must be moved to initialize() if distance-based shooting is ever used,
+      // since m_target is now resolved in initialize() and won't be correct at construction time.
       m_shot = distanceToShotMap.get(getDistanceToHub());
     }
 
@@ -94,6 +92,13 @@ public class Launch extends Command {
 
   @Override
   public void initialize() {
+    // Resolve alliance here (not at construction time) so DS has confirmed alliance
+    m_target =
+        DriverStation.getAlliance()
+            .filter(a -> a == Alliance.Red)
+            .map(a -> FieldConstants.RED_HUB_POSITION)
+            .orElse(FieldConstants.BLUE_HUB_POSITION);
+
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
 
