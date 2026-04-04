@@ -37,7 +37,7 @@ public class Launch extends Command {
   private final Hopper m_hopper;
   private final frc.robot.subsystems.hood.Hood m_hood;
   private final Supplier<Pose2d> m_poseSupplier;
-  private final Shot m_shot;
+  private Shot m_shot;
   private final Timer m_timer = new Timer();
 
   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
@@ -54,11 +54,11 @@ public class Launch extends Command {
 
   static {
     distanceToShotMap.put(
-        Inches.of(134.13), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
-    distanceToShotMap.put(
-        Inches.of(47.96), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
+        Inches.of(47.96), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
     distanceToShotMap.put(
         Inches.of(122.12), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
+    distanceToShotMap.put(
+        Inches.of(134.13), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
   }
 
   private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
@@ -82,9 +82,7 @@ public class Launch extends Command {
     } else if (position.equals("tower")) {
       m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
     } else {
-      // TODO: m_shot must be moved to initialize() if distance-based shooting is ever used,
-      // since m_target is now resolved in initialize() and won't be correct at construction time.
-      m_shot = distanceToShotMap.get(getDistanceToHub());
+      m_shot = new Shot(0.0, 0.0);
     }
 
     addRequirements(shooter, hopper, column, hood);
@@ -98,6 +96,8 @@ public class Launch extends Command {
             .filter(a -> a == Alliance.Red)
             .map(a -> FieldConstants.RED_HUB_POSITION)
             .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+    m_shot = distanceToShotMap.get(getDistanceToHub());
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
