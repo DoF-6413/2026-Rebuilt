@@ -74,32 +74,19 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 10.0
+                  "name": "LaunchHub"
                 }
               },
               {
-                "type": "parallel",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "LaunchHub"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Agitate"
-                      }
-                    }
-                  ]
+                  "name": "Agitate"
                 }
               }
             ]

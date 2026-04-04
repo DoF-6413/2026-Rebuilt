@@ -66,6 +66,25 @@
           "data": {
             "pathName": "Left NZ - Hub (Left Bump)"
           }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              }
+            ]
+          }
         }
       ]
     }

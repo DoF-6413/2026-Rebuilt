@@ -85,15 +85,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "LaunchHub"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 6.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
                 }
               },
               {
