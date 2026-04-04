@@ -86,7 +86,7 @@ public class ShooterIOTalonFX implements ShooterIO {
                 new CurrentLimitsConfigs()
                     .withStatorCurrentLimit(120)
                     .withStatorCurrentLimitEnable(true)
-                    .withSupplyCurrentLimit(70)
+                    .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
                     .withSupplyCurrentLimitEnable(true))
             .withSlot0(
                 new Slot0Configs()
