@@ -9,38 +9,19 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "LaunchHub"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 5.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Hub-DP"
+                        "pathName": "Hub-DP(R)"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "DP-Intake"
+                        "pathName": "DP-Intake-Opposite"
                       }
                     }
                   ]
@@ -71,7 +52,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "DP-Hub"
+            "pathName": "DP(L)-Hub"
           }
         },
         {

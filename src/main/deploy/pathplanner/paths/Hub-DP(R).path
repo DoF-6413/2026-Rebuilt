@@ -8,27 +8,32 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.343886423400897,
-        "y": 3.7842942135428643
+        "x": 4.350393263061804,
+        "y": 3.724786019356694
       },
       "isLocked": false,
       "linkedName": "Hub"
     },
     {
       "anchor": {
-        "x": 0.3,
-        "y": 5.0327
+        "x": 0.35,
+        "y": 5.213131672597865
       },
       "prevControl": {
-        "x": -0.001715688387226022,
-        "y": 5.14517952427452
+        "x": -0.21223312385647475,
+        "y": 5.438778763020738
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Depot End"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6729452054794548,
+      "rotationDegrees": 150.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

@@ -3,35 +3,42 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.337,
-        "y": 8.0
+        "x": 4.385931198102018,
+        "y": 7.472562277580071
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9621415835412945,
-        "y": 7.373897022021363
+        "x": 5.385931198102017,
+        "y": 7.472562277580071
       },
       "isLocked": false,
-      "linkedName": "Depot Start"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.4068446026097274,
-        "y": 4.158730723606168
+        "x": 8.62505338078292,
+        "y": 6.880806642941875
       },
       "prevControl": {
-        "x": 3.0074270543253916,
-        "y": 4.732276479355891
+        "x": 7.625053380782919,
+        "y": 6.880806642941875
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hub scoring spot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.1997851772287819,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 3.0,
@@ -41,14 +48,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Depot",
+  "folder": "New Folder",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
