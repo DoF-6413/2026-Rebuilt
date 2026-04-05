@@ -34,6 +34,7 @@ import frc.robot.commands.Eject;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.ShooterSpinUp;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.column.Column;
 import frc.robot.subsystems.column.ColumnIO;
@@ -87,7 +88,6 @@ public class RobotContainer {
   private final Shooter m_shooter;
   private final Hood m_hood;
   private final Vision m_vision;
-  //  private final HubStateManager m_hubState = new HubStateManager();
 
   // Controller
   private final CommandXboxController driverController =
@@ -183,6 +183,8 @@ public class RobotContainer {
     // Register Named Commands
     NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
     NamedCommands.registerCommand(
+        "ShooterSpinUp", new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
+    NamedCommands.registerCommand(
         "LaunchHub",
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub"));
     NamedCommands.registerCommand(
@@ -265,7 +267,7 @@ public class RobotContainer {
             new InstantCommand(
                     () ->
                         drive.setPose(
-                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
+                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
                     drive)
                 .ignoringDisable(true)
                 .withName("ResetPose"));
@@ -346,15 +348,6 @@ public class RobotContainer {
     auxController.x().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
     // Button B: Eject balls through the intake
     auxController.b().whileTrue(new Eject(m_column, m_hopper, m_intake).withName("Out-taking"));
-
-    /*new Trigger(() -> m_hubState.getState() == HubIndicator.YELLOW)
-        .whileTrue(
-            Commands.startEnd(
-                () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 1.0),
-                () -> driverController.getHID().setRumble(RumbleType.kBothRumble, 0.0),
-                m_hubState // Requirement ensures no other command uses rumble simultaneously
-                ));
-    */
   }
 
   /**

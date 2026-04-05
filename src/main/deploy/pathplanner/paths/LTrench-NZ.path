@@ -3,35 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.712032354445685,
-        "y": 2.5449380929129473
+        "x": 4.439727164887308,
+        "y": 7.397247924080664
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.929814162481399,
-        "y": 1.704092320033483
+        "x": 6.169431960783804,
+        "y": 7.22533290782589
       },
       "isLocked": false,
-      "linkedName": "Right Bump2"
+      "linkedName": "LTrench meta"
     },
     {
       "anchor": {
-        "x": 7.841267554873511,
-        "y": 1.2474744233630952
+        "x": 7.373,
+        "y": 6.87
       },
       "prevControl": {
-        "x": 6.841267554873511,
-        "y": 1.2474744233630954
+        "x": 7.115709376506849,
+        "y": 6.8927323886406
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "right NZ start intake"
+      "linkedName": "TEMP LNZ"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.35660580021482446,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 3.0,
@@ -41,14 +53,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 0.5,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "NZ (Bump)",
+  "folder": "New Folder",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 45.0
+    "velocity": 0.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

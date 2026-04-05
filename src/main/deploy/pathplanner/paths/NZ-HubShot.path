@@ -1,0 +1,94 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.384,
+        "y": 4.4169513641755636
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.098489113374358,
+        "y": 4.191095037406381
+      },
+      "isLocked": false,
+      "linkedName": "TEMP LNZ End"
+    },
+    {
+      "anchor": {
+        "x": 4.278,
+        "y": 5.5
+      },
+      "prevControl": {
+        "x": 5.217178007739126,
+        "y": 5.834594784447046
+      },
+      "nextControl": {
+        "x": 3.8069979901007387,
+        "y": 5.332199205392654
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.374567022538553,
+        "y": 4.374
+      },
+      "prevControl": {
+        "x": 3.0622345034767946,
+        "y": 4.675616007665156
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.2123287671232916,
+      "rotationDegrees": -80.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "ShooterSpinUp",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterSpinUp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": -25.0
+  },
+  "reversed": false,
+  "folder": "New Folder",
+  "idealStartingState": {
+    "velocity": 0.5,
+    "rotation": 160.0
+  },
+  "useDefaultConstraints": true
+}
