@@ -91,9 +91,9 @@ public class Launch extends Command {
             .orElse(FieldConstants.BLUE_HUB_POSITION);
 
     if (m_position.equals("trench")) {
-      m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
-    } else if (m_position.equals("hub")) {
       m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
+    } else if (m_position.equals("hub")) {
+      m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
     } else if (m_position.equals("tower")) {
       m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
     } else {
@@ -110,7 +110,7 @@ public class Launch extends Command {
   public void execute() {
     m_hood.setPosition(m_shot.m_hoodPosition);
     if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)
-        && (m_timer.hasElapsed(1.7))) {
+        && (m_timer.hasElapsed(2))) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }

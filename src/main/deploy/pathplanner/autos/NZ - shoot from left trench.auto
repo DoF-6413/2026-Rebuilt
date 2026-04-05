@@ -9,30 +9,42 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "LaunchHub"
+                  "waitTime": 3.5
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 5.0
+                  "name": "LaunchTrench"
                 }
               }
             ]
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.3
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Hub - Right Bump"
+            "pathName": "Through Left Trench"
           }
         },
         {
           "type": "race",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
               {
                 "type": "sequential",
                 "data": {
@@ -40,22 +52,16 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Right Bump2 - mid"
+                        "pathName": "Left Trench move to start intake"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Right NZ - intake"
+                        "pathName": "Left NZ - intake"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
                 }
               }
             ]
@@ -64,26 +70,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right NZ - Hub (Right Bump)"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAim"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 1.0
-                }
-              }
-            ]
+            "pathName": "Left NZ - Trench"
           }
         },
         {
@@ -93,7 +80,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LaunchAnywhere"
+                  "name": "LaunchTrench"
                 }
               },
               {

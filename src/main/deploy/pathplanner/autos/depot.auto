@@ -75,12 +75,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [

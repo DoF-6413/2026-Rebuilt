@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.7853946940104155,
-        "y": 6.861779320126488
+        "x": 7.373077777777777,
+        "y": 6.887011111111111
       },
       "prevControl": {
-        "x": 7.51577146872205,
-        "y": 6.952368924937321
+        "x": 7.103454552489411,
+        "y": 6.977600715921944
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "NZ (Trench)",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 5.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": true

@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.RobotBase;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * This class defines the runtime mode used by AdvantageKit. The mode is always "real" when running
@@ -236,15 +237,15 @@ public final class Constants {
     public static final int CURRENT_LIMIT = 40;
     public static final int STATOR_CURRENT_LIMIT = 120;
 
-    // PID and FF
-    public static double kP = 0.505; // 0.05
+    // PID and FF as of 4.4.26
+    public static double kP = 1.5;
     public static double kI = 2;
-    public static double kD = 0.0;
-    public static double kV = 0.125;
+    public static double kD = 0.2;
+    public static double kV = 0.3;
 
     // Shooter speed setpoints
     public static final double SETPOINT_1_RPM = 3200; // Meant for shooting from hub
-    public static final double SETPOINT_2_RPM = 3500; // Meant for shooting from trench
+    public static final double SETPOINT_2_RPM = 3800; // Meant for shooting from trench
     public static final double SETPOINT_3_RPM = 3300; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
@@ -257,8 +258,11 @@ public final class Constants {
     public static final double K_MAX_POSITION = 0.77;
     public static final double K_TOLERANCE = 0.01;
 
+    // HUB
     public static final double SETPOINT_1 = 0.2;
-    public static final double SETPOINT_2 = 0.6;
+    // TRENCH
+    public static final double SETPOINT_2 = 0.5;
+    // TOWER
     public static final double SETPOINT_3 = 0.6;
   }
 
@@ -271,8 +275,12 @@ public final class Constants {
     public static String camera1Name = "Camera_1";
     public static String camera2Name = "Camera_2";
 
+    // AprilTag IDs to track for pose estimation (reef and processor tags relevant to gameplay)
+    public static final Set<Integer> TRACKED_TAG_IDS =
+        Set.of(2, 3, 4, 5, 8, 9, 10, 11, 18, 19, 20, 21, 24, 25, 26, 27);
+
     // Robot to camera transforms
-    // Camera translation for right camera
+    // Camera translation for left camera
     public static Transform3d robotToCamera1 =
         new Transform3d(
             Units.inchesToMeters(3.75),
@@ -282,14 +290,14 @@ public final class Constants {
                 Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
                 Units.degreesToRadians(90.0)));
-    // Camera translation for left camera
+    // Camera translation for right camera
     public static Transform3d robotToCamera2 =
         new Transform3d(
             Units.inchesToMeters(3.75),
             Units.inchesToMeters(-11.5),
             Units.inchesToMeters(12.5),
             new Rotation3d(
-                Units.degreesToRadians(21),
+                Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
                 Units.degreesToRadians(-90.0)));
 

@@ -42,18 +42,30 @@ public class VisionIOPhotonVision implements VisionIO {
     Set<Short> tagIds = new HashSet<>();
     List<PoseObservation> poseObservations = new LinkedList<>();
     for (var result : m_camera.getAllUnreadResults()) {
-      // Update latest target observation only when a target is visible;
-      // leave the previous value unchanged when no targets are detected
+      // Update latest target observation when a tracked target is visible;
+      // leave the previous value unchanged when no tracked targets are detected
       if (result.hasTargets()) {
-        inputs.latestTargetObservation =
-            new TargetObservation(
-                Rotation2d.fromDegrees(result.getBestTarget().getYaw()),
-                Rotation2d.fromDegrees(result.getBestTarget().getPitch()));
+        for (var target : result.getTargets()) {
+          if (TRACKED_TAG_IDS.contains(target.fiducialId)) {
+            inputs.latestTargetObservation =
+                new TargetObservation(
+                    Rotation2d.fromDegrees(target.getYaw()),
+                    Rotation2d.fromDegrees(target.getPitch()));
+            break;
+          }
+        }
       }
 
       // Add pose observation
       if (result.multitagResult.isPresent()) { // Multitag result
         var multitagResult = result.multitagResult.get();
+
+        // Skip multi-tag results that include any untracked tag IDs, since the PnP solve
+        // already incorporated those tags and cannot be recomputed without them
+        boolean allTagsTracked =
+            multitagResult.fiducialIDsUsed.stream()
+                .allMatch(id -> TRACKED_TAG_IDS.contains(id.intValue()));
+        if (!allTagsTracked) continue;
 
         // Calculate robot pose
         Transform3d fieldToCamera = multitagResult.estimatedPose.best;
@@ -81,6 +93,9 @@ public class VisionIOPhotonVision implements VisionIO {
 
       } else if (!result.targets.isEmpty()) { // Single tag result
         var target = result.targets.get(0);
+
+        // Skip single-tag results for untracked tag IDs
+        if (!TRACKED_TAG_IDS.contains(target.fiducialId)) continue;
 
         // Calculate robot pose
         var tagPose = aprilTagLayout.getTagPose(target.fiducialId);

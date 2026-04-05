@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.7853946940104155,
-        "y": 4.509358549572173
+        "x": 7.373077777777777,
+        "y": 4.528811111111112
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.851557714834053,
-        "y": 4.268272559362267
+        "x": 7.502263849720039,
+        "y": 4.165390722113658
       },
       "isLocked": false,
       "linkedName": "Left NZ finished intake"
@@ -20,12 +20,12 @@
         "y": 5.503629893238434
       },
       "prevControl": {
-        "x": 6.7656073326757005,
-        "y": 5.36988724720832
+        "x": 7.156719964632167,
+        "y": 5.3602053241765955
       },
       "nextControl": {
-        "x": 4.741710772620899,
-        "y": 5.652004838873679
+        "x": 4.865357001381763,
+        "y": 5.6035370061208685
       },
       "isLocked": false,
       "linkedName": "Left Bump2"
@@ -36,28 +36,28 @@
         "y": 5.503629893238434
       },
       "prevControl": {
-        "x": 4.214015562807486,
-        "y": 5.7065784573408465
+        "x": 4.146551507869462,
+        "y": 5.616113052359636
       },
       "nextControl": {
-        "x": 3.0823464695898446,
-        "y": 4.916598506718001
+        "x": 3.2873465971725557,
+        "y": 5.183238161439196
       },
       "isLocked": false,
       "linkedName": "Left Bump"
     },
     {
       "anchor": {
-        "x": 3.4099277460007436,
-        "y": 4.025110095796132
+        "x": 3.210955555555555,
+        "y": 4.8513
       },
       "prevControl": {
-        "x": 3.460768330617795,
-        "y": 3.7803342085935796
+        "x": 3.1178057009291096,
+        "y": 4.619301929785888
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hub scoring spot"
+      "linkedName": "Hub Left"
     }
   ],
   "rotationTargets": [
@@ -68,10 +68,6 @@
     {
       "waypointRelativePos": 2,
       "rotationDegrees": -45.0
-    },
-    {
-      "waypointRelativePos": 3,
-      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -87,7 +83,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -34.56252464888183
   },
   "reversed": false,
   "folder": "NZ (Bump)",

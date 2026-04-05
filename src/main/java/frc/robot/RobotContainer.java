@@ -188,7 +188,29 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "LaunchTrench",
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench"));
+    NamedCommands.registerCommand(
+        "LaunchTower",
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower"));
+    NamedCommands.registerCommand(
+        "LaunchAnywhere",
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none"));
     NamedCommands.registerCommand("Agitate", new Agitate(m_intake, m_pivot));
+    NamedCommands.registerCommand(
+        "AutoAim",
+        DriveCommands.joystickDriveAtAngle(
+            drive,
+            () -> 0,
+            () -> 0,
+            () -> {
+              Translation2d target =
+                  DriverStation.getAlliance()
+                      .filter(a -> a == Alliance.Red)
+                      .map(a -> FieldConstants.RED_HUB_POSITION)
+                      .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+              Pose2d robot = drive.getPose();
+              return new Rotation2d(target.getX() - robot.getX(), target.getY() - robot.getY());
+            }));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -231,8 +253,8 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
                 drive,
-                () -> 1 * driverController.getLeftY(),
-                () -> 1 * driverController.getLeftX(),
+                () -> -1 * driverController.getLeftY(),
+                () -> -1 * driverController.getLeftX(),
                 () -> -0.8 * driverController.getRightX())
             .withName("JoystickDrive"));
 
@@ -243,7 +265,7 @@ public class RobotContainer {
             new InstantCommand(
                     () ->
                         drive.setPose(
-                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
+                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
                     drive)
                 .ignoringDisable(true)
                 .withName("ResetPose"));

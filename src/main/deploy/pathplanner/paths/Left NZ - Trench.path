@@ -8,70 +8,61 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.608779059260328,
-        "y": 4.242772172089941
+        "x": 7.594788888888889,
+        "y": 7.007944444444446
       },
       "isLocked": false,
       "linkedName": "Left NZ finished intake"
     },
     {
       "anchor": {
-        "x": 5.806144721233689,
-        "y": 5.503629893238434
+        "x": 6.133511111111112,
+        "y": 7.418876604352679
       },
       "prevControl": {
-        "x": 7.273079036076025,
-        "y": 5.083609681083571
+        "x": 6.383506990142397,
+        "y": 7.417441171534629
       },
       "nextControl": {
-        "x": 5.393374837923639,
-        "y": 5.621816298863324
+        "x": 5.7404777777777785,
+        "y": 7.421133333333334
       },
       "isLocked": false,
-      "linkedName": "Left Bump2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.923285883748518,
-        "y": 5.503629893238434
+        "x": 3.886166666666667,
+        "y": 7.531988888888888
       },
       "prevControl": {
-        "x": 4.270804343708912,
-        "y": 5.559516716410112
-      },
-      "nextControl": {
-        "x": 2.686911111111111,
-        "y": 5.3048
-      },
-      "isLocked": false,
-      "linkedName": "Left Bump"
-    },
-    {
-      "anchor": {
-        "x": 3.2915777777777784,
-        "y": 4.014844444444445
-      },
-      "prevControl": {
-        "x": 3.4607483126996703,
-        "y": 4.198913263406921
+        "x": 4.200248466868955,
+        "y": 7.518272860936459
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hub scoring spot"
+      "linkedName": "left trench"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": -45.0
-    },
-    {
-      "waypointRelativePos": 2,
-      "rotationDegrees": -45.0
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.6,
+        "y": 4.0
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 1.72275132275134,
+      "maxWaypointRelativePos": 2.0,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
@@ -83,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -73.5836421399653
   },
   "reversed": false,
   "folder": "NZ (Trench)",

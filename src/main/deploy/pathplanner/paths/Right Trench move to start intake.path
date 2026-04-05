@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "NZ (Trench)",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 5.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true

@@ -23,7 +23,7 @@ public class RunIntake extends Command {
 
   @Override
   public void execute() {
-    m_pivot.setVoltage(-2.0);
+    m_pivot.setVoltage(-4.0);
     m_intake.setVoltage(-12.0);
   }
 

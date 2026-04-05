@@ -28,7 +28,7 @@ public class PivotIOTalonFX implements PivotIO {
               new VoltageConfigs().withPeakReverseVoltage(-RobotStateConstants.MAX_VOLTAGE))
           .withCurrentLimits(
               new CurrentLimitsConfigs()
-                  .withStatorCurrentLimit(PivotConstants.CURRENT_LIMIT)
+                  .withStatorCurrentLimit(4 * PivotConstants.CURRENT_LIMIT)
                   .withStatorCurrentLimitEnable(true)
                   .withSupplyCurrentLimit(PivotConstants.CURRENT_LIMIT)
                   .withSupplyCurrentLimitEnable(true))
