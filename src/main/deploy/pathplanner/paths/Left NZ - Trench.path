@@ -36,33 +36,42 @@
         "y": 7.531988888888888
       },
       "prevControl": {
-        "x": 4.200248466868955,
-        "y": 7.518272860936459
+        "x": 4.200433056749228,
+        "y": 7.52349520267044
+      },
+      "nextControl": {
+        "x": 2.3946555555555555,
+        "y": 7.5723
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.2613444444444446,
+        "y": 3.6117333333333335
+      },
+      "prevControl": {
+        "x": 3.3713646554544114,
+        "y": 5.397319125087325
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left trench"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": -90.0
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2.030456852791879,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
-  "pointTowardsZones": [
-    {
-      "fieldPosition": {
-        "x": 4.6,
-        "y": 4.0
-      },
-      "rotationOffset": 0.0,
-      "minWaypointRelativePos": 1.72275132275134,
-      "maxWaypointRelativePos": 2.0,
-      "name": "Point Towards Zone"
-    }
-  ],
+  "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
@@ -74,7 +83,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -73.5836421399653
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "NZ (Trench)",

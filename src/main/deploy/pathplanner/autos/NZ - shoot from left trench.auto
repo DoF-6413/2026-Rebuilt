@@ -5,31 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 3.5
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "LaunchTrench"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 2.3
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Through Left Trench"
@@ -80,7 +55,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LaunchTrench"
+                  "name": "LaunchAnywhere"
                 }
               },
               {

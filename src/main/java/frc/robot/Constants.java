@@ -245,7 +245,7 @@ public final class Constants {
 
     // Shooter speed setpoints
     public static final double SETPOINT_1_RPM = 3200; // Meant for shooting from hub
-    public static final double SETPOINT_2_RPM = 3800; // Meant for shooting from trench
+    public static final double SETPOINT_2_RPM = 3900; // Meant for shooting from trench
     public static final double SETPOINT_3_RPM = 3300; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
