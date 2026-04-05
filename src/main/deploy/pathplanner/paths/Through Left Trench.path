@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.886166666666667,
-        "y": 7.531988888888888
+        "x": 4.44,
+        "y": 7.397247924080664
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.886166666666667,
-        "y": 7.531988888888888
+        "x": 5.44,
+        "y": 7.397247924080664
       },
       "isLocked": false,
-      "linkedName": "left trench"
+      "linkedName": "LTrench meta"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": "NZ (Trench)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -73.5836421399653
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

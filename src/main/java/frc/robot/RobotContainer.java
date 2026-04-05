@@ -343,7 +343,14 @@ public class RobotContainer {
             new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION))
                 .withName("HoodMin"));
     // Right Trigger: agitate the balls by moving the pivot up and down
-    auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot).withName("Agitate"));
+    // auxController.rightTrigger().whileTrue(new Agitate(m_intake, m_pivot).withName("Agitate"));
+
+    // Right Trigger: spins up shooter
+    auxController
+        .rightTrigger()
+        .whileTrue(
+            new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none")
+                .withName("ShooterSpinUp"));
     // Button X: switch to x pattern
     auxController.x().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
     // Button B: Eject balls through the intake

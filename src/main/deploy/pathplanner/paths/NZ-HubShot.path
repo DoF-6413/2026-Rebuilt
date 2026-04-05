@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.098489113374358,
-        "y": 4.191095037406381
+        "x": 7.875763361210903,
+        "y": 4.176491149194828
       },
       "isLocked": false,
       "linkedName": "TEMP LNZ End"
     },
     {
       "anchor": {
-        "x": 4.278,
-        "y": 5.5
+        "x": 3.6846111111111117,
+        "y": 5.445888888888889
       },
       "prevControl": {
-        "x": 5.217178007739126,
-        "y": 5.834594784447046
+        "x": 4.468805031691412,
+        "y": 6.484229448376147
       },
       "nextControl": {
-        "x": 3.8069979901007387,
-        "y": 5.332199205392654
+        "x": 3.065510903827512,
+        "y": 4.626146681331561
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.374567022538553,
-        "y": 4.374
+        "x": 3.0,
+        "y": 4.4
       },
       "prevControl": {
-        "x": 3.0622345034767946,
-        "y": 4.675616007665156
+        "x": 3.1075329841818804,
+        "y": 4.775270692636279
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,8 +46,16 @@
   ],
   "rotationTargets": [
     {
+      "waypointRelativePos": 0.5719120135363803,
+      "rotationDegrees": 140.0
+    },
+    {
       "waypointRelativePos": 1.2123287671232916,
-      "rotationDegrees": -80.0
+      "rotationDegrees": 140.0
+    },
+    {
+      "waypointRelativePos": 1.5160744500845904,
+      "rotationDegrees": -59.99999999999999
     }
   ],
   "constraintZones": [],
@@ -82,7 +90,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -25.0
+    "rotation": -20.0
   },
   "reversed": false,
   "folder": "New Folder",
