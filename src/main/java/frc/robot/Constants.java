@@ -124,7 +124,7 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 40; // 20
+    public static final int CURRENT_LIMIT = 30; // 20
 
     public static final double LAUNCHING_VOLTAGE = -12.0;
     public static final double OUTTAKING_VOLTAGE = 3.0;
