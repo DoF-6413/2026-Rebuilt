@@ -35,7 +35,7 @@ public class Agitate extends Command {
   public void execute() {
     m_intake.setVoltage(-IntakeConstants.INTAKING_VOLTAGE);
     if (Math.sin(5 * m_timer.get()) > 0.0) {
-      m_pivot.setVoltage(2);
+      m_pivot.setVoltage(3);
     } else {
       m_pivot.setVoltage(-2);
     }
