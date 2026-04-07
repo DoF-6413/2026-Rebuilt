@@ -121,7 +121,7 @@ public class Launch extends Command {
     m_shooter.setVelocity(m_shot.m_shooterRPM);
 
     if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)
-        && (m_timer.hasElapsed(3))) {
+        && (m_timer.hasElapsed(5))) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }

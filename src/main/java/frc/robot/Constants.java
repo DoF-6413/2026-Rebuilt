@@ -77,8 +77,8 @@ public final class Constants {
 
   public static class FieldConstants {
     // Hub center positions for auto-aim (field coordinates, meters)
-    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(5.02, 4.11);
-    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.702, 4.11);
+    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(4.623, 4.04);
+    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.907, 4.04);
   }
 
   public static class PathFinderConstants {
@@ -261,7 +261,7 @@ public final class Constants {
     // HUB
     public static final double SETPOINT_1 = 0.2;
     // TRENCH
-    public static final double SETPOINT_2 = 0.7;
+    public static final double SETPOINT_2 = 0.6;
     // TOWER
     public static final double SETPOINT_3 = 0.6;
   }
@@ -277,15 +277,15 @@ public final class Constants {
 
     // AprilTag IDs to track for pose estimation (reef and processor tags relevant to gameplay)
     public static final Set<Integer> TRACKED_TAG_IDS =
-        Set.of(2, 3, 4, 5, 8, 9, 10, 11, 18, 19, 20, 21, 24, 25, 26, 27);
+        Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27);
 
     // Robot to camera transforms
     // Camera translation for left camera
     public static Transform3d robotToCamera1 =
         new Transform3d(
-            Units.inchesToMeters(3.75),
-            Units.inchesToMeters(12.5),
-            Units.inchesToMeters(12.5),
+            Units.inchesToMeters(0.625),
+            Units.inchesToMeters(12.926),
+            Units.inchesToMeters(11.666),
             new Rotation3d(
                 Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
@@ -293,9 +293,9 @@ public final class Constants {
     // Camera translation for right camera
     public static Transform3d robotToCamera2 =
         new Transform3d(
-            Units.inchesToMeters(3.75),
-            Units.inchesToMeters(-11.5),
-            Units.inchesToMeters(12.5),
+            Units.inchesToMeters(3.875),
+            Units.inchesToMeters(-11.426),
+            Units.inchesToMeters(11.666),
             new Rotation3d(
                 Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
