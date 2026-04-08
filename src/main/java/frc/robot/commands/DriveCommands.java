@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.Constants.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -29,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
+import org.littletonrobotics.junction.Logger;
 
 public class DriveCommands {
   private static final double DEADBAND = 0.01;
@@ -115,6 +117,23 @@ public class DriveCommands {
             ANGLE_KD,
             new TrapezoidProfile.Constraints(ANGLE_MAX_VELOCITY, ANGLE_MAX_ACCELERATION));
     angleController.enableContinuousInput(-Math.PI, Math.PI);
+
+    Translation2d target =
+        DriverStation.getAlliance()
+            .filter(a -> a == Alliance.Red)
+            .map(a -> FieldConstants.RED_HUB_POSITION)
+            .orElse(FieldConstants.BLUE_HUB_POSITION);
+
+    Logger.recordOutput("AimAssist/CommandedHeadingRad", rotationSupplier.get().getRadians());
+    Logger.recordOutput("AimAssist/MeasuredHeadingRad", drive.getRotation().getRadians());
+    Logger.recordOutput(
+        "AimAssist/HeadingErrorRad",
+        MathUtil.angleModulus(
+            rotationSupplier.get().getRadians() - drive.getRotation().getRadians()));
+    Logger.recordOutput("AimAssist/RobotPose", drive.getPose());
+    Logger.recordOutput(
+        "AimAssist/TrueBearingToHubRad",
+        Math.atan2(target.getY() - drive.getPose().getY(), target.getX() - drive.getPose().getX()));
 
     // Construct command
     return Commands.run(
