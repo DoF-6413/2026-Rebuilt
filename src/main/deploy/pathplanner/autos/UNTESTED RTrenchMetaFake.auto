@@ -15,19 +15,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LTrench-NZ"
+                        "pathName": "RTrench-NZ"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LNZ-Sweep"
+                        "pathName": "RNZ-Sweep"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LNZ-HubShot"
+                        "pathName": "RNZ-HubShot"
                       }
                     }
                   ]
