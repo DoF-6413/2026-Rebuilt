@@ -275,9 +275,9 @@ public final class Constants {
     public static String camera1Name = "Camera_1";
     public static String camera2Name = "Camera_2";
 
-    // AprilTag IDs to track for pose estimation (reef and processor tags relevant to gameplay)
+    // AprilTag IDs to track for pose estimation (don't use tower or outpost ones because they are too low and too ambiguous)
     public static final Set<Integer> TRACKED_TAG_IDS =
-        Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27);
+        Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28);
 
     // Robot to camera transforms
     // Camera translation for left camera
@@ -294,7 +294,7 @@ public final class Constants {
     public static Transform3d robotToCamera2 =
         new Transform3d(
             Units.inchesToMeters(3.875),
-            Units.inchesToMeters(-11.426),
+            Units.inchesToMeters(-12.426),
             Units.inchesToMeters(11.666),
             new Rotation3d(
                 Units.degreesToRadians(20.0),

@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.463060498220641,
+        "y": 1.286026097271648
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.850391459074734,
+        "y": 1.7056346381969147
+      },
+      "isLocked": false,
+      "linkedName": "TEMP RNZ"
+    },
+    {
+      "anchor": {
+        "x": 7.4523013048635836,
+        "y": 3.642289442467378
+      },
+      "prevControl": {
+        "x": 7.785836298932384,
+        "y": 3.588493475682087
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TEMP RNZ END"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "New Folder",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": false
+}
