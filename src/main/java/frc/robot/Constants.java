@@ -246,7 +246,7 @@ public final class Constants {
     // Shooter speed setpoints
     public static final double SETPOINT_1_RPM = 3200; // Meant for shooting from hub
     public static final double SETPOINT_2_RPM = 3850; // Meant for shooting from trench
-    public static final double SETPOINT_3_RPM = 3300; // Meant for shooting from sides of the tower
+    public static final double SETPOINT_3_RPM = 3450; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 
@@ -261,7 +261,7 @@ public final class Constants {
     // HUB
     public static final double SETPOINT_1 = 0.2;
     // TRENCH
-    public static final double SETPOINT_2 = 0.6;
+    public static final double SETPOINT_2 = 0.65;
     // TOWER
     public static final double SETPOINT_3 = 0.6;
   }
@@ -275,9 +275,11 @@ public final class Constants {
     public static String camera1Name = "Camera_1";
     public static String camera2Name = "Camera_2";
 
-    // AprilTag IDs to track for pose estimation (don't use tower or outpost ones because they are too low and too ambiguous)
+    // AprilTag IDs to track for pose estimation (don't use tower or outpost ones because they are
+    // too low and too ambiguous)
     public static final Set<Integer> TRACKED_TAG_IDS =
-        Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28);
+        Set.of(
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28);
 
     // Robot to camera transforms
     // Camera translation for left camera

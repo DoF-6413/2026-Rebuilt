@@ -40,6 +40,7 @@ public class Launch extends Command {
   private Shot m_shot;
   private final String m_position;
   private final Timer m_timer = new Timer();
+  private double m_timeDelay;
 
   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
       new InterpolatingTreeMap<>(
@@ -100,6 +101,12 @@ public class Launch extends Command {
       m_shot = distanceToShotMap.get(getDistanceToHub());
     }
 
+    if (m_shot.m_hoodPosition <= 0.3) {
+      m_timeDelay = 2.0;
+    } else {
+      m_timeDelay = 3.0;
+    }
+
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
 
@@ -120,8 +127,10 @@ public class Launch extends Command {
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
 
-    if (m_shooter.getVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)
-        && (m_timer.hasElapsed(3))) {
+    if ((m_shooter.getLVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)) 
+    && (m_shooter.getMVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)) 
+    && (m_shooter.getRVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
+        && (m_timer.hasElapsed(m_timeDelay))) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
     }

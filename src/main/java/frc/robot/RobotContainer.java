@@ -257,7 +257,7 @@ public class RobotContainer {
                 drive,
                 () -> -1 * driverController.getLeftY(),
                 () -> -1 * driverController.getLeftX(),
-                () -> -0.8 * driverController.getRightX())
+                () -> -0.7 * driverController.getRightX())
             .withName("JoystickDrive"));
 
     // Reset gyro to 0° when A button is pressed
@@ -317,13 +317,13 @@ public class RobotContainer {
                     })
                 .withName("Auto aiming"));
     auxController
-        .povLeft()
+        .button(7)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
     auxController
-        .povRight()
+        .button(8)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
                 .alongWith(new Agitate(m_intake, m_pivot))

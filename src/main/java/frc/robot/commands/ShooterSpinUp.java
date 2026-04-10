@@ -95,7 +95,7 @@ public class ShooterSpinUp extends Command {
 
   @Override
   public boolean isFinished() {
-    return m_shooter.getVelocity() >= m_shot.m_shooterRPM;
+    return m_shooter.getLVelocity() >= m_shot.m_shooterRPM && m_shooter.getMVelocity() >= m_shot.m_shooterRPM && m_shooter.getRVelocity() >= m_shot.m_shooterRPM;
   }
 
   @Override

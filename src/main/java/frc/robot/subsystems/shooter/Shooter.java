@@ -34,7 +34,15 @@ public class Shooter extends SubsystemBase {
     m_io.enableBrakeMode(enable);
   }
 
-  public double getVelocity() {
+  public double getLVelocity() {
+    return m_inputs.leftShooterRPS * 60.0;
+  }
+
+  public double getMVelocity() {
     return m_inputs.middleShooterRPS * 60.0;
+  }
+
+  public double getRVelocity() {
+    return m_inputs.rightShooterRPS * 60.0;
   }
 }
