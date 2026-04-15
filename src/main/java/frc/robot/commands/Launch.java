@@ -91,6 +91,11 @@ public class Launch extends Command {
             .map(a -> FieldConstants.RED_HUB_POSITION)
             .orElse(FieldConstants.BLUE_HUB_POSITION);
 
+    m_timer.restart();
+  }
+
+  @Override
+  public void execute() {
     if (m_position.equals("trench")) {
       m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
     } else if (m_position.equals("hub")) {
@@ -109,23 +114,6 @@ public class Launch extends Command {
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
-
-    m_timer.restart();
-  }
-
-  @Override
-  public void execute() {
-    if (m_position.equals("trench")) {
-      m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
-    } else if (m_position.equals("hub")) {
-      m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
-    } else if (m_position.equals("tower")) {
-      m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
-    } else {
-      m_shot = distanceToShotMap.get(getDistanceToHub());
-    }
-
-    m_shooter.setVelocity(m_shot.m_shooterRPM);
 
     if ((m_shooter.getLVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
         && (m_shooter.getMVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))

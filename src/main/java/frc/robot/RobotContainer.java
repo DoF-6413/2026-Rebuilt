@@ -283,6 +283,9 @@ public class RobotContainer {
     auxController
         .povDown()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
+    auxController
+        .rightTrigger()
+        .whileTrue(new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController
@@ -291,8 +294,7 @@ public class RobotContainer {
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
-    // Left Trigger: Shoots from anywhere by keeping the shooter RPM constant and adjusting the hood
-    // angle
+    // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
         .leftTrigger()
         .whileTrue(
@@ -323,13 +325,13 @@ public class RobotContainer {
         .button(7)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
-                .alongWith(new Agitate(m_intake, m_pivot))
+                // .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
     auxController
         .button(8)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
-                .alongWith(new Agitate(m_intake, m_pivot))
+                // .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from trench"));
 
     // Controlling hood

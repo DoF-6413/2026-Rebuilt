@@ -238,15 +238,26 @@ public final class Constants {
     public static final int STATOR_CURRENT_LIMIT = 120;
 
     // PID and FF as of 4.5.26
-    public static double kP = 0.505;
-    public static double kI = 2;
-    public static double kD = 0;
-    public static double kV = 0.125;
+    public static double kPL = 0.505;
+    public static double kIL = 2;
+    public static double kDL = 0;
+    public static double kVL = 0.125;
 
-    // Shooter speed setpoints
-    public static final double SETPOINT_1_RPM = 3250; // Meant for shooting from hub
-    public static final double SETPOINT_2_RPM = 3850; // Meant for shooting from trench
-    public static final double SETPOINT_3_RPM = 3450; // Meant for shooting from sides of the tower
+    public static double kPM = 0.505;
+    public static double kIM = 2;
+    public static double kDM = 0;
+    public static double kVM = 0.125;
+
+    // PID and FF as of 4.14.26
+    public static double kPR = 0.505;
+    public static double kIR = 2;
+    public static double kDR = 0;
+    public static double kVR = 0.125;
+
+    // Shooter speed setpoints (works for 3.5")
+    public static final double SETPOINT_1_RPM = 3400; // Meant for shooting from hub
+    public static final double SETPOINT_2_RPM = 4000; // Meant for shooting from trench
+    public static final double SETPOINT_3_RPM = 3800; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify
   }
 
@@ -254,16 +265,16 @@ public final class Constants {
     public static final int leftServoPort = 1;
     public static final int rightServoPort = 2;
 
-    public static final double K_MIN_POSITION = 0.01;
-    public static final double K_MAX_POSITION = 0.77;
+    public static final double K_MIN_POSITION = 0.08;
+    public static final double K_MAX_POSITION = 0.5;
     public static final double K_TOLERANCE = 0.01;
 
     // HUB
-    public static final double SETPOINT_1 = 0.2;
+    public static final double SETPOINT_1 = 0.15;
     // TRENCH
-    public static final double SETPOINT_2 = 0.65;
+    public static final double SETPOINT_2 = 0.3;
     // TOWER
-    public static final double SETPOINT_3 = 0.6;
+    public static final double SETPOINT_3 = 0.3;
   }
 
   public static class VisionConstants {
