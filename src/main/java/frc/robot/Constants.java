@@ -244,7 +244,7 @@ public final class Constants {
     public static double kV = 0.125;
 
     // Shooter speed setpoints
-    public static final double SETPOINT_1_RPM = 3200; // Meant for shooting from hub
+    public static final double SETPOINT_1_RPM = 3250; // Meant for shooting from hub
     public static final double SETPOINT_2_RPM = 3850; // Meant for shooting from trench
     public static final double SETPOINT_3_RPM = 3450; // Meant for shooting from sides of the tower
     public static double TOLERANCE_RPM = 100; // TODO: verify

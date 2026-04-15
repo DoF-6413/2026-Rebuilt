@@ -257,20 +257,23 @@ public class RobotContainer {
                 drive,
                 () -> -1 * driverController.getLeftY(),
                 () -> -1 * driverController.getLeftX(),
-                () -> -0.7 * driverController.getRightX())
+                () -> -0.65 * driverController.getRightX())
             .withName("JoystickDrive"));
 
     // Reset gyro to 0° when A button is pressed
-    driverController
-        .a()
-        .onTrue(
-            new InstantCommand(
-                    () ->
-                        drive.setPose(
-                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
-                    drive)
-                .ignoringDisable(true)
-                .withName("ResetPose"));
+    // driverController
+    //     .a()
+    //     .onTrue(
+    //         new InstantCommand(
+    //                 () ->
+    //                     drive.setPose(
+    //                         new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
+    //                 drive)
+    //             .ignoringDisable(true)
+    //             .withName("ResetPose"));
+
+    // Lock wheels in x
+    driverController.a().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
   }
 
   private void auxControllerBindings() {

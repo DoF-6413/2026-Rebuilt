@@ -127,9 +127,9 @@ public class Launch extends Command {
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
 
-    if ((m_shooter.getLVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)) 
-    && (m_shooter.getMVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM)) 
-    && (m_shooter.getRVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
+    if ((m_shooter.getLVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
+        && (m_shooter.getMVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
+        && (m_shooter.getRVelocity() > (m_shot.m_shooterRPM - ShooterConstants.TOLERANCE_RPM))
         && (m_timer.hasElapsed(m_timeDelay))) {
       m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
       m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
