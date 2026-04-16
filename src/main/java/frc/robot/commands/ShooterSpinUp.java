@@ -73,7 +73,10 @@ public class ShooterSpinUp extends Command {
             .filter(a -> a == Alliance.Red)
             .map(a -> FieldConstants.RED_HUB_POSITION)
             .orElse(FieldConstants.BLUE_HUB_POSITION);
+  }
 
+  @Override
+  public void execute() {
     if (m_position.equals("trench")) {
       m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
     } else if (m_position.equals("hub")) {
@@ -85,11 +88,6 @@ public class ShooterSpinUp extends Command {
     }
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
-    m_hood.setPosition(m_shot.m_hoodPosition);
-  }
-
-  @Override
-  public void execute() {
     m_hood.setPosition(m_shot.m_hoodPosition);
   }
 

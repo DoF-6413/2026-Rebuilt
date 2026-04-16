@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -186,16 +187,20 @@ public class RobotContainer {
         "ShooterSpinUp", new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
     NamedCommands.registerCommand(
         "LaunchHub",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub"));
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
+            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand(
         "LaunchTrench",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench"));
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
+            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand(
         "LaunchTower",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower"));
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
+            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand(
         "LaunchAnywhere",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none"));
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
+            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand("Agitate", new Agitate(m_intake, m_pivot));
     NamedCommands.registerCommand(
         "AutoAim",
@@ -283,6 +288,8 @@ public class RobotContainer {
     auxController
         .povDown()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
+    // Right Trigger: Start spinning up the shooter and adjusting the hood; this should keep
+    // adjusting those parameters based on the distance to the hub until the command ends
     auxController
         .rightTrigger()
         .whileTrue(new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
@@ -292,14 +299,16 @@ public class RobotContainer {
         .rightBumper()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
-                .alongWith(new Agitate(m_intake, m_pivot))
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
                 .withName("Launch Hub"));
     // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
         .leftTrigger()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
-                .alongWith(new Agitate(m_intake, m_pivot))
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
                 .withName("Launching from anywhere"));
     // Left Bumper: auto aims the robot towards the hub
     auxController
@@ -325,13 +334,15 @@ public class RobotContainer {
         .button(7)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
-                // .alongWith(new Agitate(m_intake, m_pivot))
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
                 .withName("Launching from tower"));
     auxController
         .button(8)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
-                // .alongWith(new Agitate(m_intake, m_pivot))
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
                 .withName("Launching from trench"));
 
     // Controlling hood
