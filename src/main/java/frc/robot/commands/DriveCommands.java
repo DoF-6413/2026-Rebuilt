@@ -138,6 +138,19 @@ public class DriveCommands {
     // Construct command
     return Commands.run(
             () -> {
+              Logger.recordOutput(
+                  "AimAssist/CommandedHeadingRad", rotationSupplier.get().getRadians());
+              Logger.recordOutput("AimAssist/MeasuredHeadingRad", drive.getRotation().getRadians());
+              Logger.recordOutput(
+                  "AimAssist/HeadingErrorRad",
+                  MathUtil.angleModulus(
+                      rotationSupplier.get().getRadians() - drive.getRotation().getRadians()));
+              Logger.recordOutput("AimAssist/RobotPose", drive.getPose());
+              Logger.recordOutput(
+                  "AimAssist/TrueBearingToHubRad",
+                  Math.atan2(
+                      target.getY() - drive.getPose().getY(),
+                      target.getX() - drive.getPose().getX()));
               // Get linear velocity
               Translation2d linearVelocity =
                   getLinearVelocityFromJoysticks(xSupplier.getAsDouble(), ySupplier.getAsDouble());
