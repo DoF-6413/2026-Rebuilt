@@ -254,27 +254,30 @@ public final class Constants {
     public static double kDR = 0;
     public static double kVR = 0.125;
 
-    // Shooter speed setpoints (works for 3.5")
-    public static final double SETPOINT_1_RPM = 3400; // Meant for shooting from hub
-    public static final double SETPOINT_2_RPM = 4000; // Meant for shooting from trench
-    public static final double SETPOINT_3_RPM = 3800; // Meant for shooting from sides of the tower
-    public static double TOLERANCE_RPM = 10; // TODO: verify
+    // Shooter speed setpoints (for 2.875")
+    public static final double SETPOINT_1_RPM = 3650; // HUB //3400 for 3.5"
+    public static final double SETPOINT_2_RPM = 4500; // TRENCH //4000 for 3.5"
+    public static final double SETPOINT_3_RPM = 4200; // TOWER //3700 for 3.5"
+    public static final double SETPOINT_4_RPM = 5200; // CORNER
+    public static double TOLERANCE_RPM = 10;
   }
 
   public static final class HoodConstants {
     public static final int leftServoPort = 1;
     public static final int rightServoPort = 2;
 
-    public static final double K_MIN_POSITION = 0.08;
+    public static final double K_MIN_POSITION = 0.15; // 0.08 is actual zero
     public static final double K_MAX_POSITION = 0.5;
     public static final double K_TOLERANCE = 0.01;
 
     // HUB
-    public static final double SETPOINT_1 = 0.15;
+    public static final double SETPOINT_1 = K_MIN_POSITION;
     // TRENCH
     public static final double SETPOINT_2 = 0.3;
     // TOWER
     public static final double SETPOINT_3 = 0.3;
+    // CORNER (192" from hub to center of robot)
+    public static final double SETPOINT_4 = 0.35;
   }
 
   public static class VisionConstants {

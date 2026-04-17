@@ -300,7 +300,7 @@ public class RobotContainer {
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
-                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
+                // .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
     // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
@@ -335,14 +335,14 @@ public class RobotContainer {
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
-                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
     auxController
         .button(8)
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
-                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from trench"));
 
     // Controlling hood

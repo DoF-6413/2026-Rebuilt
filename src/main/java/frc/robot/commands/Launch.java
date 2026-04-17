@@ -61,6 +61,8 @@ public class Launch extends Command {
         Inches.of(122.12), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
     distanceToShotMap.put(
         Inches.of(134.13), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
+    distanceToShotMap.put(
+        Inches.of(192.0), new Shot(ShooterConstants.SETPOINT_4_RPM, HoodConstants.SETPOINT_4));
   }
 
   private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
