@@ -267,17 +267,17 @@ public final class Constants {
     public static final int rightServoPort = 2;
 
     public static final double K_MIN_POSITION = 0.15; // 0.08 is actual zero
-    public static final double K_MAX_POSITION = 0.5;
+    public static final double K_MAX_POSITION = 0.5; // 1 7/8 inches
     public static final double K_TOLERANCE = 0.01;
 
     // HUB
-    public static final double SETPOINT_1 = K_MIN_POSITION;
+    public static final double SETPOINT_1 = K_MIN_POSITION; // 0.75 inches
     // TRENCH
-    public static final double SETPOINT_2 = 0.3;
+    public static final double SETPOINT_2 = 0.3; // 1 3/16 inches
     // TOWER
-    public static final double SETPOINT_3 = 0.3;
+    public static final double SETPOINT_3 = 0.3; // 1 3/16 inches
     // CORNER (192" from hub to center of robot)
-    public static final double SETPOINT_4 = 0.35;
+    public static final double SETPOINT_4 = 0.35; // 1 3/8 inches
   }
 
   public static class VisionConstants {
