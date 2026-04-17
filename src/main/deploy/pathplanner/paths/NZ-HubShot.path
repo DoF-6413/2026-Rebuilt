@@ -80,7 +80,7 @@
       "minWaypointRelativePos": 0.5,
       "maxWaypointRelativePos": 1.6,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 300.0,
         "maxAngularAcceleration": 500.0,
@@ -104,7 +104,7 @@
     "rotation": -20.0
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "NZ (meta)",
   "idealStartingState": {
     "velocity": 0.5,
     "rotation": -90.0

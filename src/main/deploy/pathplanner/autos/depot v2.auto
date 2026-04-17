@@ -69,9 +69,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "DP(L)-Hub"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "DP(L)-Hub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpHub"
+                }
+              }
+            ]
           }
         },
         {

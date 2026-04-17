@@ -51,24 +51,24 @@
                     }
                   ]
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoAim"
-                }
               },
               {
-                "type": "wait",
+                "type": "sequential",
                 "data": {
-                  "waitTime": 1.0
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpinUpHub"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -81,7 +81,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LaunchAnywhere"
+                  "name": "LaunchHub"
                 }
               },
               {
