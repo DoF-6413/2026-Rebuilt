@@ -186,6 +186,8 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "SpinUpHub", new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "hub"));
     NamedCommands.registerCommand(
+        "SpinUpCorner", new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "corner"));
+    NamedCommands.registerCommand(
         "LaunchHub",
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
             .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
@@ -196,6 +198,10 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "LaunchTower",
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
+            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
+    NamedCommands.registerCommand(
+        "LaunchCorner",
+        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "corner")
             .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand(
         "LaunchAnywhere",

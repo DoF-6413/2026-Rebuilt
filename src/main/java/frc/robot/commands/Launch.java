@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.Meters;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
+import static frc.robot.Constants.ShooterConstants.SETPOINT_4_RPM;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -104,6 +105,8 @@ public class Launch extends Command {
       m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
     } else if (m_position.equals("tower")) {
       m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
+    } else if (m_position.equals("corner")) {
+      m_shot = new Shot(SETPOINT_4_RPM, HoodConstants.SETPOINT_4);
     } else {
       m_shot = distanceToShotMap.get(getDistanceToHub());
     }
