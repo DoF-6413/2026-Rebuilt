@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
+import static frc.robot.Constants.ShooterConstants.RELAY_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
 import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
@@ -95,6 +96,8 @@ public class Launch extends Command {
             .orElse(FieldConstants.BLUE_HUB_POSITION);
 
     m_timer.restart();
+
+    m_hopper.setVoltage(-HopperConstants.LAUNCHING_VOLTAGE);
   }
 
   @Override
@@ -107,14 +110,16 @@ public class Launch extends Command {
       m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
     } else if (m_position.equals("corner")) {
       m_shot = new Shot(SETPOINT_4_RPM, HoodConstants.SETPOINT_4);
+    } else if (m_position.equals("relay")) {
+      m_shot = new Shot(RELAY_RPM, HoodConstants.K_MAX_POSITION);
     } else {
       m_shot = distanceToShotMap.get(getDistanceToHub());
     }
 
-    if (m_shot.m_hoodPosition <= 0.3) {
-      m_timeDelay = 2.0;
+    if (m_shot.m_hoodPosition < 0.3) {
+      m_timeDelay = 0;
     } else {
-      m_timeDelay = 3.0;
+      m_timeDelay = 2.0;
     }
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);

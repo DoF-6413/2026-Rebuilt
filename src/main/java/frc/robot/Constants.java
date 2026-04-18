@@ -255,10 +255,12 @@ public final class Constants {
     public static double kVR = 0.125;
 
     // Shooter speed setpoints (for 2.875")
-    public static final double SETPOINT_1_RPM = 3650; // HUB //3400 for 3.5"
+    public static final double SETPOINT_1_RPM =
+        3650; // HUB //3400 for 3.5" //TODO: change the names from "1,2,..." to "hub"
     public static final double SETPOINT_2_RPM = 4500; // TRENCH //4000 for 3.5"
     public static final double SETPOINT_3_RPM = 4200; // TOWER //3700 for 3.5"
     public static final double SETPOINT_4_RPM = 5200; // CORNER
+    public static final double RELAY_RPM = 6000;
     public static double TOLERANCE_RPM = 10;
   }
 

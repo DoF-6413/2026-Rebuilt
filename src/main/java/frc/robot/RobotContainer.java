@@ -272,16 +272,16 @@ public class RobotContainer {
             .withName("JoystickDrive"));
 
     // Reset gyro to 0° when A button is pressed
-    // driverController
-    //     .a()
-    //     .onTrue(
-    //         new InstantCommand(
-    //                 () ->
-    //                     drive.setPose(
-    //                         new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
-    //                 drive)
-    //             .ignoringDisable(true)
-    //             .withName("ResetPose"));
+    driverController
+        .button(10)
+        .onTrue(
+            new InstantCommand(
+                    () ->
+                        drive.setPose(
+                            new Pose2d(drive.getPose().getTranslation(), Rotation2d.k180deg)),
+                    drive)
+                .ignoringDisable(true)
+                .withName("ResetPose"));
 
     // Lock wheels in x
     driverController.a().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
@@ -289,32 +289,33 @@ public class RobotContainer {
 
   private void auxControllerBindings() {
     // D-pad Up: Deploy intake pivot and run intake rollers
-    auxController.povUp().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
+    auxController.povDown().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
     // D-pad Down: Retract the intake back up
     auxController
-        .povDown()
+        .povLeft()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
     // Right Trigger: Start spinning up the shooter and adjusting the hood; this should keep
     // adjusting those parameters based on the distance to the hub until the command ends
+
     auxController
-        .rightTrigger()
+        .povUp()
         .whileTrue(new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController
-        .rightBumper()
+        .b()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
-                // .alongWith(new Agitate(m_intake, m_pivot))
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
     // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
-        .leftTrigger()
+        .x()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
-                // .alongWith(new Agitate(m_intake, m_pivot)) TODO: uncomment this once done tuning
+                .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from anywhere"));
     // Left Bumper: auto aims the robot towards the hub
     auxController
@@ -337,38 +338,38 @@ public class RobotContainer {
                     })
                 .withName("Auto aiming"));
     auxController
-        .button(7)
+        .a()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
     auxController
-        .button(8)
+        .y()
         .whileTrue(
             new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from trench"));
-
-    // Controlling hood
-    // Button Y: sets the hood to the maximum position
+    /**
+     * // Controlling hood // Button Y: sets the hood to the maximum position auxController .y()
+     * .onTrue( new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION))
+     * .withName("HoodMax")); // Button A: sets the hood to the minimum position auxController .a()
+     * .onTrue( new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION))
+     * .withName("HoodMin"));
+     */
     auxController
-        .y()
-        .onTrue(
-            new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION))
-                .withName("HoodMax"));
-    // Button A: sets the hood to the minimum position
-    auxController
-        .a()
-        .onTrue(
-            new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION))
-                .withName("HoodMin"));
+        .rightBumper()
+        .whileTrue(
+            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "relay")
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                .alongWith(new Agitate(m_intake, m_pivot))
+                .withName("Relaying"));
 
-    // Button X: switch to x pattern
-    auxController.x().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
     // Button B: Eject balls through the intake
-    auxController.b().whileTrue(new Eject(m_column, m_hopper, m_intake).withName("Out-taking"));
+    auxController
+        .povRight()
+        .whileTrue(new Eject(m_column, m_hopper, m_intake).withName("Out-taking"));
   }
 
   /**
