@@ -183,6 +183,7 @@ public class RobotContainer {
 
     // Register Named Commands
     NamedCommands.registerCommand("Intake", new RunIntake(m_intake, m_pivot));
+    NamedCommands.registerCommand("RetractIntake", new IntakeRetract(m_intake, m_pivot));
     NamedCommands.registerCommand(
         "SpinUpHub", new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "hub"));
     NamedCommands.registerCommand(

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.179211142233167,
-        "y": 6.502197846967309
+        "x": 5.86339474125623,
+        "y": 6.359166544362767
       },
       "isLocked": false,
       "linkedName": "TEMP LNZ NEAR HUB"
     },
     {
       "anchor": {
-        "x": 5.784626334519575,
-        "y": 4.406192170818505
+        "x": 5.8814590747330975,
+        "y": 4.3954329774614465
       },
       "prevControl": {
-        "x": 6.193475682087783,
-        "y": 4.642894424673784
+        "x": 5.87331047380823,
+        "y": 4.890434403827616
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "Depot",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": false

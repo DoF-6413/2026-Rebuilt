@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2958842540922617,
-        "y": 7.163319440569196
+        "x": 2.243488888888889,
+        "y": 6.5746
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.360554538857646,
-        "y": 6.958380592845503
+        "x": 3.355617923803332,
+        "y": 7.112649263145426
       },
       "isLocked": false,
       "linkedName": "DP Shoot Spot"
@@ -20,12 +20,12 @@
         "y": 7.3203555555555555
       },
       "prevControl": {
-        "x": 2.4697450619567833,
-        "y": 7.3055213371182015
+        "x": 3.4882932350718208,
+        "y": 7.279910875575712
       },
       "nextControl": {
-        "x": 4.3605467136945135,
-        "y": 7.327689647930697
+        "x": 3.98170676492818,
+        "y": 7.360800235535399
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 7.3002
       },
       "prevControl": {
-        "x": 5.138512839681235,
-        "y": 7.3179959725573775
+        "x": 5.352327897754458,
+        "y": 7.466580762338735
       },
       "nextControl": {
-        "x": 6.0230859232898375,
-        "y": 7.278681613285884
+        "x": 5.725516546689986,
+        "y": 7.133819237661266
       },
       "isLocked": false,
       "linkedName": null
@@ -52,8 +52,8 @@
         "y": 6.665622775800712
       },
       "prevControl": {
-        "x": 5.934684694132567,
-        "y": 6.439688316077327
+        "x": 5.699915885809803,
+        "y": 6.8805196050840305
       },
       "nextControl": null,
       "isLocked": false,
@@ -68,10 +68,6 @@
     {
       "waypointRelativePos": 1.7059755067567548,
       "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 2.1809543918918917,
-      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -86,14 +82,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "reversed": false,
   "folder": "Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -48.71907494777911
+    "rotation": -52.4958576397299
   },
   "useDefaultConstraints": true
 }

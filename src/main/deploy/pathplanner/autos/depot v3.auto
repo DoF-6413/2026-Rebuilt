@@ -11,13 +11,19 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.0
+                  "waitTime": 2.0
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "LaunchHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RetractIntake"
                 }
               }
             ]
@@ -42,12 +48,6 @@
                       "data": {
                         "pathName": "DP-Intake"
                       }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "DP(L) - ShootSpot"
-                      }
                     }
                   ]
                 }
@@ -59,7 +59,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -67,14 +67,14 @@
                       "data": {
                         "name": "Intake"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SpinUpCorner"
-                      }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpCorner"
                 }
               }
             ]
@@ -87,13 +87,13 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 6.0
+                  "waitTime": 2.0
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "LaunchCorner"
+                  "name": "LaunchAnywhere"
                 }
               },
               {
@@ -138,12 +138,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
-                      }
-                    },
                     {
                       "type": "named",
                       "data": {

@@ -8,27 +8,48 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8370106627758063,
-        "y": 5.384977734168961
+        "x": 0.8571980002232921,
+        "y": 5.484821453538841
       },
       "isLocked": false,
       "linkedName": "Depot End"
     },
     {
       "anchor": {
-        "x": 0.7721333333333333,
-        "y": 7.400977777777777
+        "x": 0.8060965943692828,
+        "y": 6.262754925636343
       },
       "prevControl": {
-        "x": 0.7743098851719108,
-        "y": 7.150987252713138
+        "x": 0.8299185558692223,
+        "y": 6.007589682895332
+      },
+      "nextControl": {
+        "x": 0.7318222222222224,
+        "y": 7.058333333333334
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.243488888888889,
+        "y": 6.5746
+      },
+      "prevControl": {
+        "x": 1.7514372079705673,
+        "y": 6.546849210306172
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Depot Start"
+      "linkedName": "DP Shoot Spot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 110.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -41,13 +62,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": 90.0
+    "velocity": 0.0,
+    "rotation": -52.4958576397299
   },
   "reversed": false,
   "folder": "Depot",
   "idealStartingState": {
-    "velocity": 0.5,
+    "velocity": 1.0,
     "rotation": 110.0
   },
   "useDefaultConstraints": false

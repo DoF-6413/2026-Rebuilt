@@ -120,9 +120,9 @@ public class Launch extends Command {
     }
 
     if (m_shot.m_hoodPosition < 0.3) {
-      m_timeDelay = 0;
+      m_timeDelay = 0.0;
     } else {
-      m_timeDelay = 2.0;
+      m_timeDelay = 0.0; // 3.0
     }
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
