@@ -6,11 +6,11 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
+import static frc.robot.Constants.ShooterConstants.CORNER_SPEED_RPM;
+import static frc.robot.Constants.ShooterConstants.HUB_SPEED_RPM;
 import static frc.robot.Constants.ShooterConstants.RELAY_RPM;
-import static frc.robot.Constants.ShooterConstants.SETPOINT_1_RPM;
-import static frc.robot.Constants.ShooterConstants.SETPOINT_2_RPM;
-import static frc.robot.Constants.ShooterConstants.SETPOINT_3_RPM;
-import static frc.robot.Constants.ShooterConstants.SETPOINT_4_RPM;
+import static frc.robot.Constants.ShooterConstants.TOWER_SPEED_RPM;
+import static frc.robot.Constants.ShooterConstants.TRENCH_SPEED_RPM;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -58,13 +58,16 @@ public class Launch extends Command {
 
   static {
     distanceToShotMap.put(
-        Inches.of(47.96), new Shot(ShooterConstants.SETPOINT_1_RPM, HoodConstants.SETPOINT_1));
+        Inches.of(47.96), new Shot(ShooterConstants.HUB_SPEED_RPM, HoodConstants.HUB_SETPOINT));
     distanceToShotMap.put(
-        Inches.of(122.12), new Shot(ShooterConstants.SETPOINT_3_RPM, HoodConstants.SETPOINT_3));
+        Inches.of(122.12),
+        new Shot(ShooterConstants.TOWER_SPEED_RPM, HoodConstants.TOWER_SETPOINT));
     distanceToShotMap.put(
-        Inches.of(134.13), new Shot(ShooterConstants.SETPOINT_2_RPM, HoodConstants.SETPOINT_2));
+        Inches.of(134.13),
+        new Shot(ShooterConstants.TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT));
     distanceToShotMap.put(
-        Inches.of(192.0), new Shot(ShooterConstants.SETPOINT_4_RPM, HoodConstants.SETPOINT_4));
+        Inches.of(192.0),
+        new Shot(ShooterConstants.CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT));
   }
 
   private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
@@ -103,13 +106,13 @@ public class Launch extends Command {
   @Override
   public void execute() {
     if (m_position.equals("trench")) {
-      m_shot = new Shot(SETPOINT_2_RPM, HoodConstants.SETPOINT_2);
+      m_shot = new Shot(TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT);
     } else if (m_position.equals("hub")) {
-      m_shot = new Shot(SETPOINT_1_RPM, HoodConstants.SETPOINT_1);
+      m_shot = new Shot(HUB_SPEED_RPM, HoodConstants.HUB_SETPOINT);
     } else if (m_position.equals("tower")) {
-      m_shot = new Shot(SETPOINT_3_RPM, HoodConstants.SETPOINT_3);
+      m_shot = new Shot(TOWER_SPEED_RPM, HoodConstants.TOWER_SETPOINT);
     } else if (m_position.equals("corner")) {
-      m_shot = new Shot(SETPOINT_4_RPM, HoodConstants.SETPOINT_4);
+      m_shot = new Shot(CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT);
     } else if (m_position.equals("relay")) {
       m_shot = new Shot(RELAY_RPM, HoodConstants.K_MAX_POSITION);
     } else {
