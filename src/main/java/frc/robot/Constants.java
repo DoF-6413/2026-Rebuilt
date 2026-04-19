@@ -259,7 +259,7 @@ public final class Constants {
         3650; // HUB //3400 for 3.5" //TODO: change the names from "1,2,..." to "hub"
     public static final double SETPOINT_2_RPM = 4500; // TRENCH //4000 for 3.5"
     public static final double SETPOINT_3_RPM = 4200; // TOWER //3700 for 3.5"
-    public static final double SETPOINT_4_RPM = 5200; // CORNER
+    public static final double SETPOINT_4_RPM = 5100; // CORNER
     public static final double RELAY_RPM = 6000;
     public static double TOLERANCE_RPM = 10;
   }
@@ -279,7 +279,7 @@ public final class Constants {
     // TOWER
     public static final double SETPOINT_3 = 0.3; // 1 3/16 inches
     // CORNER (192" from hub to center of robot)
-    public static final double SETPOINT_4 = 0.35; // 1 3/8 inches
+    public static final double SETPOINT_4 = 0.4; // 1 3/8 inches
   }
 
   public static class VisionConstants {

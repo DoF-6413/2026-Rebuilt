@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4588256227758012,
-        "y": 7.6447093712930005
+        "x": 0.7721333333333333,
+        "y": 7.400977777777777
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8519091215587797,
-        "y": 6.726532331194196
+        "x": 1.1652168321163119,
+        "y": 6.482800737678973
       },
       "isLocked": false,
       "linkedName": "Depot Start"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

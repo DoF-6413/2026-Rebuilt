@@ -16,48 +16,48 @@
     },
     {
       "anchor": {
-        "x": 3.743890438988095,
-        "y": 7.418876604352679
+        "x": 3.7350000000000003,
+        "y": 7.3203555555555555
       },
       "prevControl": {
-        "x": 2.478635500944878,
-        "y": 7.404042385915325
+        "x": 2.4697450619567833,
+        "y": 7.3055213371182015
       },
       "nextControl": {
-        "x": 4.369437152682608,
-        "y": 7.4262106967278205
+        "x": 4.3605467136945135,
+        "y": 7.327689647930697
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.159,
-        "y": 7.418876604352679
+        "x": 5.538922222222222,
+        "y": 7.3002
       },
       "prevControl": {
-        "x": 5.758588498773455,
-        "y": 7.436624842339065
+        "x": 5.138512839681235,
+        "y": 7.3179959725573775
       },
       "nextControl": {
-        "x": 7.726265173325351,
-        "y": 7.349407582611926
+        "x": 6.0230859232898375,
+        "y": 7.278681613285884
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.373,
-        "y": 6.87
+        "x": 5.827663107947806,
+        "y": 6.665622775800712
       },
       "prevControl": {
-        "x": 7.135924818851881,
-        "y": 6.746277506707747
+        "x": 5.934684694132567,
+        "y": 6.439688316077327
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TEMP LNZ"
+      "linkedName": "TEMP LNZ NEAR HUB"
     }
   ],
   "rotationTargets": [
@@ -78,7 +78,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,

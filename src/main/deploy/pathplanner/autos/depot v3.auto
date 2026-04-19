@@ -71,7 +71,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShootUpCorner"
+                        "name": "SpinUpCorner"
                       }
                     }
                   ]
@@ -122,13 +122,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LNZ-Sweep"
+                        "pathName": "LNZ- Hub Sweep"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LNZ-HubShot"
+                        "pathName": "NZ Near Hub-HubShot"
                       }
                     }
                   ]
@@ -160,7 +160,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 4.0
+                        "waitTime": 8.0
                       }
                     },
                     {
@@ -182,7 +182,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LaunchHub"
+                  "name": "LaunchAnywhere"
                 }
               },
               {

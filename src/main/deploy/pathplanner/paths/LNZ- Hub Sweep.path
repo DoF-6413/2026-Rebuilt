@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.946990327380952,
-        "y": 0.6912947591145837
+        "x": 5.827663107947806,
+        "y": 6.665622775800712
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.946990327380952,
-        "y": 0.6912947591145837
+        "x": 6.179211142233167,
+        "y": 6.502197846967309
       },
       "isLocked": false,
-      "linkedName": "Right Trench"
+      "linkedName": "TEMP LNZ NEAR HUB"
     },
     {
       "anchor": {
-        "x": 6.159372093563987,
-        "y": 0.6912947591145837
+        "x": 5.784626334519575,
+        "y": 4.406192170818505
       },
       "prevControl": {
-        "x": 5.159372093563987,
-        "y": 0.6912947591145832
+        "x": 6.193475682087783,
+        "y": 4.642894424673784
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Crossed Right Trench"
+      "linkedName": "TEMP LNZ NEAR HUB END"
     }
   ],
   "rotationTargets": [],
@@ -34,21 +34,21 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 5.0,
-    "rotation": 90.0
+    "velocity": 0.5,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "NZ (Trench)",
+  "folder": "Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 71.50253491690543
+    "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
