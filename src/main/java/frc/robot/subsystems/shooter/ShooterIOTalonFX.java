@@ -82,6 +82,7 @@ public class ShooterIOTalonFX implements ShooterIO {
         new TalonFXConfiguration()
             .withMotorOutput(
                 new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to ClockWise_Positive
                     .withInverted(InvertedValue.CounterClockwise_Positive)
                     .withNeutralMode(NeutralModeValue.Coast))
             .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
@@ -103,6 +104,7 @@ public class ShooterIOTalonFX implements ShooterIO {
         new TalonFXConfiguration()
             .withMotorOutput(
                 new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to ClockWise_Positive
                     .withInverted(InvertedValue.CounterClockwise_Positive)
                     .withNeutralMode(NeutralModeValue.Coast))
             .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
@@ -124,6 +126,7 @@ public class ShooterIOTalonFX implements ShooterIO {
         new TalonFXConfiguration()
             .withMotorOutput(
                 new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to CounterClockWise_Positive
                     .withInverted(InvertedValue.Clockwise_Positive)
                     .withNeutralMode(NeutralModeValue.Coast))
             .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
@@ -140,11 +143,8 @@ public class ShooterIOTalonFX implements ShooterIO {
                     .withKD(ShooterConstants.kDR)
                     .withKV(ShooterConstants.kVR));
 
-    // Middle axle — invert if spinning wrong direction: change to ClockWise_Positive
     tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleConfig, 0.25));
-    // Left axle — invert if spinning wrong direction: change to ClockWise_Positive
     tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftConfig, 0.25));
-    // Right axle — invert if spinning wrong direction: change to ClockWise_Positive
     tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightConfig, 0.25));
 
     BaseStatusSignal.setUpdateFrequencyForAll(
