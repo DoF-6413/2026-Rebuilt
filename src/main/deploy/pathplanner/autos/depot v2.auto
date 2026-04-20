@@ -34,13 +34,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Hub-DP(R)"
+                        "pathName": "Hub-DP(R) v3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "DP-Intake"
+                        "pathName": "DP-Intake v2"
                       }
                     }
                   ]

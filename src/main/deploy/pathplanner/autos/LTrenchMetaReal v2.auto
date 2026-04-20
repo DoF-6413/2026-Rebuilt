@@ -15,13 +15,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Hub-DP(R) v3"
+                        "pathName": "LTrench-NZ"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "DP-Intake v3"
+                        "pathName": "LNZ-Sweep"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LNZ-HubShot"
                       }
                     }
                   ]
@@ -34,7 +40,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 1.0
                       }
                     },
                     {
@@ -47,9 +53,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "SpinUpCorner"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpinUpHub"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -60,12 +79,6 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "LaunchAnywhere"
@@ -75,6 +88,12 @@
                 "type": "named",
                 "data": {
                   "name": "Agitate"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 4.0
                 }
               }
             ]
@@ -91,7 +110,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "ShootSpot-NZ"
+                        "pathName": "LHubShot-NZ Near Hub"
                       }
                     },
                     {
@@ -108,44 +127,12 @@
                     }
                   ]
                 }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 8.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "SpinUpHub"
-                      }
-                    }
-                  ]
-                }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {

@@ -1,0 +1,95 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 4.4
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.8439861406660527,
+        "y": 5.0379984168060865
+      },
+      "isLocked": false,
+      "linkedName": "LHubShot"
+    },
+    {
+      "anchor": {
+        "x": 3.572856270926339,
+        "y": 7.325636218843005
+      },
+      "prevControl": {
+        "x": 3.323033433465056,
+        "y": 7.316226124114818
+      },
+      "nextControl": {
+        "x": 4.176943194279152,
+        "y": 7.348390404291283
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.2655082775297615,
+        "y": 7.324718598865328
+      },
+      "prevControl": {
+        "x": 5.015514372238503,
+        "y": 7.322972942191549
+      },
+      "nextControl": {
+        "x": 6.068578694661458,
+        "y": 7.330326276506696
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.800944444444444,
+        "y": 6.695533333333333
+      },
+      "prevControl": {
+        "x": 5.847330322265625,
+        "y": 7.043926885695685
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TEMP LNZ NEAR HUB"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "NZ (meta)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -20.0
+  },
+  "useDefaultConstraints": true
+}

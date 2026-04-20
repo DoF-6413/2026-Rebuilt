@@ -39,25 +39,9 @@
         "x": 0.6673280737320839,
         "y": 7.518794279087645
       },
-      "nextControl": {
-        "x": 0.715694148490138,
-        "y": 7.021139054245689
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.243488888888889,
-        "y": 6.5746
-      },
-      "prevControl": {
-        "x": 2.0937301337403516,
-        "y": 6.801297510584872
-      },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "DP Shoot Spot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -83,7 +67,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -52.4958576397299
+    "rotation": 110.0
   },
   "reversed": false,
   "folder": "Depot",

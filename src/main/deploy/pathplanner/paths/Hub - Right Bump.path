@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.614066666666667,
-        "y": 5.0327
+        "x": 3.5608252534412204,
+        "y": 4.019808291480655
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3633537085010907,
-        "y": 4.637582805969302
+        "x": 3.310112295275644,
+        "y": 3.624691097449957
       },
       "isLocked": false,
       "linkedName": "Hub"
@@ -69,7 +69,7 @@
   "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 89.81748552835448
+    "rotation": -0.30705868221168414
   },
   "useDefaultConstraints": true
 }
