@@ -242,8 +242,8 @@ public class ShooterIOTalonFX implements ShooterIO {
 
     // PID tuning — poll SmartDashboard every 50 loops (~1 second)
     if (m_loopCounter % 50 == 0) {
-      updatePIDFromDashboard();
-      m_loopCounter = 0;
+        updatePIDFromDashboard();
+        m_loopCounter = 0;
     }
 
     BaseStatusSignal.refreshAll(
