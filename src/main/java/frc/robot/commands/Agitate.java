@@ -47,4 +47,9 @@ public class Agitate extends Command {
     m_pivot.setVoltage(0.0);
     m_intake.setVoltage(0.0);
   }
+
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
+  }    
 }

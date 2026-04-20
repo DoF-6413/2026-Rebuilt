@@ -37,4 +37,9 @@ public class IntakeRetract extends Command {
     m_intake.setVoltage(0.0);
     m_pivot.setVoltage(0.0);
   }
+
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
+  }    
 }

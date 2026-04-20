@@ -137,7 +137,10 @@ public class Launch extends Command {
     }
   }
 
-  // public void isFinished()
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
+  }
 
   @Override
   public void end(boolean interrupted) {

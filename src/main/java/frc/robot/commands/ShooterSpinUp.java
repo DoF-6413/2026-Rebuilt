@@ -102,6 +102,11 @@ public class ShooterSpinUp extends Command {
   @Override
   public void end(boolean interrupted) {}
 
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
+  }
+
   public Distance getDistanceToHub() {
     Translation2d robotPosition = m_poseSupplier.get().getTranslation();
     return Meters.of(robotPosition.getDistance(m_target));

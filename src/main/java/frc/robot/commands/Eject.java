@@ -47,4 +47,9 @@ public class Eject extends Command {
     m_hopper.setVoltage(0.0);
     m_intake.setVoltage(0.0);
   }
+
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
+  }    
 }
