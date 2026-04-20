@@ -39,6 +39,10 @@ public class Launch extends Command {
   private final Timer m_timer = new Timer();
   private double m_timeDelay;
 
+  // Lookup table mapping shooting distance in meters to Shot parameters (RPM + hood position).
+  // We use interpolation between known distances so we can smoothly compute
+  // appropriate shooter settings for any intermediate distance.
+
   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
       new InterpolatingTreeMap<>(
           (startValue, endValue, q) ->
