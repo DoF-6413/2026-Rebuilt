@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.59207531156994,
-        "y": 4.012977120535714
+        "x": 3.614066666666667,
+        "y": 5.0327
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5869338339915915,
-        "y": 5.96564944494553
+        "x": 3.6089251890883185,
+        "y": 6.985372324409816
       },
       "isLocked": false,
       "linkedName": "Hub"
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -48,7 +48,7 @@
   "folder": "Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 89.81748552835448
   },
   "useDefaultConstraints": true
 }

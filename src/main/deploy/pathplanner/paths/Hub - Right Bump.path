@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.59207531156994,
-        "y": 4.012977120535714
+        "x": 3.614066666666667,
+        "y": 5.0327
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3413623534043637,
-        "y": 3.6178599265050155
+        "x": 3.3633537085010907,
+        "y": 4.637582805969302
       },
       "isLocked": false,
       "linkedName": "Hub"
@@ -54,7 +54,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -69,7 +69,7 @@
   "folder": "NZ (Bump)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 89.81748552835448
   },
   "useDefaultConstraints": true
 }

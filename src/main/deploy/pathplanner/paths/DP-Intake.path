@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8571980002232921,
-        "y": 5.484821453538841
+        "x": 0.8082066976340696,
+        "y": 5.944815235776976
       },
       "isLocked": false,
       "linkedName": "Depot End"
@@ -20,12 +20,28 @@
         "y": 6.262754925636343
       },
       "prevControl": {
-        "x": 0.8299185558692223,
-        "y": 6.007589682895332
+        "x": 0.8381786690816421,
+        "y": 6.014821990183727
       },
       "nextControl": {
-        "x": 0.7318222222222224,
-        "y": 7.058333333333334
+        "x": 0.7159325355765586,
+        "y": 6.959550253532966
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.691511111111111,
+        "y": 7.269966666666667
+      },
+      "prevControl": {
+        "x": 0.6673280737320839,
+        "y": 7.518794279087645
+      },
+      "nextControl": {
+        "x": 0.715694148490138,
+        "y": 7.021139054245689
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +52,8 @@
         "y": 6.5746
       },
       "prevControl": {
-        "x": 1.7514372079705673,
-        "y": 6.546849210306172
+        "x": 2.0937301337403516,
+        "y": 6.801297510584872
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,6 +63,10 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
+      "rotationDegrees": 110.0
+    },
+    {
+      "waypointRelativePos": 2,
       "rotationDegrees": 110.0
     }
   ],
