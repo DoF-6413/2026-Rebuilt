@@ -43,6 +43,16 @@ public class Launch extends Command {
   // We use interpolation between known distances so we can smoothly compute
   // appropriate shooter settings for any intermediate distance.
 
+  public static class Shot {
+    public final double m_shooterRPM;
+    public final double m_hoodPosition;
+
+    public Shot(double shooterRPM, double hoodPosition) {
+      m_shooterRPM = shooterRPM;
+      m_hoodPosition = hoodPosition;
+    }
+  }
+
   private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
       new InterpolatingTreeMap<>(
           (startValue, endValue, q) ->
@@ -67,6 +77,11 @@ public class Launch extends Command {
     distanceToShotMap.put(
         Inches.of(192.0),
         new Shot(ShooterConstants.CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT));
+  }
+
+  public Distance getDistanceToHub() {
+    Translation2d robotPosition = m_poseSupplier.get().getTranslation();
+    return Meters.of(robotPosition.getDistance(m_target));
   }
 
   private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
@@ -149,20 +164,5 @@ public class Launch extends Command {
     m_hood.setPosition(HoodConstants.K_MIN_POSITION);
 
     m_timer.stop();
-  }
-
-  public Distance getDistanceToHub() {
-    Translation2d robotPosition = m_poseSupplier.get().getTranslation();
-    return Meters.of(robotPosition.getDistance(m_target));
-  }
-
-  public static class Shot {
-    public final double m_shooterRPM;
-    public final double m_hoodPosition;
-
-    public Shot(double shooterRPM, double hoodPosition) {
-      m_shooterRPM = shooterRPM;
-      m_hoodPosition = hoodPosition;
-    }
   }
 }
