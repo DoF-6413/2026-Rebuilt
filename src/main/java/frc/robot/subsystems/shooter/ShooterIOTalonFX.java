@@ -276,8 +276,14 @@ public class ShooterIOTalonFX implements ShooterIO {
     inputs.leftShooterCurrentAmps = m_leftShooterCurrentAmps.getValueAsDouble();
   }
 
+  /**
+   * Sets the shooter wheel speeds to the specified velocity in RPM.
+   *
+   * @param velocityRPM - The desired wheel velocity in RPM (double)
+   */
   @Override
   public void setVelocity(double velocityRPM) {
+    // Convert RPM to RPS for the CTRE libraries use
     m_targetVelocityRPS = velocityRPM / 60.0;
 
     var request = m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0);
@@ -287,6 +293,11 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_leftShooter.setControl(request);
   }
 
+  /**
+   * Sets the shooter wheel speeds to the specified voltages.
+   *
+   * @param volts - The desired wheel volts (double)
+   */
   @Override
   public void setVoltage(double volts) {
     m_middleShooter.setVoltage(volts);
