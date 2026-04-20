@@ -6,10 +6,6 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
-import static frc.robot.Constants.ShooterConstants.CORNER_SPEED_RPM;
-import static frc.robot.Constants.ShooterConstants.HUB_SPEED_RPM;
-import static frc.robot.Constants.ShooterConstants.TOWER_SPEED_RPM;
-import static frc.robot.Constants.ShooterConstants.TRENCH_SPEED_RPM;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -84,13 +80,13 @@ public class ShooterSpinUp extends Command {
   @Override
   public void execute() {
     if (m_position.equals("trench")) {
-      m_shot = new Shot(TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT);
+      m_shot = new Shot(ShooterConstants.TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT);
     } else if (m_position.equals("hub")) {
-      m_shot = new Shot(HUB_SPEED_RPM, HoodConstants.HUB_SETPOINT);
+      m_shot = new Shot(ShooterConstants.HUB_SPEED_RPM, HoodConstants.HUB_SETPOINT);
     } else if (m_position.equals("tower")) {
-      m_shot = new Shot(TOWER_SPEED_RPM, HoodConstants.TOWER_SETPOINT);
+      m_shot = new Shot(ShooterConstants.TOWER_SPEED_RPM, HoodConstants.TOWER_SETPOINT);
     } else if (m_position.equals("corner")) {
-      m_shot = new Shot(CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT);
+      m_shot = new Shot(ShooterConstants.CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT);
     } else {
       m_shot = distanceToShotMap.get(getDistanceToHub());
     }
