@@ -286,4 +286,11 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_rightShooter.setControl(request);
     m_leftShooter.setControl(request);
   }
+
+  @Override
+  public void setVoltage(double volts) {
+    m_middleShooter.setVoltage(volts);
+    m_rightShooter.setVoltage(volts);
+    m_leftShooter.setVoltage(volts);
+  }
 }

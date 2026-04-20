@@ -28,8 +28,8 @@ public interface ShooterIO {
    */
   public default void enableBrakeMode(boolean enable) {}
 
-  // /** Run the shooter at the specified voltage. */
-  // public default void setVoltage(double volts) {}
+  /** Run the shooter at the specified voltage. */
+  public default void setVoltage(double volts) {}
 
   /** Run the shooter at the specified voltage. */
   public default void setVelocity(double velocityRPM) {}

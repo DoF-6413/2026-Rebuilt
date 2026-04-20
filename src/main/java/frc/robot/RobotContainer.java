@@ -362,8 +362,9 @@ public class RobotContainer {
     auxController
         .rightBumper()
         .whileTrue(
-            new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "relay")
-                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+            (new InstantCommand(() -> m_shooter.setVoltage(RobotStateConstants.MAX_VOLTAGE)))
+                .alongWith(
+                    new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)))
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Relaying"));
 

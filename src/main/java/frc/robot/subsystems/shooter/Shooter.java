@@ -30,6 +30,10 @@ public class Shooter extends SubsystemBase {
     m_io.setVelocity(velocityRPM);
   }
 
+  public void setVoltage(double volts) {
+    m_io.setVoltage(volts);
+  }
+
   public void enableBrakeMode(boolean enable) {
     m_io.enableBrakeMode(enable);
   }
