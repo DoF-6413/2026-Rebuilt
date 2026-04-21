@@ -164,38 +164,38 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_leftShooter.optimizeBusUtilization();
 
     // Initialize SmartDashboard PID tuning values
-    SmartDashboard.putNumber("Shooter/kP", ShooterConstants.kPM);
-    SmartDashboard.putNumber("Shooter/kI", ShooterConstants.kIM);
-    SmartDashboard.putNumber("Shooter/kD", ShooterConstants.kDM);
-    SmartDashboard.putNumber("Shooter/kV", ShooterConstants.kVM);
+    SmartDashboard.putNumber("LShooter/kP", ShooterConstants.kPL);
+    SmartDashboard.putNumber("LShooter/kI", ShooterConstants.kIL);
+    SmartDashboard.putNumber("LShooter/kD", ShooterConstants.kDL);
+    SmartDashboard.putNumber("LShooter/kV", ShooterConstants.kVL);
 
-    SmartDashboard.putNumber("Shooter/kP", ShooterConstants.kPL);
-    SmartDashboard.putNumber("Shooter/kI", ShooterConstants.kIL);
-    SmartDashboard.putNumber("Shooter/kD", ShooterConstants.kDL);
-    SmartDashboard.putNumber("Shooter/kV", ShooterConstants.kVL);
+    SmartDashboard.putNumber("MShooter/kP", ShooterConstants.kPM);
+    SmartDashboard.putNumber("MShooter/kI", ShooterConstants.kIM);
+    SmartDashboard.putNumber("MShooter/kD", ShooterConstants.kDM);
+    SmartDashboard.putNumber("MShooter/kV", ShooterConstants.kVM);
 
-    SmartDashboard.putNumber("Shooter/kP", ShooterConstants.kPR);
-    SmartDashboard.putNumber("Shooter/kI", ShooterConstants.kIR);
-    SmartDashboard.putNumber("Shooter/kD", ShooterConstants.kDR);
-    SmartDashboard.putNumber("Shooter/kV", ShooterConstants.kVR);
+    SmartDashboard.putNumber("RShooter/kP", ShooterConstants.kPR);
+    SmartDashboard.putNumber("RShooter/kI", ShooterConstants.kIR);
+    SmartDashboard.putNumber("RShooter/kD", ShooterConstants.kDR);
+    SmartDashboard.putNumber("RShooter/kV", ShooterConstants.kVR);
   }
 
   private void updatePIDFromDashboard() {
 
-    double kPL = SmartDashboard.getNumber("Shooter/kP", m_lastKPL);
-    double kIL = SmartDashboard.getNumber("Shooter/kI", m_lastKIL);
-    double kDL = SmartDashboard.getNumber("Shooter/kD", m_lastKDL);
-    double kVL = SmartDashboard.getNumber("Shooter/kV", m_lastKVL);
+    double kPL = SmartDashboard.getNumber("LShooter/kP", m_lastKPL);
+    double kIL = SmartDashboard.getNumber("LShooter/kI", m_lastKIL);
+    double kDL = SmartDashboard.getNumber("LShooter/kD", m_lastKDL);
+    double kVL = SmartDashboard.getNumber("LShooter/kV", m_lastKVL);
 
-    double kPM = SmartDashboard.getNumber("Shooter/kP", m_lastKPM);
-    double kIM = SmartDashboard.getNumber("Shooter/kI", m_lastKIM);
-    double kDM = SmartDashboard.getNumber("Shooter/kD", m_lastKDM);
-    double kVM = SmartDashboard.getNumber("Shooter/kV", m_lastKVM);
+    double kPM = SmartDashboard.getNumber("MShooter/kP", m_lastKPM);
+    double kIM = SmartDashboard.getNumber("MShooter/kI", m_lastKIM);
+    double kDM = SmartDashboard.getNumber("MShooter/kD", m_lastKDM);
+    double kVM = SmartDashboard.getNumber("MShooter/kV", m_lastKVM);
 
-    double kPR = SmartDashboard.getNumber("Shooter/kP", m_lastKPR);
-    double kIR = SmartDashboard.getNumber("Shooter/kI", m_lastKIR);
-    double kDR = SmartDashboard.getNumber("Shooter/kD", m_lastKDR);
-    double kVR = SmartDashboard.getNumber("Shooter/kV", m_lastKVR);
+    double kPR = SmartDashboard.getNumber("RShooter/kP", m_lastKPR);
+    double kIR = SmartDashboard.getNumber("RShooter/kI", m_lastKIR);
+    double kDR = SmartDashboard.getNumber("RShooter/kD", m_lastKDR);
+    double kVR = SmartDashboard.getNumber("RShooter/kV", m_lastKVR);
 
     if (kPL != m_lastKPL
         || kIL != m_lastKIL
