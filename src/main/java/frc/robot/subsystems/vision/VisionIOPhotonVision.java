@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 /** IO implementation for real PhotonVision hardware. */
 public class VisionIOPhotonVision implements VisionIO {
@@ -45,14 +46,21 @@ public class VisionIOPhotonVision implements VisionIO {
       // Update latest target observation when a tracked target is visible;
       // leave the previous value unchanged when no tracked targets are detected
       if (result.hasTargets()) {
+        PhotonTrackedTarget bestTarget = null;
         for (var target : result.getTargets()) {
-          if (TRACKED_TAG_IDS.contains(target.fiducialId)) {
-            inputs.latestTargetObservation =
-                new TargetObservation(
-                    Rotation2d.fromDegrees(target.getYaw()),
-                    Rotation2d.fromDegrees(target.getPitch()));
-            break;
+          if (!TRACKED_TAG_IDS.contains(target.fiducialId)) {
+            continue;
           }
+          if (bestTarget == null || target.getPoseAmbiguity() < bestTarget.getPoseAmbiguity()) {
+            bestTarget = target;
+          }
+        }
+
+        if (bestTarget != null) {
+          inputs.latestTargetObservation =
+              new TargetObservation(
+                  Rotation2d.fromDegrees(bestTarget.getYaw()),
+                  Rotation2d.fromDegrees(bestTarget.getPitch()));
         }
       }
 
@@ -75,7 +83,9 @@ public class VisionIOPhotonVision implements VisionIO {
         // Calculate average tag distance over only the tags used in the multi-tag PnP solve
         double totalTagDistance = 0.0;
         for (var target : result.targets) {
-          totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
+          if (multitagResult.fiducialIDsUsed.contains((short) target.fiducialId)) {
+            totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
+          }
         }
 
         // Add tag IDs
@@ -89,6 +99,7 @@ public class VisionIOPhotonVision implements VisionIO {
                 multitagResult.estimatedPose.ambiguity, // Ambiguity
                 multitagResult.fiducialIDsUsed.size(), // Tag count
                 totalTagDistance / multitagResult.fiducialIDsUsed.size(), // Average tag distance
+                //TODO: do we need to divide by the number of all the targets detected or just the ones we used?
                 PoseObservationType.PHOTONVISION)); // Observation type
 
       } else if (!result.targets.isEmpty()) { // Single tag result
