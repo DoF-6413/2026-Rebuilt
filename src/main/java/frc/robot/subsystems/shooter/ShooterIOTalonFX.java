@@ -197,37 +197,48 @@ public class ShooterIOTalonFX implements ShooterIO {
     double kDR = SmartDashboard.getNumber("RShooter/kD", m_lastKDR);
     double kVR = SmartDashboard.getNumber("RShooter/kV", m_lastKVR);
 
-    if (kPL != m_lastKPL
-        || kIL != m_lastKIL
-        || kDL != m_lastKDL
-        || kVL != m_lastKVL
-        || kPM != m_lastKPM
-        || kIM != m_lastKIM
-        || kDM != m_lastKDM
-        || kVM != m_lastKVM
-        || kPR != m_lastKPR
-        || kIR != m_lastKIR
-        || kDR != m_lastKDR
-        || kVR != m_lastKVR) {
+    // Only change the shooter whose settings actually changed, not all of them when
+    // only one changed.
+
+    if (kPL != m_lastKPL || kIL != m_lastKIL || kDL != m_lastKDL || kVL != m_lastKVL) {
+      // Left shooter settings changed so update the control and config info
 
       var leftSlotConfig = new Slot0Configs().withKP(kPL).withKI(kIL).withKD(kDL).withKV(kVL);
-      var middleSlotConfig = new Slot0Configs().withKP(kPM).withKI(kIM).withKD(kDM).withKV(kVM);
-      var rightSlotConfig = new Slot0Configs().withKP(kPR).withKI(kIR).withKD(kDR).withKV(kVR);
 
-      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleSlotConfig, 0.25));
-      tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightSlotConfig, 0.25));
       tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftSlotConfig, 0.25));
+
+      // Save the left shooter changes for a new baseline
 
       m_lastKPL = kPL;
       m_lastKIL = kIL;
       m_lastKDL = kDL;
       m_lastKVL = kVL;
+    }
+    
+    if (kPM != m_lastKPM || kIM != m_lastKIM || kDM != m_lastKDM || kVM != m_lastKVM) {
+      // Middle shooter settings changed so update the control and config info
+
+      var middleSlotConfig = new Slot0Configs().withKP(kPM).withKI(kIM).withKD(kDM).withKV(kVM);
+
+      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleSlotConfig, 0.25));
+
+      // Save the middle shooter changes for a new baseline
 
       m_lastKPM = kPM;
       m_lastKIM = kIM;
       m_lastKDM = kDM;
       m_lastKVM = kVM;
+    }
+        
+    if ( kPR != m_lastKPR || kIR != m_lastKIR || kDR != m_lastKDR || kVR != m_lastKVR) {
+      // Right shooter settings changed so update the control and config info
 
+      var rightSlotConfig = new Slot0Configs().withKP(kPR).withKI(kIR).withKD(kDR).withKV(kVR);
+
+      tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightSlotConfig, 0.25));
+
+      // Save the right shooter changes for a new baseline
+   
       m_lastKPR = kPR;
       m_lastKIR = kIR;
       m_lastKDR = kDR;
