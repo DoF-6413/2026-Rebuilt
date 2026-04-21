@@ -34,6 +34,7 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Eject;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
+import frc.robot.commands.Relay;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShooterSpinUp;
 import frc.robot.generated.TunerConstants;
@@ -289,6 +290,8 @@ public class RobotContainer {
   }
 
   private void auxControllerBindings() {
+    m_hood.setDefaultCommand(
+        new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION)));
     // D-pad Up: Deploy intake pivot and run intake rollers
     auxController.povDown().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
     // D-pad Down: Retract the intake back up
@@ -361,12 +364,7 @@ public class RobotContainer {
      */
     auxController
         .rightBumper()
-        .whileTrue(
-            (new InstantCommand(() -> m_shooter.setVoltage(RobotStateConstants.MAX_VOLTAGE)))
-                .alongWith(
-                    new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION)))
-                .alongWith(new Agitate(m_intake, m_pivot))
-                .withName("Relaying"));
+        .whileTrue((new Relay(m_shooter, m_hopper, m_column, m_hood)).withName("Relaying"));
 
     // Button B: Eject balls through the intake
     auxController

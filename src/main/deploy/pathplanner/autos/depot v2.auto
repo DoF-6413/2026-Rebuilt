@@ -34,13 +34,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Hub-DP(R) v3"
+                        "pathName": "Hub-DP(R) v2"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "DP-Intake v2"
+                        "pathName": "DP-Intake v3"
                       }
                     }
                   ]
@@ -64,24 +64,11 @@
                     }
                   ]
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "DP(L)-Hub"
-                }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "SpinUpHub"
+                  "name": "SpinUpCorner"
                 }
               }
             ]

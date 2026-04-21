@@ -41,5 +41,5 @@ public class IntakeRetract extends Command {
   @Override
   public boolean isFinished() {
     return false; // Command never finishes, its just interrupted
-  }    
+  }
 }
