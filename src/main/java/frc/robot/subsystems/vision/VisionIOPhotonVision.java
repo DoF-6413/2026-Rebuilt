@@ -82,14 +82,21 @@ public class VisionIOPhotonVision implements VisionIO {
 
         // Calculate average tag distance over only the tags used in the multi-tag PnP solve
         double totalTagDistance = 0.0;
+        int tagsUsed = 0;
         for (var target : result.targets) {
           if (multitagResult.fiducialIDsUsed.contains((short) target.fiducialId)) {
             totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
+            tagsUsed ++;
           }
         }
 
         // Add tag IDs
         tagIds.addAll(multitagResult.fiducialIDsUsed);
+
+        double averageTagDistance = 0.0;
+        if (tagsUsed != 0) {
+          averageTagDistance = totalTagDistance / tagsUsed;
+        }
 
         // Add observation
         poseObservations.add(
@@ -98,7 +105,7 @@ public class VisionIOPhotonVision implements VisionIO {
                 robotPose, // 3D pose estimate
                 multitagResult.estimatedPose.ambiguity, // Ambiguity
                 multitagResult.fiducialIDsUsed.size(), // Tag count
-                totalTagDistance / multitagResult.fiducialIDsUsed.size(), // Average tag distance
+                averageTagDistance, // Average tag distance
                 //TODO: do we need to divide by the number of all the targets detected or just the ones we used?
                 PoseObservationType.PHOTONVISION)); // Observation type
 
