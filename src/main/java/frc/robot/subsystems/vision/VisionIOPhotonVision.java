@@ -1,10 +1,3 @@
-// Copyright (c) 2021-2026 Littleton Robotics
-// http://github.com/Mechanical-Advantage
-//
-// Use of this source code is governed by a BSD
-// license that can be found in the LICENSE file
-// at the root directory of this project.
-
 package frc.robot.subsystems.vision;
 
 import static frc.robot.Constants.VisionConstants.*;
@@ -24,7 +17,7 @@ public class VisionIOPhotonVision implements VisionIO {
   protected final PhotonCamera m_camera;
   protected final Transform3d m_robotToCamera;
 
-  /**
+    /**
    * Creates a new VisionIOPhotonVision.
    *
    * @param name The configured name of the camera.
@@ -39,33 +32,38 @@ public class VisionIOPhotonVision implements VisionIO {
   public void updateInputs(VisionIOInputs inputs) {
     inputs.connected = m_camera.isConnected();
 
-    // Read new camera observations
     Set<Short> tagIds = new HashSet<>();
     List<PoseObservation> poseObservations = new LinkedList<>();
+
+    // Read new camera observations
+
     for (var result : m_camera.getAllUnreadResults()) {
-      // Update latest target observation when a tracked target is visible;
-      // leave the previous value unchanged when no tracked targets are detected
+      // Find the best target
+      PhotonTrackedTarget bestTarget = null;
+
       if (result.hasTargets()) {
-        PhotonTrackedTarget bestTarget = null;
         for (var target : result.getTargets()) {
-          if (!TRACKED_TAG_IDS.contains(target.fiducialId)) {
+          // Update latest target observation when a tracked target is visible;
+          // leave the previous value unchanged when no tracked targets are detected
+          if (!TRACKED_TAG_IDS.contains(target.fiducialId))
             continue;
-          }
-          if (bestTarget == null || target.getPoseAmbiguity() < bestTarget.getPoseAmbiguity()) {
+
+          if (bestTarget == null || target.getPoseAmbiguity() < bestTarget.getPoseAmbiguity())
             bestTarget = target;
-          }
         }
 
+        // Update latest target observation (yaw/pitch)
         if (bestTarget != null) {
           inputs.latestTargetObservation =
               new TargetObservation(
                   Rotation2d.fromDegrees(bestTarget.getYaw()),
                   Rotation2d.fromDegrees(bestTarget.getPitch()));
         }
-      }
+      } // result.hasTargets()
 
       // Add pose observation
-      if (result.multitagResult.isPresent()) { // Multitag result
+      if (result.multitagResult.isPresent()) {
+        // Multi-tag pose estimation
         var multitagResult = result.multitagResult.get();
 
         // Skip multi-tag results that include any untracked tag IDs, since the PnP solve
@@ -75,71 +73,79 @@ public class VisionIOPhotonVision implements VisionIO {
                 .allMatch(id -> TRACKED_TAG_IDS.contains(id.intValue()));
         if (!allTagsTracked) continue;
 
-        // Calculate robot pose
+        // Compute robot pose
         Transform3d fieldToCamera = multitagResult.estimatedPose.best;
         Transform3d fieldToRobot = fieldToCamera.plus(m_robotToCamera.inverse());
         Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
 
-        // Calculate average tag distance over only the tags used in the multi-tag PnP solve
-        double totalTagDistance = 0.0;
-        int tagsUsed = 0;
-        for (var target : result.targets) {
-          if (multitagResult.fiducialIDsUsed.contains((short) target.fiducialId)) {
-            totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
-            tagsUsed ++;
+        // Improved distance metric (min distance of used tags) in the multi-tag PnP solve
+        double minTagDistance = Double.POSITIVE_INFINITY;
+
+        for (short id : multitagResult.fiducialIDsUsed) {
+          for (var target : result.targets) {
+            if (target.fiducialId == id) {
+              double dist = target.bestCameraToTarget.getTranslation().getNorm();
+              minTagDistance = Math.min(minTagDistance, dist);
+              break;
+            }
+
           }
         }
+
+        double distanceMetric = (minTagDistance != Double.POSITIVE_INFINITY) ? minTagDistance : 0.0;
 
         // Add tag IDs
         tagIds.addAll(multitagResult.fiducialIDsUsed);
 
-        double averageTagDistance = 0.0;
-        if (tagsUsed != 0) {
-          averageTagDistance = totalTagDistance / tagsUsed;
-        }
-
-        // Add observation
+        // Add the pose observation
         poseObservations.add(
             new PoseObservation(
                 result.getTimestampSeconds(), // Timestamp
                 robotPose, // 3D pose estimate
                 multitagResult.estimatedPose.ambiguity, // Ambiguity
                 multitagResult.fiducialIDsUsed.size(), // Tag count
-                averageTagDistance, // Average tag distance
-                //TODO: do we need to divide by the number of all the targets detected or just the ones we used?
+                distanceMetric, // Min tag distance
                 PoseObservationType.PHOTONVISION)); // Observation type
+      } // result.multitagResult.isPresent()
 
-      } else if (!result.targets.isEmpty()) { // Single tag result
-        var target = result.targets.get(0);
+      else if (result.hasTargets()) {
+        // Single tag result (aka NO multi-tag solve available but
+        // any number of tags may be in the results individually so we
+        // want to find the "best" one to use).  We want to use the
+        // "best" one that we found earlier as our target of choice.
+
+        PhotonTrackedTarget target = bestTarget;
+        if (target == null) continue;
 
         // Skip single-tag results for untracked tag IDs
         if (!TRACKED_TAG_IDS.contains(target.fiducialId)) continue;
 
-        // Calculate robot pose
+        // Calculate robot pose if our target AprilTag has a pose with it
         var tagPose = aprilTagLayout.getTagPose(target.fiducialId);
-        if (tagPose.isPresent()) {
-          Transform3d fieldToTarget =
-              new Transform3d(tagPose.get().getTranslation(), tagPose.get().getRotation());
-          Transform3d cameraToTarget = target.bestCameraToTarget;
-          Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
-          Transform3d fieldToRobot = fieldToCamera.plus(m_robotToCamera.inverse());
-          Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
+        if (tagPose.isEmpty()) continue;
 
-          // Add tag ID
-          tagIds.add((short) target.fiducialId);
+        Transform3d fieldToTarget =
+            new Transform3d(tagPose.get().getTranslation(), tagPose.get().getRotation());
+        Transform3d cameraToTarget = target.bestCameraToTarget;
+        Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
+        Transform3d fieldToRobot = fieldToCamera.plus(m_robotToCamera.inverse());
+        Pose3d robotPose =
+            new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
 
-          // Add observation
-          poseObservations.add(
-              new PoseObservation(
-                  result.getTimestampSeconds(), // Timestamp
-                  robotPose, // 3D pose estimate
-                  target.poseAmbiguity, // Ambiguity
-                  1, // Tag count
-                  cameraToTarget.getTranslation().getNorm(), // Average tag distance
-                  PoseObservationType.PHOTONVISION)); // Observation type
-        }
-      }
-    }
+        // Add tag ID
+        tagIds.add((short) target.fiducialId);
+
+        // Add the pose observation
+        poseObservations.add(
+            new PoseObservation(
+                result.getTimestampSeconds(), // Timestamp
+                robotPose, // 3D pose estimate
+                target.poseAmbiguity, // Ambiguity
+                1, // Tag count
+                cameraToTarget.getTranslation().getNorm(), // Average tag distance
+                PoseObservationType.PHOTONVISION)); // Observation type
+      } // (!result.targets.isEmpty()
+    } // for (m_camera.getAllUnreadResults())
 
     // Save pose observations to inputs object
     inputs.poseObservations = new PoseObservation[poseObservations.size()];
