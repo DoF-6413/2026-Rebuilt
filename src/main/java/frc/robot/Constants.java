@@ -17,12 +17,14 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.RobotBase;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * This class defines the runtime mode used by AdvantageKit. The mode is always "real" when running
@@ -73,6 +75,12 @@ public final class Constants {
     public static int AUX_CONTROLLER = 1;
   }
 
+  public static class FieldConstants {
+    // Hub center positions for auto-aim (field coordinates, meters)
+    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(4.623, 4.04);
+    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.907, 4.04);
+  }
+
   public static class PathFinderConstants {
     static PathConstraints constraints = new PathConstraints(3.0, 3.0, 2 * Math.PI, 4 * Math.PI);
     static List<Waypoint> blueHubWaypoints =
@@ -116,9 +124,10 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 20;
+    public static final int CURRENT_LIMIT = 30; // 20
 
-    public static final double LAUNCHING_VOLTAGE = -6.0;
+    public static final double LAUNCHING_VOLTAGE = -12.0;
+    public static final double OUTTAKING_VOLTAGE = 3.0;
 
     /* PID & FF Constants */
     public static double kP = 0.0;
@@ -187,7 +196,7 @@ public final class Constants {
 
     /* Current limiting */
     public static final boolean ENABLE_CURRENT_LIMIT = true;
-    public static final int CURRENT_LIMIT = 2; // 10 was too much
+    public static final int CURRENT_LIMIT = 5; // 10 was too much
 
     /* Angle positions */
     /* These are measured in rotations because that's what Phoenix Tuner X gives them in, and it's also what all the methods ask for */
@@ -226,31 +235,50 @@ public final class Constants {
     public static final int LEFT_CAN_ID = 17;
     public static final double GEAR_RATIO = 1.0;
     public static final int CURRENT_LIMIT = 40;
+    public static final int STATOR_CURRENT_LIMIT = 120;
 
-    // PID and FF
-    public static double kP = 0.505; // 0.05
-    public static double kI = 2;
-    public static double kD = 0.0;
-    public static double kV = 0.125;
+    // PID and FF as of 4.5.26
+    public static double kPL = 0.505;
+    public static double kIL = 2;
+    public static double kDL = 0;
+    public static double kVL = 0.125;
 
-    // Shooter speed setpoints
-    public static final double SETPOINT_1_RPM = 3500; // Meant for shooting from trench
-    public static final double SETPOINT_2_RPM = 3000; // Meant for shooting from hub
-    public static final double SETPOINT_3_RPM = 3150; // Meant for shooting from sides of the tower
-    public static double TOLERANCE_RPM = 100; // TODO: verify
+    public static double kPM = 0.505;
+    public static double kIM = 2;
+    public static double kDM = 0;
+    public static double kVM = 0.125;
+
+    // PID and FF as of 4.14.26
+    public static double kPR = 0.505;
+    public static double kIR = 2;
+    public static double kDR = 0;
+    public static double kVR = 0.125;
+
+    // Shooter speed setpoints (for 2.875")
+    public static final double HUB_SPEED_RPM = 3650; // 3400 for 3.5"
+    public static final double TRENCH_SPEED_RPM = 4500; // TRENCH //4000 for 3.5"
+    public static final double TOWER_SPEED_RPM = 4200; // TOWER //3700 for 3.5"
+    public static final double CORNER_SPEED_RPM = 5100; // CORNER
+    public static final double RELAY_RPM = 6000;
+    public static double TOLERANCE_RPM = 10;
   }
 
   public static final class HoodConstants {
     public static final int leftServoPort = 1;
     public static final int rightServoPort = 2;
 
-    public static final double K_MIN_POSITION = 0.01;
-    public static final double K_MAX_POSITION = 0.77;
+    public static final double K_MIN_POSITION = 0.0; // 0.08 is actual zero
+    public static final double K_MAX_POSITION = 0.5; // 1 7/8 inches
     public static final double K_TOLERANCE = 0.01;
 
-    public static final double SETPOINT_1 = 0.6;
-    public static final double SETPOINT_2 = 0.0;
-    public static final double SETPOINT_3 = 0.35;
+    // HUB
+    public static final double HUB_SETPOINT = 0.05; // 0.75 inches
+    // TRENCH
+    public static final double TRENCH_SETPOINT = 0.24; // 1 3/16 inches
+    // TOWER
+    public static final double TOWER_SETPOINT = 0.22; // 1 3/16 inches
+    // CORNER (192" from hub to center of robot)
+    public static final double CORNER_SETPOINT = 0.37; // 1 3/8 inches
   }
 
   public static class VisionConstants {
@@ -259,23 +287,36 @@ public final class Constants {
         AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
 
     // Camera names, must match names configured on coprocessor
-    public static String camera0Name = "0_Arducam_OV9281";
-    public static String camera1Name = "1_Arducam_OV9281";
+    public static String camera1Name = "Camera_1";
+    public static String camera2Name = "Camera_2";
+
+    // AprilTag IDs to track for pose estimation (don't use tower or outpost ones because they are
+    // too low and too ambiguous)
+    public static final Set<Integer> TRACKED_TAG_IDS =
+        Set.of(
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28);
 
     // Robot to camera transforms
-    // (Not used by Limelight, configure in web UI instead)
-    public static Transform3d robotToCamera0 =
-        new Transform3d(
-            Units.inchesToMeters(-13.0),
-            Units.inchesToMeters(13.0),
-            Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(45), Units.degreesToRadians(225)));
+    // Camera translation for left camera
     public static Transform3d robotToCamera1 =
         new Transform3d(
-            Units.inchesToMeters(-13.0),
-            -Units.inchesToMeters(-13.0),
-            Units.inchesToMeters(6.0),
-            new Rotation3d(0.0, Units.degreesToRadians(45), -Units.degreesToRadians(315)));
+            Units.inchesToMeters(0.625),
+            Units.inchesToMeters(12.926),
+            Units.inchesToMeters(11.666),
+            new Rotation3d(
+                Units.degreesToRadians(20.0),
+                Units.degreesToRadians(0.0),
+                Units.degreesToRadians(90.0)));
+    // Camera translation for right camera
+    public static Transform3d robotToCamera2 =
+        new Transform3d(
+            Units.inchesToMeters(3.875),
+            Units.inchesToMeters(-12.426),
+            Units.inchesToMeters(11.666),
+            new Rotation3d(
+                Units.degreesToRadians(20.0),
+                Units.degreesToRadians(0.0),
+                Units.degreesToRadians(-90.0)));
 
     // Basic filtering thresholds
     public static double maxAmbiguity = 0.3;

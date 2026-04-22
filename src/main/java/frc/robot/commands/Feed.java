@@ -32,6 +32,11 @@ public class Feed extends Command {
   @Override
   public void end(boolean interrupted) {
     m_hopper.setVoltage(0.0);
-    m_column.setVoltage(0);
+    m_column.setVoltage(0.0);
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false; // Command never finishes, its just interrupted
   }
 }

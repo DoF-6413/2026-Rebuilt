@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.946990327380952,
+        "y": 0.6912947591145837
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.946990327380952,
+        "y": 0.6912947591145837
+      },
+      "isLocked": false,
+      "linkedName": "Right Trench"
+    },
+    {
+      "anchor": {
+        "x": 6.159372093563987,
+        "y": 0.6912947591145837
+      },
+      "prevControl": {
+        "x": 5.159372093563987,
+        "y": 0.6912947591145832
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Crossed Right Trench"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 5.0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "NZ (Trench)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 71.50253491690543
+  },
+  "useDefaultConstraints": true
+}

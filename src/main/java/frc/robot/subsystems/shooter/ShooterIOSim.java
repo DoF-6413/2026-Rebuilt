@@ -35,4 +35,9 @@ public class ShooterIOSim implements ShooterIO {
   public void setVelocity(double velocityRPM) {
     m_shooterSim.setAngularVelocity(velocityRPM / 60.0);
   }
+
+  @Override
+  public void setVoltage(double volts) {
+    m_shooterSim.setInputVoltage(volts);
+  }
 }

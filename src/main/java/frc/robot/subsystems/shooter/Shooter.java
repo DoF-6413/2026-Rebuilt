@@ -30,11 +30,41 @@ public class Shooter extends SubsystemBase {
     m_io.setVelocity(velocityRPM);
   }
 
+  public void setVoltage(double volts) {
+    m_io.setVoltage(volts);
+  }
+
   public void enableBrakeMode(boolean enable) {
     m_io.enableBrakeMode(enable);
   }
 
-  public double getVelocity() {
+  /**
+   * Gets the current left shooter wheel velocity in RPM.
+   *
+   * @return Left shooter wheel velocity in RPM
+   */
+  public double getLVelocity() {
+    // Convert the velocity from rotations per second (RPS) to rotations per minute (RPM)
+    return m_inputs.leftShooterRPS * 60.0;
+  }
+
+  /**
+   * Gets the current middle shooter wheel velocity in RPM.
+   *
+   * @return Middle shooter wheel velocity in RPM
+   */
+  public double getMVelocity() {
+    // Convert the velocity from rotations per second (RPS) to rotations per minute (RPM)
     return m_inputs.middleShooterRPS * 60.0;
+  }
+
+  /**
+   * Gets the current right shooter wheel velocity in RPM.
+   *
+   * @return Right shooter wheel velocity in RPM
+   */
+  public double getRVelocity() {
+    // Convert the velocity from rotations per second (RPS) to rotations per minute (RPM)
+    return m_inputs.rightShooterRPS * 60.0;
   }
 }

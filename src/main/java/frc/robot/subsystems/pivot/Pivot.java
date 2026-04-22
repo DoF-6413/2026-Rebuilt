@@ -51,15 +51,6 @@ public class Pivot extends SubsystemBase {
     m_io.enableBrakeMode(enable);
   }
 
-  /**
-   * Sets the pivot to the desired angle
-   *
-   * @param angle angle for the pivot to go to
-   */
-  public void setPosition(double angle) {
-    m_io.setPosition(angle);
-  }
-
   public void setVoltage(double volts) {
     m_io.setVoltage(volts);
   }

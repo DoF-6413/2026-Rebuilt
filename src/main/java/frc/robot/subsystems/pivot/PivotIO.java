@@ -27,12 +27,5 @@ public interface PivotIO {
    */
   public default void enableBrakeMode(boolean enable) {}
 
-  /**
-   * Sets the pivot to the desired angle
-   *
-   * @param angle angle for the pivot to go to
-   */
-  public default void setPosition(double angle) {}
-
   public default void setVoltage(double volts) {}
 }

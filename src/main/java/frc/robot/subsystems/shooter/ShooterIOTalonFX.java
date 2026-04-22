@@ -15,7 +15,6 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
@@ -59,51 +58,94 @@ public class ShooterIOTalonFX implements ShooterIO {
   private int m_loopCounter = 0;
 
   // SmartDashboard PID tuning cache
-  private double m_lastKP = ShooterConstants.kP;
-  private double m_lastKI = ShooterConstants.kI;
-  private double m_lastKD = ShooterConstants.kD;
-  private double m_lastKV = ShooterConstants.kV;
+  private double m_lastKPL = ShooterConstants.kPL;
+  private double m_lastKIL = ShooterConstants.kIL;
+  private double m_lastKDL = ShooterConstants.kDL;
+  private double m_lastKVL = ShooterConstants.kVL;
+
+  private double m_lastKPM = ShooterConstants.kPM;
+  private double m_lastKIM = ShooterConstants.kIM;
+  private double m_lastKDM = ShooterConstants.kDM;
+  private double m_lastKVM = ShooterConstants.kVM;
+
+  private double m_lastKPR = ShooterConstants.kPR;
+  private double m_lastKIR = ShooterConstants.kIR;
+  private double m_lastKDR = ShooterConstants.kDR;
+  private double m_lastKVR = ShooterConstants.kVR;
 
   // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
   public ShooterIOTalonFX() {
 
-    var shooterConfig = new TalonFXConfiguration();
-    shooterConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    shooterConfig.CurrentLimits.SupplyCurrentLimit = ShooterConstants.CURRENT_LIMIT;
-    shooterConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-    shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-
-    // tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(shooterConfig, 0.25));
-    tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(shooterConfig, 0.25));
-    tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(shooterConfig, 0.25));
-
-    TalonFXConfiguration config =
+    // Config for left shooter motor
+    TalonFXConfiguration leftConfig =
         new TalonFXConfiguration()
-            .withMotorOutput(new MotorOutputConfigs().withNeutralMode(NeutralModeValue.Coast))
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to ClockWise_Positive
+                    .withInverted(InvertedValue.CounterClockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Coast))
             .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
             .withCurrentLimits(
                 new CurrentLimitsConfigs()
-                    .withStatorCurrentLimit(120)
+                    .withStatorCurrentLimit(ShooterConstants.STATOR_CURRENT_LIMIT)
                     .withStatorCurrentLimitEnable(true)
                     .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
                     .withSupplyCurrentLimitEnable(true))
             .withSlot0(
                 new Slot0Configs()
-                    .withKP(ShooterConstants.kP)
-                    .withKI(ShooterConstants.kI)
-                    .withKD(ShooterConstants.kD)
-                    .withKV(ShooterConstants.kV));
+                    .withKP(ShooterConstants.kPL)
+                    .withKI(ShooterConstants.kIL)
+                    .withKD(ShooterConstants.kDL)
+                    .withKV(ShooterConstants.kVL));
 
-    tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(config, 0.25));
+    // Config for middle shooter motor
+    TalonFXConfiguration middleConfig =
+        new TalonFXConfiguration()
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to ClockWise_Positive
+                    .withInverted(InvertedValue.CounterClockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Coast))
+            .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
+            .withCurrentLimits(
+                new CurrentLimitsConfigs()
+                    .withStatorCurrentLimit(ShooterConstants.STATOR_CURRENT_LIMIT)
+                    .withStatorCurrentLimitEnable(true)
+                    .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
+                    .withSupplyCurrentLimitEnable(true))
+            .withSlot0(
+                new Slot0Configs()
+                    .withKP(ShooterConstants.kPM)
+                    .withKI(ShooterConstants.kIM)
+                    .withKD(ShooterConstants.kDM)
+                    .withKV(ShooterConstants.kVM));
 
-    m_rightShooter.setControl(
-        new Follower(
-            m_middleShooter.getDeviceID(),
-            MotorAlignmentValue.Opposed)); // * Mounted inverted! Keep opposite */
+    // config for right shooter motor
+    TalonFXConfiguration rightConfig =
+        new TalonFXConfiguration()
+            .withMotorOutput(
+                new MotorOutputConfigs()
+                    // Invert if spinning wrong direction: change to CounterClockWise_Positive
+                    .withInverted(InvertedValue.Clockwise_Positive)
+                    .withNeutralMode(NeutralModeValue.Coast))
+            .withVoltage(new VoltageConfigs().withPeakReverseVoltage(0))
+            .withCurrentLimits(
+                new CurrentLimitsConfigs()
+                    .withStatorCurrentLimit(ShooterConstants.STATOR_CURRENT_LIMIT)
+                    .withStatorCurrentLimitEnable(true)
+                    .withSupplyCurrentLimit(ShooterConstants.CURRENT_LIMIT)
+                    .withSupplyCurrentLimitEnable(true))
+            .withSlot0(
+                new Slot0Configs()
+                    .withKP(ShooterConstants.kPR)
+                    .withKI(ShooterConstants.kIR)
+                    .withKD(ShooterConstants.kDR)
+                    .withKV(ShooterConstants.kVR));
 
-    m_leftShooter.setControl(
-        new Follower(m_middleShooter.getDeviceID(), MotorAlignmentValue.Aligned));
+    tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleConfig, 0.25));
+    tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftConfig, 0.25));
+    tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightConfig, 0.25));
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
@@ -122,29 +164,85 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_leftShooter.optimizeBusUtilization();
 
     // Initialize SmartDashboard PID tuning values
-    SmartDashboard.putNumber("Shooter/kP", ShooterConstants.kP);
-    SmartDashboard.putNumber("Shooter/kI", ShooterConstants.kI);
-    SmartDashboard.putNumber("Shooter/kD", ShooterConstants.kD);
-    SmartDashboard.putNumber("Shooter/kV", ShooterConstants.kV);
+    SmartDashboard.putNumber("LShooter/kP", ShooterConstants.kPL);
+    SmartDashboard.putNumber("LShooter/kI", ShooterConstants.kIL);
+    SmartDashboard.putNumber("LShooter/kD", ShooterConstants.kDL);
+    SmartDashboard.putNumber("LShooter/kV", ShooterConstants.kVL);
+
+    SmartDashboard.putNumber("MShooter/kP", ShooterConstants.kPM);
+    SmartDashboard.putNumber("MShooter/kI", ShooterConstants.kIM);
+    SmartDashboard.putNumber("MShooter/kD", ShooterConstants.kDM);
+    SmartDashboard.putNumber("MShooter/kV", ShooterConstants.kVM);
+
+    SmartDashboard.putNumber("RShooter/kP", ShooterConstants.kPR);
+    SmartDashboard.putNumber("RShooter/kI", ShooterConstants.kIR);
+    SmartDashboard.putNumber("RShooter/kD", ShooterConstants.kDR);
+    SmartDashboard.putNumber("RShooter/kV", ShooterConstants.kVR);
   }
 
   private void updatePIDFromDashboard() {
 
-    double kP = SmartDashboard.getNumber("Shooter/kP", m_lastKP);
-    double kI = SmartDashboard.getNumber("Shooter/kI", m_lastKI);
-    double kD = SmartDashboard.getNumber("Shooter/kD", m_lastKD);
-    double kV = SmartDashboard.getNumber("Shooter/kV", m_lastKV);
+    double kPL = SmartDashboard.getNumber("LShooter/kP", m_lastKPL);
+    double kIL = SmartDashboard.getNumber("LShooter/kI", m_lastKIL);
+    double kDL = SmartDashboard.getNumber("LShooter/kD", m_lastKDL);
+    double kVL = SmartDashboard.getNumber("LShooter/kV", m_lastKVL);
 
-    if (kP != m_lastKP || kI != m_lastKI || kD != m_lastKD || kV != m_lastKV) {
+    double kPM = SmartDashboard.getNumber("MShooter/kP", m_lastKPM);
+    double kIM = SmartDashboard.getNumber("MShooter/kI", m_lastKIM);
+    double kDM = SmartDashboard.getNumber("MShooter/kD", m_lastKDM);
+    double kVM = SmartDashboard.getNumber("MShooter/kV", m_lastKVM);
 
-      var slotConfig = new Slot0Configs().withKP(kP).withKI(kI).withKD(kD).withKV(kV);
+    double kPR = SmartDashboard.getNumber("RShooter/kP", m_lastKPR);
+    double kIR = SmartDashboard.getNumber("RShooter/kI", m_lastKIR);
+    double kDR = SmartDashboard.getNumber("RShooter/kD", m_lastKDR);
+    double kVR = SmartDashboard.getNumber("RShooter/kV", m_lastKVR);
 
-      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(slotConfig, 0.25));
+    // Only change the shooter whose settings actually changed, not all of them when
+    // only one changed.
 
-      m_lastKP = kP;
-      m_lastKI = kI;
-      m_lastKD = kD;
-      m_lastKV = kV;
+    if (kPL != m_lastKPL || kIL != m_lastKIL || kDL != m_lastKDL || kVL != m_lastKVL) {
+      // Left shooter settings changed so update the control and config info
+
+      var leftSlotConfig = new Slot0Configs().withKP(kPL).withKI(kIL).withKD(kDL).withKV(kVL);
+
+      tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftSlotConfig, 0.25));
+
+      // Save the left shooter changes for a new baseline
+
+      m_lastKPL = kPL;
+      m_lastKIL = kIL;
+      m_lastKDL = kDL;
+      m_lastKVL = kVL;
+    }
+
+    if (kPM != m_lastKPM || kIM != m_lastKIM || kDM != m_lastKDM || kVM != m_lastKVM) {
+      // Middle shooter settings changed so update the control and config info
+
+      var middleSlotConfig = new Slot0Configs().withKP(kPM).withKI(kIM).withKD(kDM).withKV(kVM);
+
+      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleSlotConfig, 0.25));
+
+      // Save the middle shooter changes for a new baseline
+
+      m_lastKPM = kPM;
+      m_lastKIM = kIM;
+      m_lastKDM = kDM;
+      m_lastKVM = kVM;
+    }
+
+    if (kPR != m_lastKPR || kIR != m_lastKIR || kDR != m_lastKDR || kVR != m_lastKVR) {
+      // Right shooter settings changed so update the control and config info
+
+      var rightSlotConfig = new Slot0Configs().withKP(kPR).withKI(kIR).withKD(kDR).withKV(kVR);
+
+      tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightSlotConfig, 0.25));
+
+      // Save the right shooter changes for a new baseline
+
+      m_lastKPR = kPR;
+      m_lastKIR = kIR;
+      m_lastKDR = kDR;
+      m_lastKVR = kVR;
     }
   }
 
@@ -155,8 +253,8 @@ public class ShooterIOTalonFX implements ShooterIO {
 
     // PID tuning — poll SmartDashboard every 50 loops (~1 second)
     if (m_loopCounter % 50 == 0) {
-        updatePIDFromDashboard();
-        m_loopCounter = 0;
+      updatePIDFromDashboard();
+      m_loopCounter = 0;
     }
 
     BaseStatusSignal.refreshAll(
@@ -189,9 +287,32 @@ public class ShooterIOTalonFX implements ShooterIO {
     inputs.leftShooterCurrentAmps = m_leftShooterCurrentAmps.getValueAsDouble();
   }
 
+  /**
+   * Sets the shooter wheel speeds to the specified velocity in RPM.
+   *
+   * @param velocityRPM - The desired wheel velocity in RPM (double)
+   */
   @Override
   public void setVelocity(double velocityRPM) {
+    // Convert RPM to RPS for the CTRE libraries use
     m_targetVelocityRPS = velocityRPM / 60.0;
-    m_middleShooter.setControl(m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0));
+
+    var request = m_velocityRequest.withVelocity(m_targetVelocityRPS).withSlot(0);
+
+    m_middleShooter.setControl(request);
+    m_rightShooter.setControl(request);
+    m_leftShooter.setControl(request);
+  }
+
+  /**
+   * Sets the shooter wheel speeds to the specified voltages.
+   *
+   * @param volts - The desired wheel volts (double)
+   */
+  @Override
+  public void setVoltage(double volts) {
+    m_middleShooter.setVoltage(volts);
+    m_rightShooter.setVoltage(volts);
+    m_leftShooter.setVoltage(volts);
   }
 }

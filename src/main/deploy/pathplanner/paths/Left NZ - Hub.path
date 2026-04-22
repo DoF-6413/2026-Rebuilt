@@ -1,0 +1,95 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.373077777777777,
+        "y": 4.528811111111112
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.608779059260328,
+        "y": 4.242772172089941
+      },
+      "isLocked": false,
+      "linkedName": "Left NZ finished intake"
+    },
+    {
+      "anchor": {
+        "x": 5.806144721233689,
+        "y": 5.503629893238434
+      },
+      "prevControl": {
+        "x": 7.273079036076025,
+        "y": 5.083609681083571
+      },
+      "nextControl": {
+        "x": 5.393374837923639,
+        "y": 5.621816298863324
+      },
+      "isLocked": false,
+      "linkedName": "Left Bump2"
+    },
+    {
+      "anchor": {
+        "x": 3.923285883748518,
+        "y": 5.503629893238434
+      },
+      "prevControl": {
+        "x": 4.270804343708912,
+        "y": 5.559516716410112
+      },
+      "nextControl": {
+        "x": 2.686911111111111,
+        "y": 5.3048
+      },
+      "isLocked": false,
+      "linkedName": "Left Bump"
+    },
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 3.9
+      },
+      "prevControl": {
+        "x": 3.169170534921892,
+        "y": 4.084068818962477
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Hub scoring spot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -45.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": -45.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -6.000000000000001
+  },
+  "reversed": false,
+  "folder": "NZ (Trench)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

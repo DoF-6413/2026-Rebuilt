@@ -95,8 +95,7 @@ public class Vision extends SubsystemBase {
         // Check whether to reject pose
         boolean rejectPose =
             observation.tagCount() == 0 // Must have at least one tag
-                || (observation.tagCount() == 1
-                    && observation.ambiguity() > maxAmbiguity) // Cannot be high ambiguity
+                || (observation.ambiguity() > maxAmbiguity) // Cannot be high ambiguity
                 || Math.abs(observation.pose().getZ())
                     > maxZError // Must have realistic Z coordinate
 
@@ -122,6 +121,8 @@ public class Vision extends SubsystemBase {
         // Calculate standard deviations
         double stdDevFactor =
             Math.pow(observation.averageTagDistance(), 2.0) / observation.tagCount();
+        stdDevFactor =
+            Math.min(stdDevFactor, 10.0); // Keep standard deviation < 10 to avoid data poisoning
         double linearStdDev = linearStdDevBaseline * stdDevFactor;
         double angularStdDev = angularStdDevBaseline * stdDevFactor;
         if (observation.type() == PoseObservationType.MEGATAG_2) {

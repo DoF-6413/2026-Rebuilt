@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.800944444444444,
+        "y": 6.695533333333333
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.836676077752869,
+        "y": 6.3890771018953885
+      },
+      "isLocked": false,
+      "linkedName": "TEMP LNZ NEAR HUB"
+    },
+    {
+      "anchor": {
+        "x": 5.770711111111111,
+        "y": 4.387722222222222
+      },
+      "prevControl": {
+        "x": 5.762562510186243,
+        "y": 4.882723648588391
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TEMP LNZ NEAR HUB END"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "Depot",
+  "idealStartingState": {
+    "velocity": 1.0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": false
+}

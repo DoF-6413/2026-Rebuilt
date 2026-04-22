@@ -7,13 +7,26 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SL1a"
+            "pathName": "shooting from hub"
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "LaunchHub"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchHub"
+                }
+              }
+            ]
           }
         }
       ]
