@@ -17,7 +17,7 @@ public class VisionIOPhotonVision implements VisionIO {
   protected final PhotonCamera m_camera;
   protected final Transform3d m_robotToCamera;
 
-    /**
+  /**
    * Creates a new VisionIOPhotonVision.
    *
    * @param name The configured name of the camera.
@@ -45,8 +45,7 @@ public class VisionIOPhotonVision implements VisionIO {
         for (var target : result.getTargets()) {
           // Update latest target observation when a tracked target is visible;
           // leave the previous value unchanged when no tracked targets are detected
-          if (!TRACKED_TAG_IDS.contains(target.fiducialId))
-            continue;
+          if (!TRACKED_TAG_IDS.contains(target.fiducialId)) continue;
 
           if (bestTarget == null || target.getPoseAmbiguity() < bestTarget.getPoseAmbiguity())
             bestTarget = target;
@@ -88,7 +87,6 @@ public class VisionIOPhotonVision implements VisionIO {
               minTagDistance = Math.min(minTagDistance, dist);
               break;
             }
-
           }
         }
 
@@ -107,7 +105,6 @@ public class VisionIOPhotonVision implements VisionIO {
                 distanceMetric, // Min tag distance
                 PoseObservationType.PHOTONVISION)); // Observation type
       } // result.multitagResult.isPresent()
-
       else if (result.hasTargets()) {
         // Single tag result (aka NO multi-tag solve available but
         // any number of tags may be in the results individually so we
@@ -129,8 +126,7 @@ public class VisionIOPhotonVision implements VisionIO {
         Transform3d cameraToTarget = target.bestCameraToTarget;
         Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
         Transform3d fieldToRobot = fieldToCamera.plus(m_robotToCamera.inverse());
-        Pose3d robotPose =
-            new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
+        Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
 
         // Add tag ID
         tagIds.add((short) target.fiducialId);

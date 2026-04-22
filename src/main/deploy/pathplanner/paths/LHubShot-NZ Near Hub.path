@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.4
+        "x": 3.4225888888888885,
+        "y": 5.355188888888888
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8439861406660527,
-        "y": 5.0379984168060865
+        "x": 2.7272222222222213,
+        "y": 6.62498888888889
       },
       "isLocked": false,
-      "linkedName": "LHubShot"
+      "linkedName": "LBumpShoot"
     },
     {
       "anchor": {
@@ -36,7 +36,7 @@
         "y": 7.324718598865328
       },
       "prevControl": {
-        "x": 5.015514372238503,
+        "x": 5.015514372238497,
         "y": 7.322972942191549
       },
       "nextControl": {
@@ -74,7 +74,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -89,7 +89,7 @@
   "folder": "NZ (meta)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -20.0
+    "rotation": -51.54629078329396
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

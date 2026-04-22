@@ -214,7 +214,7 @@ public class ShooterIOTalonFX implements ShooterIO {
       m_lastKDL = kDL;
       m_lastKVL = kVL;
     }
-    
+
     if (kPM != m_lastKPM || kIM != m_lastKIM || kDM != m_lastKDM || kVM != m_lastKVM) {
       // Middle shooter settings changed so update the control and config info
 
@@ -229,8 +229,8 @@ public class ShooterIOTalonFX implements ShooterIO {
       m_lastKDM = kDM;
       m_lastKVM = kVM;
     }
-        
-    if ( kPR != m_lastKPR || kIR != m_lastKIR || kDR != m_lastKDR || kVR != m_lastKVR) {
+
+    if (kPR != m_lastKPR || kIR != m_lastKIR || kDR != m_lastKDR || kVR != m_lastKVR) {
       // Right shooter settings changed so update the control and config info
 
       var rightSlotConfig = new Slot0Configs().withKP(kPR).withKI(kIR).withKD(kDR).withKV(kVR);
@@ -238,7 +238,7 @@ public class ShooterIOTalonFX implements ShooterIO {
       tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightSlotConfig, 0.25));
 
       // Save the right shooter changes for a new baseline
-   
+
       m_lastKPR = kPR;
       m_lastKIR = kIR;
       m_lastKDR = kDR;
