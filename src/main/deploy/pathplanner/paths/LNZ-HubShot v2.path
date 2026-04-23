@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.6284303834850995,
-        "y": 4.364474820564848
+        "x": 7.629978904769458,
+        "y": 4.372292900157885
       },
       "isLocked": false,
       "linkedName": "TEMP LNZ End"
@@ -20,12 +20,12 @@
         "y": 5.4862
       },
       "prevControl": {
-        "x": 6.09492764897459,
-        "y": 5.520977435904188
+        "x": 6.14791941858255,
+        "y": 5.4936856075990885
       },
       "nextControl": {
-        "x": 4.983123161259112,
-        "y": 5.389453904240841
+        "x": 4.78556986949447,
+        "y": 5.464294398153507
       },
       "isLocked": false,
       "linkedName": null
@@ -36,25 +36,21 @@
         "y": 5.355188888888888
       },
       "prevControl": {
-        "x": 3.445419199756481,
-        "y": 5.756693661620595
+        "x": 3.452440613894326,
+        "y": 5.603400239383179
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LBumpShoot"
+      "linkedName": "LBumpShot"
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5989847715736033,
-      "rotationDegrees": -150.0
-    },
     {
       "waypointRelativePos": 0.994923857868014,
       "rotationDegrees": 140.0
     },
     {
-      "waypointRelativePos": 1.7326565143824209,
+      "waypointRelativePos": 1.6461852477477474,
       "rotationDegrees": 140.0
     }
   ],
@@ -62,9 +58,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0.5,
-      "maxWaypointRelativePos": 1.3,
+      "maxWaypointRelativePos": 1.1854666095890416,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 300.0,
         "maxAngularAcceleration": 500.0,
