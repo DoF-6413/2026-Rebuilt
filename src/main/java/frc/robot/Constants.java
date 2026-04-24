@@ -278,7 +278,7 @@ public final class Constants {
     // TOWER
     public static final double TOWER_SETPOINT = 0.22; // 1 3/16 inches
     // CORNER (192" from hub to center of robot)
-    public static final double CORNER_SETPOINT = 0.37; // 1 3/8 inches
+    public static final double CORNER_SETPOINT = 0.3; // 1 3/8 inches
   }
 
   public static class VisionConstants {
