@@ -106,7 +106,7 @@
   "reversed": false,
   "folder": "NZ (meta)",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.5,
     "rotation": 90.0
   },
   "useDefaultConstraints": true

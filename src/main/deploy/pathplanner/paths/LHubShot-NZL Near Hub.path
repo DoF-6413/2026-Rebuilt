@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.407325962611607,
+        "x": 2.4073259626116075,
         "y": 6.576195591517858
       },
       "isLocked": false,
@@ -91,5 +91,5 @@
     "velocity": 0,
     "rotation": -51.54629078329396
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

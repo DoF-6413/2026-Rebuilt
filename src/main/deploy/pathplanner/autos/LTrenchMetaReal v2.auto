@@ -110,7 +110,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LHubShot-NZ Near Hub"
+                        "pathName": "LHubShot-NZL Near Hub"
                       }
                     },
                     {
@@ -126,6 +126,18 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
                 }
               }
             ]
