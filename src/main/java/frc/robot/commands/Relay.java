@@ -21,7 +21,7 @@ public class Relay extends Command {
   private final Hopper m_hopper;
   private final Hood m_hood;
   private final Timer m_timer = new Timer();
-  private final double m_timeDelay = 2.0;
+  private final double m_timeDelay = 1.5;
 
   public Relay(Shooter shooter, Hopper hopper, Column column, Hood hood) {
     m_shooter = shooter;
