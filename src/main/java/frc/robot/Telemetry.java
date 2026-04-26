@@ -29,6 +29,7 @@ public class Telemetry {
    */
   public Telemetry(double maxSpeed) {
     MaxSpeed = maxSpeed;
+    SignalLogger.setPath("/media/sda1/");
     SignalLogger.start();
 
     /* Set up the module state Mechanism2d telemetry */
