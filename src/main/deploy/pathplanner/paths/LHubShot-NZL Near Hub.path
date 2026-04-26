@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7272222222222213,
-        "y": 6.62498888888889
+        "x": 2.4073259626116075,
+        "y": 6.576195591517858
       },
       "isLocked": false,
-      "linkedName": "LBumpShoot"
+      "linkedName": "LBumpShot"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 7.325636218843005
       },
       "prevControl": {
-        "x": 3.323033433465056,
-        "y": 7.316226124114818
+        "x": 2.0146355910528273,
+        "y": 6.972556442987352
       },
       "nextControl": {
-        "x": 4.176943194279152,
-        "y": 7.348390404291283
+        "x": 3.968240795958538,
+        "y": 7.415227045917958
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 7.324718598865328
       },
       "prevControl": {
-        "x": 5.015514372238497,
-        "y": 7.322972942191549
+        "x": 5.012255851558322,
+        "y": 7.361033969142851
       },
       "nextControl": {
-        "x": 6.068578694661458,
-        "y": 7.330326276506696
+        "x": 5.722169449085781,
+        "y": 7.259235239830122
       },
       "isLocked": false,
       "linkedName": null
@@ -52,8 +52,8 @@
         "y": 6.695533333333333
       },
       "prevControl": {
-        "x": 5.847330322265625,
-        "y": 7.043926885695685
+        "x": 5.735904590085311,
+        "y": 7.016665210345047
       },
       "nextControl": null,
       "isLocked": false,
@@ -74,7 +74,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -82,7 +82,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "reversed": false,
@@ -91,5 +91,5 @@
     "velocity": 0,
     "rotation": -51.54629078329396
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

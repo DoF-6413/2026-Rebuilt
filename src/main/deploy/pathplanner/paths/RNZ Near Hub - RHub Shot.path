@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.881566666666666,
+        "y": 3.924144444444445
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.225860854092525,
+        "y": 3.32162961644919
+      },
+      "isLocked": false,
+      "linkedName": "RNZ Near Hub End"
+    },
+    {
+      "anchor": {
+        "x": 5.246666666666667,
+        "y": 2.566370106761566
+      },
+      "prevControl": {
+        "x": 5.496666666666667,
+        "y": 2.566370106761566
+      },
+      "nextControl": {
+        "x": 4.769633854937455,
+        "y": 2.566370106761566
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.3853262158956117,
+        "y": 2.5986476868327397
+      },
+      "prevControl": {
+        "x": 3.1436629775907683,
+        "y": 2.662670177037483
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RBumpShot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 45.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 45.000000000000036
+  },
+  "reversed": false,
+  "folder": "NZ (meta)",
+  "idealStartingState": {
+    "velocity": 0.5,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}
