@@ -317,8 +317,8 @@ public class RobotContainer {
                               .orElse(FieldConstants.BLUE_HUB_POSITION);
 
                       Pose2d robot = drive.getPose();
-                      return new Rotation2d(
-                          target.getX() - robot.getX(), target.getY() - robot.getY());
+                      Rotation2d headingToHub = target.minus(robot.getTranslation()).getAngle();
+                      return headingToHub;
                     })
                 .withName("Auto aiming"));
     auxController
