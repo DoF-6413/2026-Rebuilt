@@ -35,6 +35,7 @@ import frc.robot.commands.Eject;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
 import frc.robot.commands.Relay;
+import frc.robot.commands.RelayArming;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShooterSpinUp;
 import frc.robot.generated.TunerConstants;
@@ -279,11 +280,18 @@ public class RobotContainer {
 
   private void auxControllerBindings() {
     // D-pad Up: Deploy intake pivot and run intake rollers
-    auxController.povDown().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
+    auxController
+        .povDown()
+        .whileTrue(
+            new RunIntake(m_intake, m_pivot)
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                .withName("AuxIntake"));
+
     // D-pad Down: Retract the intake back up
     auxController
         .povLeft()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
+
     // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController
@@ -293,6 +301,7 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
+
     // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
         .x()
@@ -301,6 +310,7 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from anywhere"));
+
     // Left Bumper: auto aims the robot towards the hub
     auxController
         .leftBumper()
@@ -321,6 +331,7 @@ public class RobotContainer {
                       return headingToHub;
                     })
                 .withName("Auto aiming"));
+
     auxController
         .a()
         .whileTrue(
@@ -328,6 +339,7 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
+
     auxController
         .y()
         .whileTrue(
@@ -345,10 +357,24 @@ public class RobotContainer {
 
     auxController
         .rightBumper()
-        .whileTrue((new Relay(m_shooter, m_hopper, m_column, m_hood)).withName("Relaying"));
+        .whileTrue(
+            new Relay(m_shooter, m_hopper, m_column, m_hood)
+                .alongWith(new Agitate(m_intake, m_pivot))
+                .withName("Relaying"));
 
-    // Button B: Eject balls through the intake
+    auxController
+        .povUp()
+        .whileTrue(
+            new RelayArming(m_shooter, m_hood, m_hopper)
+                .finallyDo(
+                    () -> {
+                      m_shooter.setVoltage(0.0);
+                      m_hood.setPosition(HoodConstants.K_MIN_POSITION);
+                      m_hopper.setVoltage(0.0);
+                    })
+                .withName("Arming for relay"));
 
+    // Eject balls through the intake
     auxController
         .povRight()
         .whileTrue(new Eject(m_column, m_hopper, m_intake).withName("Out-taking"));
