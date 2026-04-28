@@ -1,0 +1,95 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.3853262158956117,
+        "y": 2.5986476868327397
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.470189798339265,
+        "y": 0.4898457888493475
+      },
+      "isLocked": false,
+      "linkedName": "RBumpShot"
+    },
+    {
+      "anchor": {
+        "x": 3.923285883748518,
+        "y": 0.6512336892052202
+      },
+      "prevControl": {
+        "x": 3.68333326823188,
+        "y": 0.7213959462008768
+      },
+      "nextControl": {
+        "x": 4.163238499265156,
+        "y": 0.5810714322095636
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.246666666666667,
+        "y": 0.6404744958481603
+      },
+      "prevControl": {
+        "x": 4.996809885025276,
+        "y": 0.6489355045236274
+      },
+      "nextControl": {
+        "x": 5.891644444444445,
+        "y": 0.6186333333333334
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.795385527876632,
+        "y": 1.3828588374851711
+      },
+      "prevControl": {
+        "x": 6.0025,
+        "y": 0.9008111111111099
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RNZ Near Hub Start"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 1.0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "NZ (meta)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 45.000000000000036
+  },
+  "useDefaultConstraints": true
+}

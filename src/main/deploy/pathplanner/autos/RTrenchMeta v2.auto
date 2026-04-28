@@ -1,0 +1,184 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RTrench-NZ"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RNZ-Sweep"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RNZ-HubShot v2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 5.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpinUpHub"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchAnywhere"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RHubShot-NZR Near Hub"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RNZ near hub sweep"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "RNZ Near Hub - RHub Shot"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 4.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpinUpHub"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchAnywhere"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

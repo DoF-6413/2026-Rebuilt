@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.795385527876632,
+        "y": 1.3828588374851711
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.806144721233689,
+        "y": 2.3081494661921704
+      },
+      "isLocked": false,
+      "linkedName": "RNZ Near Hub Start"
+    },
+    {
+      "anchor": {
+        "x": 5.881566666666666,
+        "y": 3.924144444444445
+      },
+      "prevControl": {
+        "x": 5.870807473309607,
+        "y": 2.7944291419533416
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RNZ Near Hub End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.5,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "NZ (meta)",
+  "idealStartingState": {
+    "velocity": 1.0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": false
+}

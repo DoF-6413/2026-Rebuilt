@@ -1,0 +1,95 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.4225888888888885,
+        "y": 5.355188888888888
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.4073259626116075,
+        "y": 6.576195591517858
+      },
+      "isLocked": false,
+      "linkedName": "LBumpShot"
+    },
+    {
+      "anchor": {
+        "x": 3.572856270926339,
+        "y": 7.325636218843005
+      },
+      "prevControl": {
+        "x": 2.0146355910528273,
+        "y": 6.972556442987352
+      },
+      "nextControl": {
+        "x": 3.968240795958538,
+        "y": 7.415227045917958
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.2655082775297615,
+        "y": 7.324718598865328
+      },
+      "prevControl": {
+        "x": 5.012255851558322,
+        "y": 7.361033969142851
+      },
+      "nextControl": {
+        "x": 5.722169449085781,
+        "y": 7.259235239830122
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.800944444444444,
+        "y": 6.695533333333333
+      },
+      "prevControl": {
+        "x": 5.735904590085311,
+        "y": 7.016665210345047
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TEMP LNZ NEAR HUB"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 1.0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "NZ (meta)",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -51.54629078329396
+  },
+  "useDefaultConstraints": true
+}

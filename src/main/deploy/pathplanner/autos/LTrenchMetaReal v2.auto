@@ -1,0 +1,171 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LTrench-NZ"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LNZ-Sweep"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LNZ-HubShot v2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 5.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "SpinUpHub"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchAnywhere"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LHubShot-NZL Near Hub"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LNZ- Hub Sweep"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "NZ Near Hub-HubShot"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchAnywhere"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
