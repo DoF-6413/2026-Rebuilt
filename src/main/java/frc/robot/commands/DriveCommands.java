@@ -117,6 +117,7 @@ public class DriveCommands {
             ANGLE_KD,
             new TrapezoidProfile.Constraints(ANGLE_MAX_VELOCITY, ANGLE_MAX_ACCELERATION));
     angleController.enableContinuousInput(-Math.PI, Math.PI);
+    angleController.setTolerance(Units.degreesToRadians(1.0));
 
     Translation2d target =
         DriverStation.getAlliance()
@@ -138,19 +139,32 @@ public class DriveCommands {
     // Construct command
     return Commands.run(
             () -> {
-              Logger.recordOutput(
-                  "AimAssist/CommandedHeadingRad", rotationSupplier.get().getRadians());
-              Logger.recordOutput("AimAssist/MeasuredHeadingRad", drive.getRotation().getRadians());
-              Logger.recordOutput(
-                  "AimAssist/HeadingErrorRad",
-                  MathUtil.angleModulus(
-                      rotationSupplier.get().getRadians() - drive.getRotation().getRadians()));
-              Logger.recordOutput("AimAssist/RobotPose", drive.getPose());
-              Logger.recordOutput(
-                  "AimAssist/TrueBearingToHubRad",
-                  Math.atan2(
-                      target.getY() - drive.getPose().getY(),
-                      target.getX() - drive.getPose().getX()));
+              // Cache values once per loop
+              Rotation2d targetRotation = rotationSupplier.get();
+              Rotation2d currentRotation = drive.getRotation();
+              Pose2d pose = drive.getPose();
+
+              // Heading error for logging/debug (controller computes this internally during
+              // .calculate())
+              double error =
+                  MathUtil.angleModulus(targetRotation.getRadians() - currentRotation.getRadians());
+
+              // True geometric bearing to hub (ground truth)
+              double trueBearing =
+                  Math.atan2(target.getY() - pose.getY(), target.getX() - pose.getX());
+
+              // Difference between what we *should* aim vs what we *are commanding*
+              double bearingError =
+                  MathUtil.angleModulus(targetRotation.getRadians() - trueBearing);
+
+              // Logging
+              Logger.recordOutput("AimAssist/CommandedHeadingRad", targetRotation.getRadians());
+              Logger.recordOutput("AimAssist/MeasuredHeadingRad", currentRotation.getRadians());
+              Logger.recordOutput("AimAssist/HeadingErrorRad", error);
+              Logger.recordOutput("AimAssist/TrueBearingToHubRad", trueBearing);
+              Logger.recordOutput("AimAssist/BearingErrorRad", bearingError);
+              Logger.recordOutput("AimAssist/RobotPose", pose);
+
               // Get linear velocity
               Translation2d linearVelocity =
                   getLinearVelocityFromJoysticks(xSupplier.getAsDouble(), ySupplier.getAsDouble());
@@ -158,7 +172,7 @@ public class DriveCommands {
               // Calculate angular speed
               double omega =
                   angleController.calculate(
-                      drive.getRotation().getRadians(), rotationSupplier.get().getRadians());
+                      currentRotation.getRadians(), targetRotation.getRadians());
 
               // Convert to field relative speeds & send command
               ChassisSpeeds speeds =
@@ -166,15 +180,15 @@ public class DriveCommands {
                       linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
                       linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
                       omega);
+
               boolean isFlipped =
                   DriverStation.getAlliance().isPresent()
                       && DriverStation.getAlliance().get() == Alliance.Red;
+
               drive.runVelocity(
                   ChassisSpeeds.fromFieldRelativeSpeeds(
                       speeds,
-                      isFlipped
-                          ? drive.getRotation().plus(new Rotation2d(Math.PI))
-                          : drive.getRotation()));
+                      isFlipped ? currentRotation.plus(new Rotation2d(Math.PI)) : currentRotation));
             },
             drive)
 
