@@ -279,7 +279,7 @@ public class RobotContainer {
   }
 
   private void auxControllerBindings() {
-    // D-pad Up: Deploy intake pivot and run intake rollers
+    // Deploy intake pivot and run intake rollers
     auxController
         .povDown()
         .whileTrue(
@@ -287,12 +287,12 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .withName("AuxIntake"));
 
-    // D-pad Down: Retract the intake back up
+    // Retract the intake back up
     auxController
         .povLeft()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
 
-    // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
+    // Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController
         .b()
@@ -302,7 +302,7 @@ public class RobotContainer {
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
 
-    // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
+    // Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
         .x()
         .whileTrue(
@@ -311,9 +311,9 @@ public class RobotContainer {
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from anywhere"));
 
-    // Left Bumper: auto aims the robot towards the hub
+    // auto aims the robot towards the hub
     auxController
-        .leftBumper()
+        .povUp()
         .whileTrue(
             DriveCommands.joystickDriveAtAngle(
                     drive,
@@ -363,7 +363,7 @@ public class RobotContainer {
                 .withName("Relaying"));
 
     auxController
-        .povUp()
+        .leftBumper()
         .whileTrue(
             new RelayArming(m_shooter, m_hood, m_hopper)
                 .finallyDo(
