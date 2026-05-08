@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.795385527876632,
-        "y": 1.3828588374851711
+        "x": 0.691511111111111,
+        "y": 7.269966666666667
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.806144721233689,
-        "y": 2.3081494661921704
+        "x": 1.1047,
+        "y": 5.80868888888889
       },
       "isLocked": false,
-      "linkedName": "RNZ Near Hub Start"
+      "linkedName": "DP End"
     },
     {
       "anchor": {
-        "x": 5.881566666666666,
-        "y": 3.924144444444445
+        "x": 1.5178888888888888,
+        "y": 4.004766666666666
       },
       "prevControl": {
-        "x": 5.870807473309607,
-        "y": 2.7944291419533416
+        "x": 2.1024000000000003,
+        "y": 5.3249555555555546
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RNZ Near Hub End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "NZ (meta)",
+  "folder": "Depot",
   "idealStartingState": {
-    "velocity": 1.0,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": 110.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
