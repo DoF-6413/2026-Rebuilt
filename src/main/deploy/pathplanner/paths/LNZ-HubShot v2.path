@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.627455019432849,
-        "y": 4.360121323590049
+        "x": 7.718064328906797,
+        "y": 4.307284600919696
       },
       "isLocked": false,
       "linkedName": "TEMP LNZ End"
@@ -20,12 +20,12 @@
         "y": 5.4862
       },
       "prevControl": {
-        "x": 6.284388864272325,
-        "y": 5.4657461134661105
+        "x": 6.287231161045542,
+        "y": 5.3713196034148565
       },
       "nextControl": {
-        "x": 4.9291784006520425,
-        "y": 5.5230832548531135
+        "x": 4.772876762081427,
+        "y": 5.729070757177427
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 5.355188888888888
       },
       "prevControl": {
-        "x": 3.4420438074184094,
-        "y": 5.604430751634715
+        "x": 3.480848167797272,
+        "y": 5.598305849262029
       },
       "nextControl": null,
       "isLocked": false,
@@ -54,7 +54,7 @@
       "rotationDegrees": 140.0
     },
     {
-      "waypointRelativePos": 1.6461852477477474,
+      "waypointRelativePos": 1.7901861252115063,
       "rotationDegrees": 140.0
     }
   ],
@@ -68,6 +68,19 @@
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 300.0,
         "maxAngularAcceleration": 500.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.649838882921584,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
         "unlimited": false
       }
