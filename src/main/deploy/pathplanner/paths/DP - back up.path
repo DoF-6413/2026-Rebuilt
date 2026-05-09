@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.614066666666667,
-        "y": 5.0327
+        "x": 2.243488888888889,
+        "y": 6.5746
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.553563800199218,
-        "y": 5.0474189761016
+        "x": 2.6154445504404142,
+        "y": 6.452829126153992
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "DP Shoot Spot"
     },
     {
       "anchor": {
-        "x": 0.5986951364175572,
-        "y": 5.0947805456702255
+        "x": 0.6310444444444443,
+        "y": 7.511833333333334
       },
       "prevControl": {
-        "x": 1.3822401868476113,
-        "y": 5.036803171192748
+        "x": 0.3941883733664164,
+        "y": 7.591828343136947
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Depot End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": 110.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Depot",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": 89.81748552835448
+    "velocity": 0,
+    "rotation": -52.4958576397299
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
