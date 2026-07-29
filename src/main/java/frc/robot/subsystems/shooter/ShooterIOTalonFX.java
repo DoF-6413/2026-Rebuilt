@@ -56,10 +56,7 @@ public class ShooterIOTalonFX implements ShooterIO {
 
   // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
-  private double m_lastKPR = ShooterConstants.kPR;
-  private double m_lastKIR = ShooterConstants.kIR;
-  private double m_lastKDR = ShooterConstants.kDR;
-  private double m_lastKVR = ShooterConstants.kVR;
+  public ShooterIOTalonFX() {
 
     // Config for left shooter motor
     TalonFXConfiguration leftConfig =
@@ -130,6 +127,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleConfig, 0.25));
     tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftConfig, 0.25));
     tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightConfig, 0.25));
+    
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
