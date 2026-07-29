@@ -75,6 +75,7 @@ public class Robot extends LoggedRobot {
     // and put our autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
     FollowPathCommand.warmupCommand().schedule();
+    CommandScheduler.getInstance().schedule(robotContainer.hoodDown());
   }
 
   /** This function is called periodically during all modes. */
@@ -107,10 +108,8 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousInit() {
     autonomousCommand = robotContainer.getAutonomousCommand();
-    Command hoodCommand = robotContainer.hoodDown();
 
     // schedule the autonomous command (example)
-    CommandScheduler.getInstance().schedule(hoodCommand);
     if (autonomousCommand != null) {
       CommandScheduler.getInstance().schedule(autonomousCommand);
     }
@@ -127,8 +126,6 @@ public class Robot extends LoggedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    Command hoodCommand = robotContainer.hoodDown();
-    CommandScheduler.getInstance().schedule(hoodCommand);
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }

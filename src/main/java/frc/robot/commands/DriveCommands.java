@@ -136,12 +136,6 @@ public class DriveCommands {
         "AimAssist/TrueBearingToHubRad",
         Math.atan2(target.getY() - drive.getPose().getY(), target.getX() - drive.getPose().getX()));
 
-    Translation2d target =
-        DriverStation.getAlliance()
-            .filter(a -> a == Alliance.Red)
-            .map(a -> FieldConstants.RED_HUB_POSITION)
-            .orElse(FieldConstants.BLUE_HUB_POSITION);
-
     Logger.recordOutput("AimAssist/CommandedHeadingRad", rotationSupplier.get().getRadians());
     Logger.recordOutput("AimAssist/MeasuredHeadingRad", drive.getRotation().getRadians());
     Logger.recordOutput(

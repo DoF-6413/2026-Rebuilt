@@ -4,15 +4,8 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.Inches;
-import static edu.wpi.first.units.Units.Meters;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
-import edu.wpi.first.math.interpolation.Interpolator;
-import edu.wpi.first.math.interpolation.InverseInterpolator;
-import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +15,8 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.hood.Hood;
 import frc.robot.subsystems.shooter.Shooter;
 import java.util.function.Supplier;
+import frc.robot.util.ShotMapUtil;
+import frc.robot.util.ShotMapUtil.Shot;
 
 public class ShooterSpinUp extends Command {
   private final Shooter m_shooter;
@@ -29,32 +24,6 @@ public class ShooterSpinUp extends Command {
   private final Supplier<Pose2d> m_poseSupplier;
   private Shot m_shot;
   private final String m_position;
-
-  private static final InterpolatingTreeMap<Distance, Shot> distanceToShotMap =
-      new InterpolatingTreeMap<>(
-          (startValue, endValue, q) ->
-              InverseInterpolator.forDouble()
-                  .inverseInterpolate(startValue.in(Meters), endValue.in(Meters), q.in(Meters)),
-          (startValue, endValue, t) ->
-              new Shot(
-                  Interpolator.forDouble()
-                      .interpolate(startValue.m_shooterRPM, endValue.m_shooterRPM, t),
-                  Interpolator.forDouble()
-                      .interpolate(startValue.m_hoodPosition, endValue.m_hoodPosition, t)));
-
-  static {
-    distanceToShotMap.put(
-        Inches.of(47.96), new Shot(ShooterConstants.HUB_SPEED_RPM, HoodConstants.HUB_SETPOINT));
-    distanceToShotMap.put(
-        Inches.of(122.12),
-        new Shot(ShooterConstants.TOWER_SPEED_RPM, HoodConstants.TOWER_SETPOINT));
-    distanceToShotMap.put(
-        Inches.of(134.13),
-        new Shot(ShooterConstants.TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT));
-    distanceToShotMap.put(
-        Inches.of(192.0),
-        new Shot(ShooterConstants.CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT));
-  }
 
   private Translation2d m_target = FieldConstants.BLUE_HUB_POSITION;
 
@@ -75,10 +44,7 @@ public class ShooterSpinUp extends Command {
             .filter(a -> a == Alliance.Red)
             .map(a -> FieldConstants.RED_HUB_POSITION)
             .orElse(FieldConstants.BLUE_HUB_POSITION);
-  }
 
-  @Override
-  public void execute() {
     if (m_position.equals("trench")) {
       m_shot = new Shot(ShooterConstants.TRENCH_SPEED_RPM, HoodConstants.TRENCH_SETPOINT);
     } else if (m_position.equals("hub")) {
@@ -88,8 +54,12 @@ public class ShooterSpinUp extends Command {
     } else if (m_position.equals("corner")) {
       m_shot = new Shot(ShooterConstants.CORNER_SPEED_RPM, HoodConstants.CORNER_SETPOINT);
     } else {
-      m_shot = distanceToShotMap.get(getDistanceToHub());
+      m_shot = ShotMapUtil.distanceToShotMap.get(ShotMapUtil.getDistanceToHub(m_poseSupplier, m_target));
     }
+  }
+
+  @Override
+  public void execute() {
 
     m_shooter.setVelocity(m_shot.m_shooterRPM);
     m_hood.setPosition(m_shot.m_hoodPosition);
@@ -101,20 +71,5 @@ public class ShooterSpinUp extends Command {
   @Override
   public boolean isFinished() {
     return false; // Command never finishes, its just interrupted
-  }
-
-  public Distance getDistanceToHub() {
-    Translation2d robotPosition = m_poseSupplier.get().getTranslation();
-    return Meters.of(robotPosition.getDistance(m_target));
-  }
-
-  public static class Shot {
-    public final double m_shooterRPM;
-    public final double m_hoodPosition;
-
-    public Shot(double shooterRPM, double hoodPosition) {
-      m_shooterRPM = shooterRPM;
-      m_hoodPosition = hoodPosition;
-    }
   }
 }
