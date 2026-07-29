@@ -59,7 +59,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 5.0
                       }
                     },
                     {
@@ -93,7 +93,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 2.5
                 }
               }
             ]
@@ -110,7 +110,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "LHubShot-NZ Near Hub"
+                        "pathName": "LHubShot-NZL Near Hub"
                       }
                     },
                     {
@@ -126,6 +126,18 @@
                       }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpHub"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
                 }
               }
             ]

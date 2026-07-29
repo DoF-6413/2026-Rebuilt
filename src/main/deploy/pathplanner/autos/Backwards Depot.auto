@@ -15,19 +15,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "RTrench-NZ"
+                        "pathName": "LTrench-NZ"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "RNZ-Sweep"
+                        "pathName": "LNZ-Sweep"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "RNZ-HubShot"
+                        "pathName": "LNZ-HubShot v2"
                       }
                     }
                   ]
@@ -40,7 +40,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.75
                       }
                     },
                     {
@@ -59,7 +59,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 5.0
+                        "waitTime": 2.0
                       }
                     },
                     {
@@ -69,6 +69,69 @@
                       }
                     }
                   ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LaunchAnywhere"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Agitate"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "LBump-DP Start"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "DP-Intake v3"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "SpinUpCorner"
                 }
               }
             ]

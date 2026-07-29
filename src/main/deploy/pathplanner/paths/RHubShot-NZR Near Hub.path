@@ -3,61 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.243488888888889,
-        "y": 6.5746
+        "x": 3.3853262158956117,
+        "y": 2.5986476868327397
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.355617923803332,
-        "y": 7.112649263145426
+        "x": 1.470189798339265,
+        "y": 0.4898457888493475
       },
       "isLocked": false,
-      "linkedName": "DP Shoot Spot"
+      "linkedName": "RBumpShot"
     },
     {
       "anchor": {
-        "x": 3.7350000000000003,
-        "y": 7.3203555555555555
+        "x": 3.923285883748518,
+        "y": 0.6512336892052202
       },
       "prevControl": {
-        "x": 3.4882932350718208,
-        "y": 7.279910875575712
+        "x": 3.68333326823188,
+        "y": 0.7213959462008768
       },
       "nextControl": {
-        "x": 3.98170676492818,
-        "y": 7.360800235535399
+        "x": 4.163238499265156,
+        "y": 0.5810714322095636
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.508688888888888,
-        "y": 7.2296555555555555
+        "x": 5.246666666666667,
+        "y": 0.6404744958481603
       },
       "prevControl": {
-        "x": 5.322094564421124,
-        "y": 7.39603631789429
+        "x": 4.996809885025276,
+        "y": 0.6489355045236274
       },
       "nextControl": {
-        "x": 5.695283213356653,
-        "y": 7.063274793216821
+        "x": 5.891644444444445,
+        "y": 0.6186333333333334
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.800944444444444,
-        "y": 6.695533333333333
+        "x": 5.795385527876632,
+        "y": 1.3828588374851711
       },
       "prevControl": {
-        "x": 5.8311777777777785,
-        "y": 7.07848888888889
+        "x": 6.0025,
+        "y": 0.9008111111111099
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TEMP LNZ NEAR HUB"
+      "linkedName": "RNZ Near Hub Start"
     }
   ],
   "rotationTargets": [
@@ -66,7 +66,7 @@
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.7059755067567548,
+      "waypointRelativePos": 2,
       "rotationDegrees": 0.0
     }
   ],
@@ -83,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Depot",
+  "folder": "NZ (meta)",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -52.4958576397299
+    "rotation": 45.000000000000036
   },
   "useDefaultConstraints": true
 }

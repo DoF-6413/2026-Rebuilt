@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.439727164887308,
-        "y": 7.397247924080664
+        "x": 2.243488888888889,
+        "y": 6.5746
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.03967408553612,
-        "y": 7.38063438114858
+        "x": 2.6154445504404142,
+        "y": 6.452829126153992
       },
       "isLocked": false,
-      "linkedName": "LTrench meta"
+      "linkedName": "DP Shoot Spot"
     },
     {
       "anchor": {
-        "x": 7.373,
-        "y": 6.87
+        "x": 0.6310444444444443,
+        "y": 7.511833333333334
       },
       "prevControl": {
-        "x": 7.115709376506849,
-        "y": 6.8927323886406
+        "x": 0.3941883733664164,
+        "y": 7.591828343136947
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TEMP LNZ"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 2.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.5,
-    "rotation": -90.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "NZ (meta)",
+  "folder": "Depot",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": -90.0
+    "velocity": 0,
+    "rotation": -52.4958576397299
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -34,6 +34,8 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.commands.Eject;
 import frc.robot.commands.IntakeRetract;
 import frc.robot.commands.Launch;
+import frc.robot.commands.Relay;
+import frc.robot.commands.RelayArming;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.ShooterSpinUp;
 import frc.robot.generated.TunerConstants;
@@ -193,38 +195,26 @@ public class RobotContainer {
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "hub")
             .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand(
-        "LaunchTrench",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "trench")
-            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
-    NamedCommands.registerCommand(
-        "LaunchTower",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "tower")
-            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
-    NamedCommands.registerCommand(
-        "LaunchCorner",
-        new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "corner")
-            .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
-    NamedCommands.registerCommand(
         "LaunchAnywhere",
         new Launch(m_shooter, m_hopper, m_column, m_hood, () -> drive.getPose(), "none")
             .withInterruptBehavior(InterruptionBehavior.kCancelIncoming));
     NamedCommands.registerCommand("Agitate", new Agitate(m_intake, m_pivot));
-    NamedCommands.registerCommand(
-        "AutoAim",
-        DriveCommands.joystickDriveAtAngle(
-            drive,
-            () -> 0,
-            () -> 0,
-            () -> {
-              Translation2d target =
-                  DriverStation.getAlliance()
-                      .filter(a -> a == Alliance.Red)
-                      .map(a -> FieldConstants.RED_HUB_POSITION)
-                      .orElse(FieldConstants.BLUE_HUB_POSITION);
-
-              Pose2d robot = drive.getPose();
-              return new Rotation2d(target.getX() - robot.getX(), target.getY() - robot.getY());
-            }));
+    // NamedCommands.registerCommand(
+    //    "AutoAim",
+    //    DriveCommands.joystickDriveAtAngle(
+    //        drive,
+    //        () -> 0,
+    //        () -> 0,
+    //        () -> {
+    //          Translation2d target =
+    //              DriverStation.getAlliance()
+    //                  .filter(a -> a == Alliance.Red)
+    //                  .map(a -> FieldConstants.RED_HUB_POSITION)
+    //                  .orElse(FieldConstants.BLUE_HUB_POSITION);
+    //
+    //          Pose2d robot = drive.getPose();
+    //          return new Rotation2d(target.getX() - robot.getX(), target.getY() - robot.getY());
+    //        }));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -289,19 +279,20 @@ public class RobotContainer {
   }
 
   private void auxControllerBindings() {
-    // D-pad Up: Deploy intake pivot and run intake rollers
-    auxController.povDown().whileTrue(new RunIntake(m_intake, m_pivot).withName("AuxIntake"));
-    // D-pad Down: Retract the intake back up
+    // Deploy intake pivot and run intake rollers
+    auxController
+        .povDown()
+        .whileTrue(
+            new RunIntake(m_intake, m_pivot)
+                .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
+                .withName("AuxIntake"));
+
+    // Retract the intake back up
     auxController
         .povLeft()
         .whileTrue(new IntakeRetract(m_intake, m_pivot).withName("IntakeRetract"));
-    // Right Trigger: Start spinning up the shooter and adjusting the hood; this should keep
-    // adjusting those parameters based on the distance to the hub until the command ends
 
-    auxController
-        .povUp()
-        .whileTrue(new ShooterSpinUp(m_shooter, m_hood, () -> drive.getPose(), "none"));
-    // Right Bumper: Starts up the shooter and sets the hood 0%. This is meant for shooting from
+    // Starts up the shooter and sets the hood 0%. This is meant for shooting from
     // right in front of the hub
     auxController
         .b()
@@ -310,7 +301,8 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launch Hub"));
-    // Left Trigger: Shoots from anywhere by adjusting the shooter RPM and hood angle
+
+    // Shoots from anywhere by adjusting the shooter RPM and hood angle
     auxController
         .x()
         .whileTrue(
@@ -318,9 +310,10 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from anywhere"));
-    // Left Bumper: auto aims the robot towards the hub
+
+    // auto aims the robot towards the hub
     auxController
-        .leftBumper()
+        .povUp()
         .whileTrue(
             DriveCommands.joystickDriveAtAngle(
                     drive,
@@ -334,10 +327,11 @@ public class RobotContainer {
                               .orElse(FieldConstants.BLUE_HUB_POSITION);
 
                       Pose2d robot = drive.getPose();
-                      return new Rotation2d(
-                          target.getX() - robot.getX(), target.getY() - robot.getY());
+                      Rotation2d headingToHub = target.minus(robot.getTranslation()).getAngle();
+                      return headingToHub;
                     })
                 .withName("Auto aiming"));
+
     auxController
         .a()
         .whileTrue(
@@ -345,6 +339,7 @@ public class RobotContainer {
                 .withInterruptBehavior(InterruptionBehavior.kCancelIncoming)
                 .alongWith(new Agitate(m_intake, m_pivot))
                 .withName("Launching from tower"));
+
     auxController
         .y()
         .whileTrue(
@@ -359,18 +354,27 @@ public class RobotContainer {
     //    .onTrue(
     //        new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MAX_POSITION))
     //            .withName("HoodMax")); // Button A: sets the hood to the minimum position
+
     auxController
         .rightBumper()
-        .onTrue(
-            new InstantCommand(() -> m_hood.setPosition(HoodConstants.K_MIN_POSITION))
-                .withName("HoodMin"));
+        .whileTrue(
+            new Relay(m_shooter, m_hopper, m_column, m_hood)
+                .alongWith(new Agitate(m_intake, m_pivot))
+                .withName("Relaying"));
 
-    // auxController
-    //    .rightBumper()
-    //    .whileTrue((new Relay(m_shooter, m_hopper, m_column, m_hood)).withName("Relaying"));
+    auxController
+        .leftBumper()
+        .whileTrue(
+            new RelayArming(m_shooter, m_hood, m_hopper)
+                .finallyDo(
+                    () -> {
+                      m_shooter.setVoltage(0.0);
+                      m_hood.setPosition(HoodConstants.K_MIN_POSITION);
+                      m_hopper.setVoltage(0.0);
+                    })
+                .withName("Arming for relay"));
 
-    // Button B: Eject balls through the intake
-
+    // Eject balls through the intake
     auxController
         .povRight()
         .whileTrue(new Eject(m_column, m_hopper, m_intake).withName("Out-taking"));

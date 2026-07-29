@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.439727164887308,
-        "y": 7.397247924080664
+        "x": 5.795385527876632,
+        "y": 1.3828588374851711
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.03967408553612,
-        "y": 7.38063438114858
+        "x": 5.806144721233689,
+        "y": 2.3081494661921704
       },
       "isLocked": false,
-      "linkedName": "LTrench meta"
+      "linkedName": "RNZ Near Hub Start"
     },
     {
       "anchor": {
-        "x": 7.373,
-        "y": 6.87
+        "x": 5.881566666666666,
+        "y": 3.924144444444445
       },
       "prevControl": {
-        "x": 7.115709376506849,
-        "y": 6.8927323886406
+        "x": 5.870807473309607,
+        "y": 2.7944291419533416
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TEMP LNZ"
+      "linkedName": "RNZ Near Hub End"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0.5,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "NZ (meta)",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": -90.0
+    "velocity": 1.0,
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

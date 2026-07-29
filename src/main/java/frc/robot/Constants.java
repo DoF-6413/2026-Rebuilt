@@ -77,8 +77,8 @@ public final class Constants {
 
   public static class FieldConstants {
     // Hub center positions for auto-aim (field coordinates, meters)
-    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(4.623, 4.04);
-    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.907, 4.04);
+    public static final Translation2d BLUE_HUB_POSITION = new Translation2d(4.6235594, 4.034536);
+    public static final Translation2d RED_HUB_POSITION = new Translation2d(11.915394, 4.034536);
   }
 
   public static class PathFinderConstants {
@@ -278,7 +278,7 @@ public final class Constants {
     // TOWER
     public static final double TOWER_SETPOINT = 0.22; // 1 3/16 inches
     // CORNER (192" from hub to center of robot)
-    public static final double CORNER_SETPOINT = 0.37; // 1 3/8 inches
+    public static final double CORNER_SETPOINT = 0.35; // 1 3/8 inches
   }
 
   public static class VisionConstants {

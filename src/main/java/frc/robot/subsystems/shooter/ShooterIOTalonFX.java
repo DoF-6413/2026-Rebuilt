@@ -19,7 +19,6 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.units.measure.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.RobotStateConstants;
 import frc.robot.Constants.ShooterConstants;
 
@@ -55,27 +54,12 @@ public class ShooterIOTalonFX implements ShooterIO {
   // Track the last velocity setpoint
   private double m_targetVelocityRPS = 0.0;
 
-  private int m_loopCounter = 0;
-
-  // SmartDashboard PID tuning cache
-  private double m_lastKPL = ShooterConstants.kPL;
-  private double m_lastKIL = ShooterConstants.kIL;
-  private double m_lastKDL = ShooterConstants.kDL;
-  private double m_lastKVL = ShooterConstants.kVL;
-
-  private double m_lastKPM = ShooterConstants.kPM;
-  private double m_lastKIM = ShooterConstants.kIM;
-  private double m_lastKDM = ShooterConstants.kDM;
-  private double m_lastKVM = ShooterConstants.kVM;
+  // private final VoltageOut voltageRequest = new VoltageOut(0.0);
 
   private double m_lastKPR = ShooterConstants.kPR;
   private double m_lastKIR = ShooterConstants.kIR;
   private double m_lastKDR = ShooterConstants.kDR;
   private double m_lastKVR = ShooterConstants.kVR;
-
-  // private final VoltageOut voltageRequest = new VoltageOut(0.0);
-
-  public ShooterIOTalonFX() {
 
     // Config for left shooter motor
     TalonFXConfiguration leftConfig =
@@ -162,100 +146,10 @@ public class ShooterIOTalonFX implements ShooterIO {
     m_middleShooter.optimizeBusUtilization();
     m_rightShooter.optimizeBusUtilization();
     m_leftShooter.optimizeBusUtilization();
-
-    // Initialize SmartDashboard PID tuning values
-    SmartDashboard.putNumber("LShooter/kP", ShooterConstants.kPL);
-    SmartDashboard.putNumber("LShooter/kI", ShooterConstants.kIL);
-    SmartDashboard.putNumber("LShooter/kD", ShooterConstants.kDL);
-    SmartDashboard.putNumber("LShooter/kV", ShooterConstants.kVL);
-
-    SmartDashboard.putNumber("MShooter/kP", ShooterConstants.kPM);
-    SmartDashboard.putNumber("MShooter/kI", ShooterConstants.kIM);
-    SmartDashboard.putNumber("MShooter/kD", ShooterConstants.kDM);
-    SmartDashboard.putNumber("MShooter/kV", ShooterConstants.kVM);
-
-    SmartDashboard.putNumber("RShooter/kP", ShooterConstants.kPR);
-    SmartDashboard.putNumber("RShooter/kI", ShooterConstants.kIR);
-    SmartDashboard.putNumber("RShooter/kD", ShooterConstants.kDR);
-    SmartDashboard.putNumber("RShooter/kV", ShooterConstants.kVR);
-  }
-
-  private void updatePIDFromDashboard() {
-
-    double kPL = SmartDashboard.getNumber("LShooter/kP", m_lastKPL);
-    double kIL = SmartDashboard.getNumber("LShooter/kI", m_lastKIL);
-    double kDL = SmartDashboard.getNumber("LShooter/kD", m_lastKDL);
-    double kVL = SmartDashboard.getNumber("LShooter/kV", m_lastKVL);
-
-    double kPM = SmartDashboard.getNumber("MShooter/kP", m_lastKPM);
-    double kIM = SmartDashboard.getNumber("MShooter/kI", m_lastKIM);
-    double kDM = SmartDashboard.getNumber("MShooter/kD", m_lastKDM);
-    double kVM = SmartDashboard.getNumber("MShooter/kV", m_lastKVM);
-
-    double kPR = SmartDashboard.getNumber("RShooter/kP", m_lastKPR);
-    double kIR = SmartDashboard.getNumber("RShooter/kI", m_lastKIR);
-    double kDR = SmartDashboard.getNumber("RShooter/kD", m_lastKDR);
-    double kVR = SmartDashboard.getNumber("RShooter/kV", m_lastKVR);
-
-    // Only change the shooter whose settings actually changed, not all of them when
-    // only one changed.
-
-    if (kPL != m_lastKPL || kIL != m_lastKIL || kDL != m_lastKDL || kVL != m_lastKVL) {
-      // Left shooter settings changed so update the control and config info
-
-      var leftSlotConfig = new Slot0Configs().withKP(kPL).withKI(kIL).withKD(kDL).withKV(kVL);
-
-      tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftSlotConfig, 0.25));
-
-      // Save the left shooter changes for a new baseline
-
-      m_lastKPL = kPL;
-      m_lastKIL = kIL;
-      m_lastKDL = kDL;
-      m_lastKVL = kVL;
-    }
-
-    if (kPM != m_lastKPM || kIM != m_lastKIM || kDM != m_lastKDM || kVM != m_lastKVM) {
-      // Middle shooter settings changed so update the control and config info
-
-      var middleSlotConfig = new Slot0Configs().withKP(kPM).withKI(kIM).withKD(kDM).withKV(kVM);
-
-      tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleSlotConfig, 0.25));
-
-      // Save the middle shooter changes for a new baseline
-
-      m_lastKPM = kPM;
-      m_lastKIM = kIM;
-      m_lastKDM = kDM;
-      m_lastKVM = kVM;
-    }
-
-    if (kPR != m_lastKPR || kIR != m_lastKIR || kDR != m_lastKDR || kVR != m_lastKVR) {
-      // Right shooter settings changed so update the control and config info
-
-      var rightSlotConfig = new Slot0Configs().withKP(kPR).withKI(kIR).withKD(kDR).withKV(kVR);
-
-      tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightSlotConfig, 0.25));
-
-      // Save the right shooter changes for a new baseline
-
-      m_lastKPR = kPR;
-      m_lastKIR = kIR;
-      m_lastKDR = kDR;
-      m_lastKVR = kVR;
-    }
   }
 
   @Override
   public void updateInputs(ShooterIOInputs inputs) {
-
-    m_loopCounter++;
-
-    // PID tuning — poll SmartDashboard every 50 loops (~1 second)
-    if (m_loopCounter % 50 == 0) {
-      updatePIDFromDashboard();
-      m_loopCounter = 0;
-    }
 
     BaseStatusSignal.refreshAll(
         m_middleShooterVelocityRotPerSec,
