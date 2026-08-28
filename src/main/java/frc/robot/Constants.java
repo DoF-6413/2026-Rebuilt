@@ -67,7 +67,7 @@ public final class Constants {
     public static final double MAX_VOLTAGE = 12;
 
     /** Weight of robot with bumpers and battery */
-    public static final double ROBOT_WEIGHT_KG = Units.lbsToKilograms(115.0); // TODO: Update
+    public static final double ROBOT_WEIGHT_KG = Units.lbsToKilograms(115.0);
   }
 
   public static class OperatorConstants {
@@ -279,6 +279,8 @@ public final class Constants {
     public static final double TOWER_SETPOINT = 0.22; // 1 3/16 inches
     // CORNER (192" from hub to center of robot)
     public static final double CORNER_SETPOINT = 0.35; // 1 3/8 inches
+    // RELAY
+    public static final double RELAY_SETPOINT = 0.3;
   }
 
   public static class VisionConstants {
@@ -304,8 +306,8 @@ public final class Constants {
             Units.inchesToMeters(12.926),
             Units.inchesToMeters(11.666),
             new Rotation3d(
-                Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
+                Units.degreesToRadians(-20.0),
                 Units.degreesToRadians(90.0)));
     // Camera translation for right camera
     public static Transform3d robotToCamera2 =
@@ -314,8 +316,8 @@ public final class Constants {
             Units.inchesToMeters(-12.426),
             Units.inchesToMeters(11.666),
             new Rotation3d(
-                Units.degreesToRadians(20.0),
                 Units.degreesToRadians(0.0),
+                Units.degreesToRadians(-20.0),
                 Units.degreesToRadians(-90.0)));
 
     // Basic filtering thresholds

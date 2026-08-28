@@ -3,71 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5986951364175572,
-        "y": 5.093
+        "x": 3.4225888888888885,
+        "y": 5.355188888888888
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.5525982228506232,
-        "y": 5.836450046446881
+        "x": 2.7272222222222213,
+        "y": 6.62498888888889
       },
       "isLocked": false,
-      "linkedName": "Depot End"
+      "linkedName": "LBumpShoot"
     },
     {
       "anchor": {
-        "x": 0.599,
-        "y": 6.3428469750889676
+        "x": 3.572856270926339,
+        "y": 7.325636218843005
       },
       "prevControl": {
-        "x": 0.4832350773611866,
-        "y": 5.796365158055467
+        "x": 3.323033433465056,
+        "y": 7.316226124114818
       },
       "nextControl": {
-        "x": 0.6905481198120396,
-        "y": 6.77501055038004
+        "x": 4.176943194279152,
+        "y": 7.348390404291283
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-      "x": 0.599,
-        "y": 7.269966666666667
+        "x": 5.2655082775297615,
+        "y": 7.324718598865328
       },
       "prevControl": {
-        "x": 0.5615681287783381,
-        "y": 7.558782262287009
+        "x": 5.015514372238497,
+        "y": 7.322972942191549
       },
       "nextControl": {
-        "x": 0.6311324392143911,
-        "y": 7.022040253491037
+        "x": 6.068578694661458,
+        "y": 7.330326276506696
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.243488888888889,
-        "y": 6.5746
+        "x": 5.800944444444444,
+        "y": 6.695533333333333
       },
       "prevControl": {
-        "x": 1.3208706390759974,
-        "y": 7.172374896639302
+        "x": 5.847330322265625,
+        "y": 7.043926885695685
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "DP Shoot Spot"
+      "linkedName": "TEMP LNZ NEAR HUB"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": 110.0
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 2,
-      "rotationDegrees": 110.0
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -82,14 +82,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -52.4958576397299
+    "velocity": 0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Depot",
+  "folder": "NZ (meta)",
   "idealStartingState": {
-    "velocity": 1.0,
-    "rotation": 110.0
+    "velocity": 0,
+    "rotation": -51.54629078329396
   },
   "useDefaultConstraints": false
 }

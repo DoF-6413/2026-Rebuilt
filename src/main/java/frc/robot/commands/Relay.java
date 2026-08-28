@@ -32,7 +32,7 @@ public class Relay extends Command {
   @Override
   public void initialize() {
     m_shooter.setVoltage(RobotStateConstants.MAX_VOLTAGE);
-    m_hood.setPosition(HoodConstants.K_MAX_POSITION);
+    m_hood.setPosition(HoodConstants.RELAY_SETPOINT);
     m_hopper.setVoltage(HopperConstants.LAUNCHING_VOLTAGE);
     m_column.setVoltage(ColumnConstants.LAUNCHING_VOLTAGE);
   }

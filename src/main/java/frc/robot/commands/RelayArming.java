@@ -29,7 +29,7 @@ public class RelayArming extends Command {
   public void initialize() {
     m_hopper.setVoltage(-HopperConstants.LAUNCHING_VOLTAGE / 2.0);
     m_shooter.setVoltage(RobotStateConstants.MAX_VOLTAGE);
-    m_hood.setPosition(HoodConstants.K_MAX_POSITION);
+    m_hood.setPosition(HoodConstants.RELAY_SETPOINT);
   }
 
   @Override

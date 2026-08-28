@@ -127,6 +127,7 @@ public class ShooterIOTalonFX implements ShooterIO {
     tryUntilOk(5, () -> m_middleShooter.getConfigurator().apply(middleConfig, 0.25));
     tryUntilOk(5, () -> m_leftShooter.getConfigurator().apply(leftConfig, 0.25));
     tryUntilOk(5, () -> m_rightShooter.getConfigurator().apply(rightConfig, 0.25));
+    
 
     BaseStatusSignal.setUpdateFrequencyForAll(
         RobotStateConstants.UPDATE_FREQUENCY_HZ,
