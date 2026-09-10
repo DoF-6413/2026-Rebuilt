@@ -93,7 +93,7 @@ public class RobotContainer {
   private final Vision m_vision;
 
   // Controller
-  private final CommandXboxController driverController =
+  private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.DRIVE_CONTROLLER);
   private final CommandXboxController auxController =
       new CommandXboxController(OperatorConstants.AUX_CONTROLLER);
@@ -257,13 +257,13 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
                 drive,
-                () -> -1 * driverController.getLeftY(),
-                () -> -1 * driverController.getLeftX(),
-                () -> -0.65 * driverController.getRightX())
+                () -> -1 * m_driverController.getLeftY(),
+                () -> -1 * m_driverController.getLeftX(),
+                () -> -0.65 * m_driverController.getRightX())
             .withName("JoystickDrive"));
 
     // Reset gyro to 0° when A button is pressed
-    driverController
+    m_driverController
         .button(10)
         .onTrue(
             new InstantCommand(
@@ -275,7 +275,7 @@ public class RobotContainer {
                 .withName("ResetPose"));
 
     // Lock wheels in x
-    driverController.a().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
+    m_driverController.a().whileTrue(Commands.run(drive::stopWithX, drive).withName("XLock"));
   }
 
   private void auxControllerBindings() {
@@ -317,8 +317,8 @@ public class RobotContainer {
         .whileTrue(
             DriveCommands.joystickDriveAtAngle(
                     drive,
-                    () -> -driverController.getLeftY(), // forward
-                    () -> -driverController.getLeftX(), // strafe
+                    () -> -m_driverController.getLeftY(), // forward
+                    () -> -m_driverController.getLeftX(), // strafe
                     () -> {
                       Translation2d target =
                           DriverStation.getAlliance()
